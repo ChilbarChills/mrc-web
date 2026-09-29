@@ -63,7 +63,7 @@ export default function LoginPage() {
 
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#ff6b35] to-[#00d6ff] p-[1px] mx-auto mb-4">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0050ff] to-[#00d6ff] p-[1px] mx-auto mb-4">
               <div className="w-full h-full bg-[#050508] rounded-[11px] flex items-center justify-center font-mono font-bold text-white text-base">
                 M
               </div>
@@ -85,9 +85,9 @@ export default function LoginPage() {
                 type="button"
                 onClick={() => handleLogin("executive@mrc.club")}
                 disabled={loading}
-                className="py-2.5 px-3 rounded-xl bg-[#ff6b35]/15 hover:bg-[#ff6b35]/25 border border-[#ff6b35]/30 text-[#ff6b35] font-semibold text-center transition-all flex items-center justify-center gap-1.5"
+                className="py-2.5 px-3 rounded-xl bg-[#0050ff]/20 hover:bg-[#0050ff]/30 border border-[#0050ff]/40 text-white font-semibold text-center transition-all flex items-center justify-center gap-1.5"
               >
-                <ShieldAlert className="w-3.5 h-3.5" />
+                <ShieldAlert className="w-3.5 h-3.5 text-[#00d6ff]" />
                 <span>Executive Admin</span>
               </button>
 
@@ -159,7 +159,7 @@ export default function LoginPage() {
 
           <div className="mt-6 text-center text-xs font-mono text-white/40">
             <span>Not a member yet? </span>
-            <Link href="/join" className="text-[#ff6b35] hover:underline">
+            <Link href="/join" className="text-[#00d6ff] hover:underline">
               Join Recruitment Waitlist
             </Link>
           </div>

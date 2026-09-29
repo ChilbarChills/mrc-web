@@ -46,7 +46,7 @@ export default function ExecutivePortalPage() {
     description: "",
     maxCapacity: 50,
     status: "REGISTRATION_OPEN" as const,
-    coverColor: "from-[#ff6b35]/20 to-[#0050ff]/20",
+    coverColor: "from-[#00d6ff]/20 to-[#0050ff]/20",
     tags: ["Robotics"],
   });
 
@@ -151,12 +151,12 @@ export default function ExecutivePortalPage() {
         {/* Top Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-8 mb-8 border-b border-white/10 gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#ff6b35]/40 bg-[#ff6b35]/15 mb-2">
-              <span className="w-2 h-2 rounded-full bg-[#ff6b35] animate-pulse" />
-              <span className="cyber-badge text-[#ff6b35]">EXECUTIVE COMMAND // ROOT ACCESS</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#00d6ff]/40 bg-[#00d6ff]/15 mb-2">
+              <span className="w-2 h-2 rounded-full bg-[#00d6ff] animate-pulse" />
+              <span className="cyber-badge text-[#00d6ff]">EXECUTIVE COMMAND // ROOT ACCESS</span>
             </div>
             <h1 className="text-3xl md:text-5xl font-black uppercase text-white">
-              Command <span className="text-[#ff6b35]">Center</span>
+              Command <span className="text-[#00d6ff]">Center</span>
             </h1>
             <p className="text-xs font-mono text-white/50 mt-1">
               Logged in as {user.name} ({user.title}) • Database Active
@@ -196,7 +196,7 @@ export default function ExecutivePortalPage() {
             <span className="text-[10px] font-mono text-white/40 uppercase block mb-1">
               Waitlist Inquiries
             </span>
-            <span className="text-3xl font-bold font-mono text-[#ff6b35]">
+            <span className="text-3xl font-bold font-mono text-white">
               {waitlist.length}
             </span>
           </div>
@@ -217,7 +217,7 @@ export default function ExecutivePortalPage() {
             onClick={() => setActiveTab("EVENTS")}
             className={`px-4 py-2.5 rounded-xl transition-all flex items-center gap-2 ${
               activeTab === "EVENTS"
-                ? "bg-[#ff6b35] text-black font-bold shadow-[0_0_15px_rgba(255,107,53,0.3)]"
+                ? "bg-[#00d6ff] text-black font-bold shadow-[0_0_15px_rgba(0,214,255,0.3)]"
                 : "bg-white/[0.04] text-white/70 hover:bg-white/[0.08]"
             }`}
           >
@@ -229,7 +229,7 @@ export default function ExecutivePortalPage() {
             onClick={() => setActiveTab("WAITLIST")}
             className={`px-4 py-2.5 rounded-xl transition-all flex items-center gap-2 ${
               activeTab === "WAITLIST"
-                ? "bg-[#ff6b35] text-black font-bold shadow-[0_0_15px_rgba(255,107,53,0.3)]"
+                ? "bg-[#00d6ff] text-black font-bold shadow-[0_0_15px_rgba(0,214,255,0.3)]"
                 : "bg-white/[0.04] text-white/70 hover:bg-white/[0.08]"
             }`}
           >
@@ -241,7 +241,7 @@ export default function ExecutivePortalPage() {
             onClick={() => setActiveTab("TRANSMISSIONS")}
             className={`px-4 py-2.5 rounded-xl transition-all flex items-center gap-2 ${
               activeTab === "TRANSMISSIONS"
-                ? "bg-[#ff6b35] text-black font-bold shadow-[0_0_15px_rgba(255,107,53,0.3)]"
+                ? "bg-[#00d6ff] text-black font-bold shadow-[0_0_15px_rgba(0,214,255,0.3)]"
                 : "bg-white/[0.04] text-white/70 hover:bg-white/[0.08]"
             }`}
           >
@@ -271,7 +271,7 @@ export default function ExecutivePortalPage() {
               </h2>
               <button
                 onClick={() => setShowEventForm(!showEventForm)}
-                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#ff6b35] text-black font-mono font-bold text-xs uppercase hover:bg-[#ff8252] transition-colors"
+                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#00d6ff] text-black font-mono font-bold text-xs uppercase hover:bg-[#38e1ff] transition-colors shadow-[0_0_15px_rgba(0,214,255,0.3)]"
               >
                 <Plus className="w-4 h-4" />
                 <span>{showEventForm ? "Close Form" : "Create New Event"}</span>
@@ -282,9 +282,9 @@ export default function ExecutivePortalPage() {
             {showEventForm && (
               <form
                 onSubmit={handleCreateEvent}
-                className="cyber-card p-6 md:p-8 rounded-2xl border border-[#ff6b35]/30 space-y-4 text-xs font-mono"
+                className="cyber-card p-6 md:p-8 rounded-2xl border border-[#00d6ff]/30 space-y-4 text-xs font-mono"
               >
-                <span className="cyber-badge text-[#ff6b35]">CREATE NEW EVENT</span>
+                <span className="cyber-badge text-[#00d6ff]">CREATE NEW EVENT</span>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
@@ -389,7 +389,7 @@ export default function ExecutivePortalPage() {
 
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-[#ff6b35] text-black font-bold uppercase"
+                  className="px-6 py-2.5 rounded-xl bg-[#00d6ff] hover:bg-[#38e1ff] text-black font-bold uppercase transition-all shadow-[0_0_15px_rgba(0,214,255,0.3)]"
                 >
                   Publish Event Immediately
                 </button>
@@ -425,7 +425,7 @@ export default function ExecutivePortalPage() {
                   <tbody>
                     {registrations.map((reg) => (
                       <tr key={reg.id} className="border-b border-white/5 hover:bg-white/[0.02]">
-                        <td className="py-3 px-3 font-bold text-[#ff6b35]">{reg.ticketCode}</td>
+                        <td className="py-3 px-3 font-bold text-[#00d6ff]">{reg.ticketCode}</td>
                         <td className="py-3 px-3 text-white font-medium">{reg.attendeeName}</td>
                         <td className="py-3 px-3 text-white/70 max-w-xs truncate">
                           {reg.eventTitle}
@@ -451,7 +451,7 @@ export default function ExecutivePortalPage() {
           <div className="cyber-card p-6 md:p-8 rounded-2xl border border-white/10">
             <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
               <div>
-                <span className="cyber-badge text-[#ff6b35]">WAITLIST DATABASE</span>
+                <span className="cyber-badge text-[#00d6ff]">WAITLIST DATABASE</span>
                 <h3 className="text-xl font-bold uppercase text-white mt-1">
                   Prospective Member Inquiries ({waitlist.length})
                 </h3>
@@ -484,7 +484,7 @@ export default function ExecutivePortalPage() {
                         {Array.isArray(item.interests) ? item.interests.join(", ") : "Robotics"}
                       </td>
                       <td className="py-3 px-3">
-                        <span className="px-2 py-0.5 rounded bg-[#ff6b35]/15 text-[#ff6b35] text-[10px]">
+                        <span className="px-2 py-0.5 rounded bg-[#00d6ff]/15 text-[#00d6ff] border border-[#00d6ff]/30 text-[10px]">
                           Pending Intake
                         </span>
                       </td>
@@ -586,7 +586,7 @@ export default function ExecutivePortalPage() {
             {/* Architecture Preview Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs mb-8">
               <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
-                <span className="text-[#ff6b35] block font-bold mb-1">01. CONTROLLERS &amp; BOARDS</span>
+                <span className="text-white block font-bold mb-1">01. CONTROLLERS &amp; BOARDS</span>
                 <p className="text-white/50 text-[11px]">
                   Tracking 15x STM32F4 BlackPills, 20x ESP32-S3 DevKits, 12x Arduino Unos, and 4x Raspberry Pi 5 units.
                 </p>

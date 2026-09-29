@@ -3,14 +3,14 @@
 @theme {
   --color-background: #050508;
   --color-foreground: #ffffff;
-  --color-primary: #ff6b35;
-  --color-secondary: #00d6ff;
+  --color-primary: #00d6ff;
+  --color-secondary: #0050ff;
   --color-mrc-black: #050508;
   --color-mrc-dark: #0a0b10;
   --color-mrc-card: #0f1118;
-  --color-mrc-orange: #ff6b35;
   --color-mrc-cyan: #00d6ff;
   --color-mrc-blue: #0050ff;
+  --color-mrc-white: #ffffff;
   --color-mrc-ivory: #f8f6f0;
 }
 
@@ -62,11 +62,15 @@
 
 /* Cybernetic Glowing Gradients and Accents */
 .cyber-glow-cyan {
-  text-shadow: 0 0 20px rgba(0, 214, 255, 0.45);
+  text-shadow: 0 0 20px rgba(0, 214, 255, 0.55);
+}
+
+.cyber-glow-blue {
+  text-shadow: 0 0 20px rgba(0, 80, 255, 0.55);
 }
 
 .cyber-glow-orange {
-  text-shadow: 0 0 20px rgba(255, 107, 53, 0.45);
+  text-shadow: 0 0 20px rgba(0, 214, 255, 0.55);
 }
 
 .cyber-grid {

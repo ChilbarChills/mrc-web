@@ -44,7 +44,7 @@ export default function Navbar() {
     >
       {/* Brand Logo */}
       <Link href="/" className="group flex items-center gap-3">
-        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#ff6b35] to-[#00d6ff] p-[1px] shadow-[0_0_15px_rgba(255,107,53,0.3)]">
+        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#0050ff] to-[#00d6ff] p-[1px] shadow-[0_0_15px_rgba(0,214,255,0.4)]">
           <div className="w-full h-full bg-[#050508] rounded-[7px] flex items-center justify-center">
             <span className="font-mono text-xs font-black text-white group-hover:text-[#00d6ff] transition-colors">
               M
@@ -52,7 +52,7 @@ export default function Navbar() {
           </div>
         </div>
         <div className="flex flex-col">
-          <span className="font-bold text-sm tracking-tight text-white group-hover:text-[#ff6b35] transition-colors">
+          <span className="font-bold text-sm tracking-tight text-white group-hover:text-[#00d6ff] transition-colors">
             MRC
           </span>
           <span className="text-[9px] font-mono tracking-[0.22em] text-white/40 uppercase">
@@ -69,7 +69,7 @@ export default function Navbar() {
         <Link href="/#tracks" className="hover:text-[#00d6ff] transition-colors">
           Focus Tracks
         </Link>
-        <Link href="/events" className="hover:text-[#ff6b35] transition-colors">
+        <Link href="/events" className="hover:text-[#00d6ff] transition-colors">
           Events
         </Link>
         <Link href="/projects" className="hover:text-[#00d6ff] transition-colors">
@@ -80,10 +80,10 @@ export default function Navbar() {
         </Link>
         <Link
           href="/join"
-          className="hover:text-[#ff6b35] transition-colors flex items-center gap-1.5"
+          className="hover:text-[#00d6ff] transition-colors flex items-center gap-1.5"
         >
           <span>Recruitment</span>
-          <span className="px-1.5 py-0.5 rounded text-[8px] bg-[#ff6b35]/20 text-[#ff6b35] border border-[#ff6b35]/30">
+          <span className="px-1.5 py-0.5 rounded text-[8px] bg-[#00d6ff]/20 text-[#00d6ff] border border-[#00d6ff]/30">
             Soon
           </span>
         </Link>
@@ -97,7 +97,7 @@ export default function Navbar() {
             className="flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#00d6ff]/40 bg-[#00d6ff]/10 hover:bg-[#00d6ff]/20 text-xs font-mono tracking-wider text-white transition-all shadow-[0_0_15px_rgba(0,214,255,0.2)]"
           >
             {currentUser.role === "EXECUTIVE" ? (
-              <ShieldAlert className="w-3.5 h-3.5 text-[#ff6b35]" />
+              <ShieldAlert className="w-3.5 h-3.5 text-[#00d6ff]" />
             ) : (
               <UserCheck className="w-3.5 h-3.5 text-[#00d6ff]" />
             )}
@@ -148,7 +148,7 @@ export default function Navbar() {
           <Link
             href="/events"
             onClick={() => setMobileMenuOpen(false)}
-            className="py-2 border-b border-white/5 text-white/70 hover:text-[#ff6b35]"
+            className="py-2 border-b border-white/5 text-white/70 hover:text-[#00d6ff]"
           >
             Events &amp; Competitions
           </Link>
@@ -169,10 +169,10 @@ export default function Navbar() {
           <Link
             href="/join"
             onClick={() => setMobileMenuOpen(false)}
-            className="py-2 border-b border-white/5 text-white/70 hover:text-[#ff6b35] flex items-center justify-between"
+            className="py-2 border-b border-white/5 text-white/70 hover:text-[#00d6ff] flex items-center justify-between"
           >
             <span>Recruitment</span>
-            <span className="text-[9px] px-2 py-0.5 rounded bg-[#ff6b35]/20 text-[#ff6b35]">Opening Soon</span>
+            <span className="text-[9px] px-2 py-0.5 rounded bg-[#00d6ff]/20 text-[#00d6ff]">Opening Soon</span>
           </Link>
           <Link
             href="/login"

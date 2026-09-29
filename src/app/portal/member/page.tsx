@@ -88,7 +88,7 @@ export default function MemberPortalPage() {
             <div className="cyber-card p-6 md:p-8 rounded-3xl border border-[#00d6ff]/30 relative overflow-hidden bg-gradient-to-br from-[#0c101a] to-[#07080d] shadow-[0_15px_40px_rgba(0,214,255,0.1)]">
               <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
                 <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded bg-[#ff6b35] flex items-center justify-center font-mono font-bold text-black text-[10px]">
+                  <div className="w-6 h-6 rounded bg-[#00d6ff] flex items-center justify-center font-mono font-bold text-black text-[10px]">
                     M
                   </div>
                   <span className="text-xs font-mono font-bold tracking-wider text-white">
@@ -108,7 +108,7 @@ export default function MemberPortalPage() {
                 />
                 <div>
                   <h3 className="text-xl font-bold text-white">{user.name}</h3>
-                  <p className="text-xs font-mono text-[#ff6b35]">{user.title}</p>
+                  <p className="text-xs font-mono text-[#00d6ff]">{user.title}</p>
                   <p className="text-[10px] font-mono text-white/40 mt-1">{user.email}</p>
                 </div>
               </div>
@@ -211,7 +211,7 @@ export default function MemberPortalPage() {
             <div className="cyber-card p-6 md:p-8 rounded-3xl border border-white/10">
               <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
                 <div className="flex items-center gap-2">
-                  <Calendar className="w-5 h-5 text-[#ff6b35]" />
+                  <Calendar className="w-5 h-5 text-[#00d6ff]" />
                   <h3 className="text-lg font-bold uppercase text-white font-mono">
                     Member Workshop Passes
                   </h3>
@@ -231,7 +231,7 @@ export default function MemberPortalPage() {
                     className="p-4 rounded-xl bg-white/[0.02] border border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs font-mono"
                   >
                     <div>
-                      <span className="text-[10px] text-[#ff6b35] uppercase font-bold">
+                      <span className="text-[10px] text-[#00d6ff] uppercase font-bold">
                         {evt.category}
                       </span>
                       <h4 className="text-sm font-bold text-white mt-0.5">{evt.title}</h4>

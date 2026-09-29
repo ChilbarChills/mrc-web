@@ -87,7 +87,7 @@ export default function Scrollytelling({
         {/* Subtle Background Gradients & Ambient Glow */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#0d1527] via-[#050508] to-[#050508] opacity-80 z-0 pointer-events-none" />
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-[#00d6ff]/5 blur-[120px] rounded-full pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[300px] bg-[#ff6b35]/5 blur-[100px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[300px] bg-[#0050ff]/10 blur-[100px] rounded-full pointer-events-none" />
 
         {/* 3D Canvas Frame Sequence */}
         <div className="absolute inset-0 z-0">
@@ -118,7 +118,7 @@ export default function Scrollytelling({
                 onClick={() => scrollToStage(s.id)}
                 className={`px-2.5 sm:px-3 py-1 rounded-full text-[10px] font-mono tracking-wider uppercase transition-all duration-200 ${
                   currentStage === s.id
-                    ? "bg-[#ff6b35] text-black font-bold shadow-[0_0_12px_rgba(255,107,53,0.5)]"
+                    ? "bg-[#00d6ff] text-black font-bold shadow-[0_0_15px_rgba(0,214,255,0.6)]"
                     : "text-white/50 hover:text-white hover:bg-white/10"
                 }`}
                 title={`Jump to ${s.name}`}
@@ -151,14 +151,16 @@ export default function Scrollytelling({
                 </div>
 
                 <h1 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight text-white mb-6 uppercase">
-                  <span className="block text-white">ENGINEER</span>
-                  <span className="block bg-gradient-to-r from-[#ff6b35] via-[#ff8f5a] to-[#00d6ff] bg-clip-text text-transparent cyber-glow-orange">
+                  <span className="block bg-gradient-to-r from-[#00d6ff] via-[#38bdf8] to-[#60a5fa] bg-clip-text text-transparent cyber-glow-cyan">
+                    MRC
+                  </span>
+                  <span className="block text-white">
                     BEYOND LIMITS.
                   </span>
                 </h1>
 
                 <p className="text-base sm:text-xl text-white/70 max-w-2xl leading-relaxed mb-8 font-light">
-                  Where lines meet algorithms. The official collegiate robotics society of{" "}
+                  ...Where lines meet algorithms. The official collegiate robotics society of{" "}
                   <span className="text-white font-medium">Manarat Dhaka International College</span>.
                 </p>
 
@@ -182,15 +184,15 @@ export default function Scrollytelling({
                 <div className="cyber-card p-6 md:p-8 rounded-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
                   <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
                     <div className="flex items-center gap-2">
-                      <Cpu className="w-4 h-4 text-[#ff6b35]" />
-                      <span className="cyber-badge text-[#ff6b35]">STAGE 01 // ARCHITECTURE</span>
+                      <Cpu className="w-4 h-4 text-[#00d6ff]" />
+                      <span className="cyber-badge text-[#00d6ff]">STAGE 01 // ARCHITECTURE</span>
                     </div>
                     <span className="text-[10px] font-mono text-white/40">SYS_CLOCK: 84MHz</span>
                   </div>
 
                   <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-3 uppercase">
                     Built by students.<br />
-                    <span className="bg-gradient-to-r from-[#ff6b35] to-[#ffaa66] bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-[#00d6ff] to-white bg-clip-text text-transparent">
                       Forged in Code.
                     </span>
                   </h2>
@@ -206,7 +208,7 @@ export default function Scrollytelling({
                     </div>
                     <div className="bg-white/[0.02] p-2.5 rounded-lg border border-white/5">
                       <span className="text-white/40 block text-[10px]">LOOP LATENCY</span>
-                      <span className="text-[#ff6b35] font-semibold">&lt; 0.5 ms</span>
+                      <span className="text-[#00d6ff] font-semibold">&lt; 0.5 ms</span>
                     </div>
                   </div>
                 </div>
@@ -246,7 +248,7 @@ export default function Scrollytelling({
                       <span>Sub-millimeter optical line positioning</span>
                     </li>
                     <li className="flex items-center gap-2.5 bg-white/[0.02] px-3 py-2 rounded-lg border border-white/5">
-                      <Zap className="w-4 h-4 text-[#ff6b35] shrink-0" />
+                      <Zap className="w-4 h-4 text-[#00d6ff] shrink-0" />
                       <span>Dynamic differential motor torque correction</span>
                     </li>
                     <li className="flex items-center gap-2.5 bg-white/[0.02] px-3 py-2 rounded-lg border border-white/5">
@@ -271,15 +273,15 @@ export default function Scrollytelling({
                 <div className="cyber-card p-6 md:p-8 rounded-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
                   <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
                     <div className="flex items-center gap-2">
-                      <Zap className="w-4 h-4 text-[#ff6b35]" />
-                      <span className="cyber-badge text-[#ff6b35]">STAGE 03 // PROPULSION</span>
+                      <Zap className="w-4 h-4 text-[#00d6ff]" />
+                      <span className="cyber-badge text-[#00d6ff]">STAGE 03 // PROPULSION</span>
                     </div>
                     <span className="text-[10px] font-mono text-white/40">PWM: 100% BURST</span>
                   </div>
 
                   <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-3 uppercase">
                     High-Torque.<br />
-                    <span className="text-[#ff6b35]">Zero Compromise.</span>
+                    <span className="text-[#00d6ff]">Zero Compromise.</span>
                   </h2>
 
                   <p className="text-sm md:text-base text-white/70 leading-relaxed mb-4">
@@ -293,7 +295,7 @@ export default function Scrollytelling({
                     </div>
                     <div className="bg-white/[0.03] p-2.5 rounded-lg border border-white/5">
                       <span className="text-[10px] text-white/40 block">MOTOR RPM</span>
-                      <span className="text-base font-bold text-[#ff6b35]">25,000</span>
+                      <span className="text-base font-bold text-[#00d6ff]">25,000</span>
                     </div>
                     <div className="bg-white/[0.03] p-2.5 rounded-lg border border-white/5">
                       <span className="text-[10px] text-white/40 block">CHASSIS</span>
@@ -321,7 +323,7 @@ export default function Scrollytelling({
 
                 <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white mb-5 uppercase">
                   BUILD WHAT<br />
-                  <span className="bg-gradient-to-r from-[#ff6b35] via-[#ff9966] to-[#00d6ff] bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-[#00d6ff] via-[#60a5fa] to-white bg-clip-text text-transparent">
                     COMES NEXT.
                   </span>
                 </h2>
@@ -333,7 +335,7 @@ export default function Scrollytelling({
                 <div className="flex flex-wrap items-center justify-center gap-4">
                   <a
                     href="#events"
-                    className="px-6 py-3.5 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold text-black bg-[#ff6b35] hover:bg-[#ff804d] transition-all shadow-[0_0_25px_rgba(255,107,53,0.4)] flex items-center gap-2"
+                    className="px-6 py-3.5 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold text-black bg-[#00d6ff] hover:bg-[#38e1ff] transition-all shadow-[0_0_25px_rgba(0,214,255,0.4)] flex items-center gap-2"
                   >
                     <span>Explore Events</span>
                     <ArrowRight className="w-4 h-4" />
@@ -355,7 +357,7 @@ export default function Scrollytelling({
                 </div>
 
                 <div className="mt-12 text-white/30 text-xs font-mono tracking-widest uppercase flex items-center gap-2">
-                  <ChevronDown className="w-4 h-4 animate-bounce text-[#ff6b35]" />
+                  <ChevronDown className="w-4 h-4 animate-bounce text-[#00d6ff]" />
                   <span>Scroll down for club tracks, projects &amp; records</span>
                 </div>
               </motion.div>
@@ -372,7 +374,7 @@ export default function Scrollytelling({
 
           <div className="flex items-center gap-2">
             <span className="hidden sm:inline">EXPLODED VIEW PROGRESS:</span>
-            <span className="text-[#ff6b35] font-semibold">{scrollPercent}%</span>
+            <span className="text-[#00d6ff] font-semibold">{scrollPercent}%</span>
           </div>
         </div>
       </div>

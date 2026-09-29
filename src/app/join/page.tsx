@@ -42,9 +42,9 @@ export default function JoinPage() {
       <main className="pt-28 pb-24 px-6 max-w-4xl mx-auto w-full flex-1">
         {/* Status Badge */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#ff6b35]/40 bg-[#ff6b35]/10 mb-6">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#ff6b35] animate-ping" />
-            <span className="cyber-badge text-[#ff6b35]">ANNOUNCEMENT // INTAKE STATUS</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#00d6ff]/40 bg-[#00d6ff]/10 mb-6">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#00d6ff] animate-ping" />
+            <span className="cyber-badge text-[#00d6ff]">ANNOUNCEMENT // INTAKE STATUS</span>
           </div>
 
           <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-white mb-4">
@@ -82,7 +82,7 @@ export default function JoinPage() {
           ) : (
             <div>
               <div className="flex items-center gap-2 mb-6 pb-4 border-b border-white/10">
-                <Bell className="w-4 h-4 text-[#ff6b35]" />
+                <Bell className="w-4 h-4 text-[#00d6ff]" />
                 <span className="text-xs font-mono uppercase tracking-wider text-white/80 font-bold">
                   Priority Intake Alert Registration
                 </span>
@@ -95,7 +95,7 @@ export default function JoinPage() {
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Mahir Faisal"
+                      placeholder="e.g. Person 743"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-[#00d6ff]"
@@ -146,7 +146,7 @@ export default function JoinPage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-4 rounded-xl bg-[#ff6b35] hover:bg-[#ff8252] text-black font-bold uppercase tracking-wider text-xs transition-all shadow-[0_0_25px_rgba(255,107,53,0.35)] flex items-center justify-center gap-2"
+                    className="w-full py-4 rounded-xl bg-[#00d6ff] hover:bg-[#38e1ff] text-black font-bold uppercase tracking-wider text-xs transition-all shadow-[0_0_25px_rgba(0,214,255,0.35)] flex items-center justify-center gap-2"
                   >
                     <span>{loading ? "Recording..." : "Notify Me When Applications Open"}</span>
                     <ArrowRight className="w-4 h-4" />
@@ -174,7 +174,7 @@ export default function JoinPage() {
             </div>
 
             <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5">
-              <Flame className="w-6 h-6 text-[#ff6b35] mb-3" />
+              <Flame className="w-6 h-6 text-[#00d6ff] mb-3" />
               <h4 className="text-base font-bold text-white mb-2">National Tournaments</h4>
               <p className="text-xs text-white/60 leading-relaxed font-light">
                 Represent Manarat in national Line Following, Robosoccer, and Drone racing arenas across colleges.

@@ -79,7 +79,7 @@ export default function EventRegisterModal({ event, onClose, onSuccess }: EventR
             <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10 mb-6 text-left space-y-2.5">
               <div className="flex items-center justify-between border-b border-white/5 pb-2">
                 <span className="text-[11px] font-mono text-white/40">TICKET PASS</span>
-                <span className="text-sm font-mono font-bold text-[#ff6b35] flex items-center gap-1.5">
+                <span className="text-sm font-mono font-bold text-[#00d6ff] flex items-center gap-1.5">
                   <Ticket className="w-3.5 h-3.5" />
                   {confirmedReg.ticketCode}
                 </span>
@@ -111,7 +111,7 @@ export default function EventRegisterModal({ event, onClose, onSuccess }: EventR
           /* Registration Form */
           <div>
             <div className="mb-6">
-              <span className="cyber-badge text-[#ff6b35]">EVENT REGISTRATION</span>
+              <span className="cyber-badge text-[#00d6ff]">EVENT REGISTRATION</span>
               <h3 className="text-xl md:text-2xl font-bold text-white mt-1 leading-tight">
                 {event.title}
               </h3>
@@ -121,7 +121,7 @@ export default function EventRegisterModal({ event, onClose, onSuccess }: EventR
                   {event.date}
                 </span>
                 <span className="flex items-center gap-1">
-                  <MapPin className="w-3.5 h-3.5 text-[#ff6b35]" />
+                  <MapPin className="w-3.5 h-3.5 text-[#00d6ff]" />
                   {event.venue}
                 </span>
               </div>
@@ -143,7 +143,7 @@ export default function EventRegisterModal({ event, onClose, onSuccess }: EventR
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Ayman Rahman"
+                    placeholder="e.g. Person 912"
                     value={formData.attendeeName}
                     onChange={(e) => setFormData({ ...formData, attendeeName: e.target.value })}
                     className="w-full pl-9 pr-3 py-2.5 rounded-lg bg-white/[0.04] border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-[#00d6ff]"
@@ -222,7 +222,7 @@ export default function EventRegisterModal({ event, onClose, onSuccess }: EventR
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 rounded-xl bg-[#ff6b35] text-black font-mono font-bold text-xs uppercase tracking-wider hover:bg-[#ff804d] transition-all disabled:opacity-50 shadow-[0_0_20px_rgba(255,107,53,0.3)]"
+                  className="w-full py-3 rounded-xl bg-[#00d6ff] text-black font-mono font-bold text-xs uppercase tracking-wider hover:bg-[#38e1ff] transition-all disabled:opacity-50 shadow-[0_0_20px_rgba(0,214,255,0.35)]"
                 >
                   {loading ? "Processing Pass..." : "Confirm Free Registration"}
                 </button>

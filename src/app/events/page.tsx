@@ -52,9 +52,9 @@ export default function EventsPage() {
       <main className="pt-28 pb-24 px-6 max-w-7xl mx-auto w-full flex-1">
         {/* Header */}
         <div className="mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#ff6b35]/30 bg-[#ff6b35]/10 mb-4">
-            <span className="w-2 h-2 rounded-full bg-[#ff6b35]" />
-            <span className="cyber-badge text-[#ff6b35]">FIELD OPERATIONS</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#00d6ff]/30 bg-[#00d6ff]/10 mb-4">
+            <span className="w-2 h-2 rounded-full bg-[#00d6ff]" />
+            <span className="cyber-badge text-[#00d6ff]">FIELD OPERATIONS</span>
           </div>
           <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-white mb-4">
             Events &amp; <span className="text-[#00d6ff]">Competitions</span>
@@ -73,7 +73,7 @@ export default function EventsPage() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-4 py-2 rounded-xl transition-all ${
                   selectedCategory === cat
-                    ? "bg-[#ff6b35] text-black font-bold shadow-[0_0_15px_rgba(255,107,53,0.3)]"
+                    ? "bg-[#00d6ff] text-black font-bold shadow-[0_0_15px_rgba(0,214,255,0.3)]"
                     : "bg-white/[0.04] text-white/70 hover:bg-white/[0.08]"
                 }`}
               >
@@ -106,7 +106,7 @@ export default function EventsPage() {
                   <span
                     className={`text-[9px] font-mono uppercase px-2.5 py-1 rounded-md font-bold tracking-wider ${
                       event.category === "COMPETITION"
-                        ? "bg-[#ff6b35]/20 text-[#ff6b35] border border-[#ff6b35]/30"
+                        ? "bg-[#0050ff]/25 text-white border border-[#0050ff]/40"
                         : "bg-[#00d6ff]/20 text-[#00d6ff] border border-[#00d6ff]/30"
                     }`}
                   >
@@ -135,7 +135,7 @@ export default function EventsPage() {
                     <span>{event.time}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <MapPin className="w-3.5 h-3.5 text-[#ff6b35]" />
+                    <MapPin className="w-3.5 h-3.5 text-[#00d6ff]" />
                     <span>{event.venue}</span>
                   </div>
                 </div>
@@ -155,7 +155,7 @@ export default function EventsPage() {
 
               <button
                 onClick={() => setSelectedEventForModal(event)}
-                className="w-full py-3 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold bg-white/[0.05] border border-white/10 hover:bg-[#ff6b35] hover:text-black hover:border-transparent transition-all flex items-center justify-center gap-2"
+                className="w-full py-3 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold bg-white/[0.05] border border-white/10 hover:bg-[#00d6ff] hover:text-black hover:border-transparent transition-all flex items-center justify-center gap-2"
               >
                 <span>Register Attendee Pass</span>
                 <ArrowRight className="w-3.5 h-3.5" />

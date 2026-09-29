@@ -2,19 +2,19 @@
   "users": [
     {
       "id": "usr-exec-1",
-      "name": "Abrar Jawad",
+      "name": "Person 101",
       "email": "executive@mrc.club",
-      "role": "EXECUTIVE",
+      "role": "executive",
       "studentId": "B25-CS-041",
       "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
       "joinedYear": "2023",
-      "title": "President & Lead Hardware Architect",
+      "title": "President & Lead Firmware Engineer",
       "bio": "Specializing in embedded electronics, high-speed LFR motor drivers, and automated control algorithms."
     },
     {
       "id": "usr-exec-2",
-      "name": "Tanvir Hasan",
-      "email": "tanvir@mrc.club",
+      "name": "Person 101",
+      "email": "person101@mrc.club",
       "role": "EXECUTIVE",
       "studentId": "B25-EE-019",
       "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
@@ -23,30 +23,8 @@
       "bio": "Focuses on STM32 PID line-tracking firmware, real-time wireless telemetry, and ESC motor calibration."
     },
     {
-      "id": "usr-exec-3",
-      "name": "Dr. Maksud Alam",
-      "email": "advisor.maksud@manarat.edu",
-      "role": "EXECUTIVE",
-      "studentId": "FACULTY-001",
-      "avatar": "/generic-avatar.svg",
-      "joinedYear": "2022",
-      "title": "Faculty Advisor & Club In-Charge",
-      "bio": "Guiding the robotics club with technological mentorship, institutional support, and scientific ethics."
-    },
-    {
-      "id": "usr-exec-4",
-      "name": "Roksana Khanam",
-      "email": "advisor.roksana@manarat.edu",
-      "role": "EXECUTIVE",
-      "studentId": "FACULTY-002",
-      "avatar": "/generic-avatar.svg",
-      "joinedYear": "2022",
-      "title": "Faculty Advisor & STEM Coordinator",
-      "bio": "Dedicated mentor steering student research projects, campus exhibitions, and inter-college olympiads."
-    },
-    {
       "id": "usr-mem-1",
-      "name": "Zainab Chowdhury",
+      "name": "Person 204",
       "email": "member@mrc.club",
       "role": "MEMBER",
       "studentId": "B26-CS-088",
@@ -57,8 +35,8 @@
     },
     {
       "id": "usr-mem-2",
-      "name": "Fahim Rahman",
-      "email": "fahim@mrc.club",
+      "name": "Person 309",
+      "email": "person309@mrc.club",
       "role": "MEMBER",
       "studentId": "B26-ME-052",
       "avatar": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&auto=format&fit=crop&q=80",
@@ -79,9 +57,9 @@
       "shortDesc": "The premier collegiate line follower competition with high-speed curves, bridges, and cross-sections.",
       "description": "Welcome to the ultimate arena of metal and motion. Teams from across colleges compete with autonomous line followers traversing a multi-tiered track featuring acute angles, 90-degree crossings, elevated bridges, and variable-contrast tiles. Standard and Pro tracks available.",
       "maxCapacity": 60,
-      "registeredCount": 38,
+      "registeredCount": 39,
       "status": "REGISTRATION_OPEN",
-      "coverColor": "from-[#FF6B35]/20 to-[#0050FF]/20",
+      "coverColor": "from-[#0050FF]/30 to-[#00D6FF]/20",
       "tags": [
         "LFR",
         "High Speed",
@@ -123,7 +101,7 @@
       "maxCapacity": 40,
       "registeredCount": 19,
       "status": "UPCOMING",
-      "coverColor": "from-[#FF6B35]/25 to-[#FF0055]/20",
+      "coverColor": "from-[#0050FF]/25 to-[#00D6FF]/20",
       "tags": [
         "RoboSoccer",
         "Omni Wheels",
@@ -155,12 +133,25 @@
   ],
   "registrations": [
     {
+      "eventId": "evt-01",
+      "eventTitle": "National Line Following Robot (LFR) Championship 2026",
+      "attendeeName": "Gibran Ahmed",
+      "email": "gibranahmed8@gmail.com",
+      "phone": "1643395982",
+      "institution": "General Visitor",
+      "teamName": "Gibran Ahmed",
+      "id": "reg-1790697128297",
+      "ticketCode": "MRC-EVT-3217",
+      "registeredAt": "2026-09-29T15:52:08.297Z",
+      "status": "CONFIRMED"
+    },
+    {
       "id": "reg-01",
       "ticketCode": "MRC-EVT-7842",
       "eventId": "evt-01",
       "eventTitle": "National Line Following Robot (LFR) Championship 2026",
-      "attendeeName": "Kazi Nabil",
-      "email": "nabil.k@gmail.com",
+      "attendeeName": "Person 528",
+      "email": "person528@gmail.com",
       "phone": "+8801711223344",
       "institution": "BUET Robotics Society",
       "teamName": "Velocity Prime",
@@ -172,8 +163,8 @@
       "ticketCode": "MRC-EVT-9183",
       "eventId": "evt-02",
       "eventTitle": "ESP32 & Embedded Robotics Hands-on Bootcamp",
-      "attendeeName": "Samira Akhtar",
-      "email": "samira.a@yahoo.com",
+      "attendeeName": "Person 632",
+      "email": "person632@yahoo.com",
       "phone": "+8801822334455",
       "institution": "Manarat International University",
       "registeredAt": "2026-09-27T15:45:00Z",
@@ -194,8 +185,8 @@
       "sensors": "16x QTR-8A Infrared Array",
       "chassis": "1.5mm Matte Carbon Fiber",
       "team": [
-        "Abrar Jawad",
-        "Tanvir Hasan"
+        "Person 101",
+        "Person 101"
       ],
       "achievements": [
         "Champion - Inter-University Tech Fest 2025",
@@ -237,8 +228,8 @@
       "sensors": "360-degree IR Ball Seeker + ToF Distance",
       "chassis": "CNC Aluminum 6061 Frame",
       "team": [
-        "Fahim Rahman",
-        "Zainab Chowdhury"
+        "Person 309",
+        "Person 204"
       ],
       "achievements": [
         "Runner Up - National RoboSoccer Cup 2025"
@@ -279,8 +270,8 @@
       "sensors": "Optical Flow, LiDAR Lite v3, Ultrasonic Array",
       "chassis": "Toray Carbon Fiber 250mm Quad",
       "team": [
-        "Abrar Jawad",
-        "Sarah Karim"
+        "Person 101",
+        "Person 415"
       ],
       "achievements": [
         "Best Innovation Finalist - Robotics Expo 2025"
@@ -325,7 +316,7 @@
       "content": "All club members are invited to Lab 402 this Thursday from 3:30 PM. We will be testing analog reflectance arrays with digital oscilloscopes and tuning proportional-derivative coefficients for high-speed stability.",
       "category": "SCHEDULE",
       "publishedAt": "2026-09-26",
-      "author": "Tanvir Hasan",
+      "author": "Person 101",
       "isPinned": false
     },
     {
@@ -334,15 +325,15 @@
       "content": "Interested students from all departments can now register on the Recruitment Priority Waitlist. Applications will officially open soon, and registered students will receive first-priority interview slots.",
       "category": "ALERT",
       "publishedAt": "2026-09-24",
-      "author": "Abrar Jawad",
+      "author": "Executive Committee",
       "isPinned": true
     }
   ],
   "waitlist": [
     {
       "id": "wt-01",
-      "name": "Mahir Faisal",
-      "email": "mahir.faisal@student.manarat.edu",
+      "name": "Person 743",
+      "email": "person743@student.manarat.edu",
       "studentId": "B27-CS-102",
       "department": "Computer Science & Engineering",
       "interests": [
@@ -355,8 +346,8 @@
     },
     {
       "id": "wt-02",
-      "name": "Nusrat Jahan",
-      "email": "nusrat.j@student.manarat.edu",
+      "name": "Person 856",
+      "email": "person856@student.manarat.edu",
       "studentId": "B27-EE-045",
       "department": "Electrical & Electronic Engineering",
       "interests": [

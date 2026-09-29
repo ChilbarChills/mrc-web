@@ -24,56 +24,58 @@ export default function TeamPage() {
             Club <span className="text-[#00d6ff]">Leadership</span>
           </h1>
           <p className="text-sm md:text-base text-white/60 max-w-2xl leading-relaxed">
-            The faculty advisors and student executives driving the engineering direction and national competition representation of Manarat Robotics Club.
+            The student executives driving the engineering direction and national competition representation of Manarat Robotics Club.
           </p>
         </div>
 
         {/* Faculty Advisors Section */}
-        <div className="mb-16">
-          <div className="border-b border-white/10 pb-4 mb-8">
-            <h2 className="text-xl font-mono uppercase tracking-widest text-[#ff6b35]">
-              Faculty Advisors &amp; Patrons
-            </h2>
-          </div>
+        {advisors.length > 0 && (
+          <div className="mb-16">
+            <div className="border-b border-white/10 pb-4 mb-8">
+              <h2 className="text-xl font-mono uppercase tracking-widest text-[#00d6ff]">
+                Faculty Advisors &amp; Patrons
+              </h2>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {advisors.map((advisor) => (
-              <div key={advisor.id} className="cyber-card p-8 rounded-2xl border border-white/10 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-16 h-16 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-white/70 shadow-[0_0_15px_rgba(255,255,255,0.05)] shrink-0">
-                      <User className="w-8 h-8" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {advisors.map((advisor) => (
+                <div key={advisor.id} className="cyber-card p-8 rounded-2xl border border-white/10 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-16 h-16 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-white/70 shadow-[0_0_15px_rgba(255,255,255,0.05)] shrink-0">
+                        <User className="w-8 h-8" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-white">{advisor.name}</h3>
+                        <p className="text-xs font-mono text-[#00d6ff] uppercase tracking-wider">
+                          {advisor.title}
+                        </p>
+                        <span className="text-[10px] font-mono text-white/40 block mt-0.5">
+                          ID: {advisor.studentId}
+                        </span>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white">{advisor.name}</h3>
-                      <p className="text-xs font-mono text-[#00d6ff] uppercase tracking-wider">
-                        {advisor.title}
-                      </p>
-                      <span className="text-[10px] font-mono text-white/40 block mt-0.5">
-                        ID: {advisor.studentId}
-                      </span>
-                    </div>
+
+                    <p className="text-xs md:text-sm text-white/70 leading-relaxed font-light mb-6">
+                      {advisor.bio}
+                    </p>
                   </div>
 
-                  <p className="text-xs md:text-sm text-white/70 leading-relaxed font-light mb-6">
-                    {advisor.bio}
-                  </p>
+                  <div className="text-xs font-mono text-white/40 pt-4 border-t border-white/5 flex items-center justify-between">
+                    <span>Manarat Dhaka International College</span>
+                    <a
+                      href={`mailto:${advisor.email}`}
+                      className="text-[#00d6ff] hover:underline flex items-center gap-1"
+                    >
+                      <Mail className="w-3.5 h-3.5" />
+                      <span>Contact</span>
+                    </a>
+                  </div>
                 </div>
-
-                <div className="text-xs font-mono text-white/40 pt-4 border-t border-white/5 flex items-center justify-between">
-                  <span>Manarat Dhaka International College</span>
-                  <a
-                    href={`mailto:${advisor.email}`}
-                    className="text-[#ff6b35] hover:underline flex items-center gap-1"
-                  >
-                    <Mail className="w-3.5 h-3.5" />
-                    <span>Contact</span>
-                  </a>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Student Executive Committee */}
         <div>
@@ -95,7 +97,7 @@ export default function TeamPage() {
                     />
                   </div>
                   <h3 className="text-lg font-bold text-white mb-1">{member.name}</h3>
-                  <p className="text-xs font-mono text-[#ff6b35] mb-2">{member.title}</p>
+                  <p className="text-xs font-mono text-[#00d6ff] mb-2">{member.title}</p>
                   <p className="text-xs text-white/60 leading-relaxed mb-4">{member.bio}</p>
                 </div>
 

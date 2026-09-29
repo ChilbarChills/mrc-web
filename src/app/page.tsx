@@ -179,7 +179,7 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
               <div className="p-4 border-r border-white/5 last:border-r-0">
                 <span className="text-3xl md:text-5xl font-black font-mono tracking-tight text-white block">
-                  180<span className="text-[#ff6b35]">+</span>
+                  180<span className="text-[#00d6ff]">+</span>
                 </span>
                 <span className="text-[11px] font-mono tracking-[0.24em] text-white/50 uppercase mt-1 block">
                   Active Members
@@ -219,9 +219,9 @@ export default function Home() {
         {/* 3. CORE FOCUS TRACKS (CATEGORIES) */}
         <section id="tracks" className="relative z-20 py-24 px-6 max-w-7xl mx-auto w-full">
           <div className="mb-14">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#ff6b35]/30 bg-[#ff6b35]/10 mb-4">
-              <Zap className="w-3.5 h-3.5 text-[#ff6b35]" />
-              <span className="cyber-badge text-[#ff6b35]">CLUB PILLARS</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#00d6ff]/30 bg-[#00d6ff]/10 mb-4">
+              <Zap className="w-3.5 h-3.5 text-[#00d6ff]" />
+              <span className="cyber-badge text-[#00d6ff]">CLUB PILLARS</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-black tracking-tight uppercase text-white">
               Core Focus <span className="text-[#00d6ff]">Tracks</span>
@@ -237,14 +237,14 @@ export default function Home() {
               <div className="text-[10px] font-mono text-white/30 uppercase tracking-[0.2em] mb-4">
                 TRACK 01 // COMPETITIONS
               </div>
-              <div className="w-12 h-12 rounded-xl bg-[#ff6b35]/15 border border-[#ff6b35]/30 flex items-center justify-center text-[#ff6b35] mb-5 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 rounded-xl bg-[#0050ff]/20 border border-[#0050ff]/40 flex items-center justify-center text-[#00d6ff] mb-5 group-hover:scale-110 transition-transform shadow-[0_0_15px_rgba(0,80,255,0.25)]">
                 <Flame className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold uppercase text-white mb-2">Line Following &amp; Combat</h3>
               <p className="text-xs text-white/60 leading-relaxed mb-4">
                 High-speed LFR bots with PID control, Robosoccer strikers with omni-directional wheels, and antweight combat robots.
               </p>
-              <div className="text-[10px] font-mono text-[#ff6b35] uppercase tracking-wider flex items-center gap-1">
+              <div className="text-[10px] font-mono text-[#00d6ff] uppercase tracking-wider flex items-center gap-1">
                 <span>View Arena Builds</span>
                 <ChevronRight className="w-3 h-3" />
               </div>
@@ -315,7 +315,7 @@ export default function Home() {
                 <span className="cyber-badge text-[#00d6ff]">FIELD SCHEDULE</span>
               </div>
               <h2 className="text-3xl md:text-5xl font-black tracking-tight uppercase text-white">
-                Upcoming <span className="text-[#ff6b35]">Events</span>
+                Upcoming <span className="text-[#00d6ff]">Events</span>
               </h2>
             </div>
             <Link
@@ -323,7 +323,7 @@ export default function Home() {
               className="text-xs font-mono uppercase tracking-wider text-white/70 hover:text-white flex items-center gap-2 border-b border-white/20 pb-1"
             >
               <span>View All Events &amp; Details</span>
-              <ArrowRight className="w-3.5 h-3.5 text-[#ff6b35]" />
+              <ArrowRight className="w-3.5 h-3.5 text-[#00d6ff]" />
             </Link>
           </div>
 
@@ -338,7 +338,7 @@ export default function Home() {
                     <span
                       className={`text-[9px] font-mono uppercase px-2.5 py-1 rounded-md font-bold tracking-wider ${
                         event.category === "COMPETITION"
-                          ? "bg-[#ff6b35]/20 text-[#ff6b35] border border-[#ff6b35]/30"
+                          ? "bg-[#0050ff]/20 text-[#00d6ff] border border-[#0050ff]/40"
                           : "bg-[#00d6ff]/20 text-[#00d6ff] border border-[#00d6ff]/30"
                       }`}
                     >
@@ -367,7 +367,7 @@ export default function Home() {
                       <span>{event.time}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <MapPin className="w-3.5 h-3.5 text-[#ff6b35]" />
+                      <MapPin className="w-3.5 h-3.5 text-[#00d6ff]" />
                       <span>{event.venue}</span>
                     </div>
                   </div>
@@ -375,7 +375,7 @@ export default function Home() {
 
                 <button
                   onClick={() => setSelectedEventForModal(event)}
-                  className="w-full py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold bg-white/[0.05] border border-white/10 hover:bg-[#ff6b35] hover:text-black hover:border-transparent transition-all flex items-center justify-center gap-2"
+                  className="w-full py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold bg-white/[0.05] border border-white/10 hover:bg-[#00d6ff] hover:text-black hover:border-transparent transition-all flex items-center justify-center gap-2"
                 >
                   <span>Register Free Pass</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -411,7 +411,7 @@ export default function Home() {
             <div className="cyber-card p-6 md:p-8 rounded-2xl border border-white/10 flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[10px] font-mono text-[#ff6b35] font-bold tracking-widest uppercase">
+                  <span className="text-[10px] font-mono text-[#00d6ff] font-bold tracking-widest uppercase">
                     CHAMPION LFR
                   </span>
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
@@ -430,7 +430,7 @@ export default function Home() {
                   </div>
                   <div className="flex justify-between border-b border-white/5 pb-1.5">
                     <span className="text-white/40">MOTOR RPM</span>
-                    <span className="text-[#ff6b35] font-semibold">25,000 RPM Coreless</span>
+                    <span className="text-[#00d6ff] font-semibold">25,000 RPM Coreless</span>
                   </div>
                   <div className="flex justify-between border-b border-white/5 pb-1.5">
                     <span className="text-white/40">MICROCONTROLLER</span>
@@ -470,7 +470,7 @@ export default function Home() {
                   </div>
                   <div className="flex justify-between border-b border-white/5 pb-1.5">
                     <span className="text-white/40">KICK MECHANISM</span>
-                    <span className="text-[#ff6b35] font-semibold">1500N Solenoid Pulse</span>
+                    <span className="text-[#00d6ff] font-semibold">1500N Solenoid Pulse</span>
                   </div>
                   <div className="flex justify-between border-b border-white/5 pb-1.5">
                     <span className="text-white/40">CONTROLLER</span>
@@ -491,10 +491,10 @@ export default function Home() {
             <div className="cyber-card p-6 md:p-8 rounded-2xl border border-white/10 flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[10px] font-mono text-purple-400 font-bold tracking-widest uppercase">
+                  <span className="text-[10px] font-mono text-[#00d6ff] font-bold tracking-widest uppercase">
                     AUTONOMOUS UAV
                   </span>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/30">
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#0050ff]/20 text-[#00d6ff] border border-[#00d6ff]/30">
                     IN DEV
                   </span>
                 </div>
@@ -510,7 +510,7 @@ export default function Home() {
                   </div>
                   <div className="flex justify-between border-b border-white/5 pb-1.5">
                     <span className="text-white/40">SENSORS</span>
-                    <span className="text-[#ff6b35] font-semibold">Optical Flow + LiDAR</span>
+                    <span className="text-[#00d6ff] font-semibold">Optical Flow + LiDAR</span>
                   </div>
                   <div className="flex justify-between border-b border-white/5 pb-1.5">
                     <span className="text-white/40">FRAME</span>
@@ -531,13 +531,13 @@ export default function Home() {
 
         {/* 6. RECRUITMENT SECTION — "WILL OPEN SOON" (USER REQUIREMENT) */}
         <section id="recruitment" className="relative z-20 py-24 px-6 max-w-7xl mx-auto w-full border-t border-white/10">
-          <div className="cyber-card rounded-3xl p-8 md:p-14 border border-[#ff6b35]/25 relative overflow-hidden bg-gradient-to-br from-[#121420] via-[#090b10] to-[#07080c]">
-            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#ff6b35]/5 blur-[120px] rounded-full pointer-events-none" />
+          <div className="cyber-card rounded-3xl p-8 md:p-14 border border-[#00d6ff]/25 relative overflow-hidden bg-gradient-to-br from-[#121420] via-[#090b10] to-[#07080c]">
+            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#00d6ff]/5 blur-[120px] rounded-full pointer-events-none" />
 
             <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#ff6b35]/40 bg-[#ff6b35]/15 mb-6">
-                <span className="w-2 h-2 rounded-full bg-[#ff6b35] animate-ping" />
-                <span className="cyber-badge text-[#ff6b35]">STATUS: RECRUITMENT OPENS SOON</span>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#00d6ff]/40 bg-[#00d6ff]/15 mb-6">
+                <span className="w-2 h-2 rounded-full bg-[#00d6ff] animate-ping" />
+                <span className="cyber-badge text-[#00d6ff]">STATUS: RECRUITMENT OPENS SOON</span>
               </div>
 
               <h2 className="text-3xl md:text-5xl font-black uppercase text-white mb-4 leading-tight">
@@ -567,7 +567,7 @@ export default function Home() {
                       placeholder="Your Full Name *"
                       value={waitlistData.name}
                       onChange={(e) => setWaitlistData({ ...waitlistData, name: e.target.value })}
-                      className="px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-[#ff6b35]"
+                      className="px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-[#00d6ff]"
                     />
                     <input
                       type="email"
@@ -575,19 +575,19 @@ export default function Home() {
                       placeholder="Student Email Address *"
                       value={waitlistData.email}
                       onChange={(e) => setWaitlistData({ ...waitlistData, email: e.target.value })}
-                      className="px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-[#ff6b35]"
+                      className="px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-[#00d6ff]"
                     />
                     <input
                       type="text"
                       placeholder="Student ID (e.g. B26-CS-041)"
                       value={waitlistData.studentId}
                       onChange={(e) => setWaitlistData({ ...waitlistData, studentId: e.target.value })}
-                      className="px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-[#ff6b35]"
+                      className="px-4 py-3 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-[#00d6ff]"
                     />
                     <select
                       value={waitlistData.department}
                       onChange={(e) => setWaitlistData({ ...waitlistData, department: e.target.value })}
-                      className="px-4 py-3 rounded-xl bg-[#0e1017] border border-white/10 text-white focus:outline-none focus:border-[#ff6b35]"
+                      className="px-4 py-3 rounded-xl bg-[#0e1017] border border-white/10 text-white focus:outline-none focus:border-[#00d6ff]"
                     >
                       <option value="Computer Science & Engineering">Dept: Computer Science</option>
                       <option value="Electrical & Electronic Engineering">Dept: Electrical Engineering</option>
@@ -599,7 +599,7 @@ export default function Home() {
                   <button
                     type="submit"
                     disabled={waitlistSubmitting}
-                    className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-mono text-xs uppercase tracking-wider font-bold text-black bg-[#ff6b35] hover:bg-[#ff8252] transition-all disabled:opacity-50 shadow-[0_0_20px_rgba(255,107,53,0.3)] flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-mono text-xs uppercase tracking-wider font-bold text-black bg-[#00d6ff] hover:bg-[#38e1ff] transition-all disabled:opacity-50 shadow-[0_0_20px_rgba(0,214,255,0.3)] flex items-center justify-center gap-2"
                   >
                     <span>{waitlistSubmitting ? "Registering..." : "Notify Me When Applications Open"}</span>
                     <ArrowRight className="w-4 h-4" />
@@ -610,70 +610,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 7. WORDS OF WISDOM FROM FACULTY ADVISORS (MSC INSPIRED EDITORIAL) */}
-        <section id="team" className="relative z-20 py-24 px-6 max-w-7xl mx-auto w-full border-t border-white/10">
-          <div className="mb-14">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/[0.03] mb-4">
-              <span className="cyber-badge text-white/60">ADVISORY BOARD</span>
-            </div>
-            <h2 className="text-3xl md:text-5xl font-black uppercase text-white">
-              Words from <span className="text-[#00d6ff]">Faculty Mentors</span>
-            </h2>
-            <p className="text-sm md:text-base text-white/60 max-w-xl mt-3">
-              Guiding our robotics community towards scientific rigour and collegiate achievement.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Advisor 1 */}
-            <div className="cyber-card p-8 rounded-2xl border border-white/10 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 rounded-full border border-[#00d6ff]/40 bg-[#00d6ff]/10 flex items-center justify-center text-[#00d6ff] shadow-[0_0_15px_rgba(0,214,255,0.15)] shrink-0">
-                    <UserIcon className="w-7 h-7" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-white">Dr. Maksud Alam</h3>
-                    <p className="text-[11px] font-mono text-[#00d6ff] uppercase tracking-wider">
-                      MCCA Convener &amp; Club In-Charge
-                    </p>
-                  </div>
-                </div>
-
-                <p className="text-sm text-white/70 italic leading-relaxed mb-6 font-light">
-                  "Robotics is the purest embodiment of interdisciplinary engineering. Here, mechanical concepts, circuit theory, and algorithmic problem-solving come together in physical form. The Manarat Robotics Club has continually proven what dedicated students can accomplish when equipped with curiosity and hands-on laboratory freedom."
-                </p>
-              </div>
-              <div className="text-[10px] font-mono text-white/30 uppercase tracking-widest border-t border-white/5 pt-3">
-                Manarat Dhaka International School &amp; College
-              </div>
-            </div>
-
-            {/* Advisor 2 */}
-            <div className="cyber-card p-8 rounded-2xl border border-white/10 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 rounded-full border border-[#ff6b35]/40 bg-[#ff6b35]/10 flex items-center justify-center text-[#ff6b35] shadow-[0_0_15px_rgba(255,107,53,0.15)] shrink-0">
-                    <UserIcon className="w-7 h-7" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-white">Roksana Khanam</h3>
-                    <p className="text-[11px] font-mono text-[#ff6b35] uppercase tracking-wider">
-                      Faculty Mentor &amp; STEM Coordinator
-                    </p>
-                  </div>
-                </div>
-
-                <p className="text-sm text-white/70 italic leading-relaxed mb-6 font-light">
-                  "Our goal has always been to remove the friction between theoretical classroom science and hands-on creation. Watching our students design custom line-follower PCBs and iterate motor drivers late into the evening demonstrates the resilience and passion defining Manarat’s next generation of engineers."
-                </p>
-              </div>
-              <div className="text-[10px] font-mono text-white/30 uppercase tracking-widest border-t border-white/5 pt-3">
-                Manarat Science &amp; Technology Society
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* 8. LATEST TRANSMISSIONS & BULLETINS */}
         <section className="relative z-20 py-20 px-6 max-w-7xl mx-auto w-full border-t border-white/10">
@@ -729,7 +665,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
               <div className="md:col-span-2">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 rounded-lg bg-[#ff6b35] flex items-center justify-center font-mono font-bold text-black text-xs">
+                  <div className="w-8 h-8 rounded-lg bg-[#00d6ff] flex items-center justify-center font-mono font-bold text-black text-xs shadow-[0_0_15px_rgba(0,214,255,0.4)]">
                     MRC
                   </div>
                   <span className="font-bold text-lg text-white">Manarat Robotics Club</span>
@@ -767,7 +703,7 @@ export default function Home() {
               </div>
 
               <div>
-                <h4 className="text-xs font-mono uppercase tracking-[0.2em] text-[#ff6b35] mb-4">
+                <h4 className="text-xs font-mono uppercase tracking-[0.2em] text-[#00d6ff] mb-4">
                   Portals &amp; System
                 </h4>
                 <ul className="space-y-2 text-xs font-mono">
@@ -787,7 +723,7 @@ export default function Home() {
             <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-white/40">
               <p>© {new Date().getFullYear()} Manarat Robotics Club. All rights reserved.</p>
               <p>
-                Developed with pride by <span className="text-[#00d6ff]">Abrar Jawad - B25</span>
+                Developed with pride by <span className="text-[#00d6ff]">Manarat Robotics Club</span>
               </p>
             </div>
           </div>

@@ -18,7 +18,7 @@ export default function ProjectsPage() {
             <span className="cyber-badge text-[#00d6ff]">HARDWARE LABORATORY</span>
           </div>
           <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-white mb-4">
-            Robot <span className="text-[#ff6b35]">Portfolio</span>
+            Robot <span className="text-[#00d6ff]">Portfolio</span>
           </h1>
           <p className="text-sm md:text-base text-white/60 max-w-2xl leading-relaxed">
             Detailed engineering breakdowns of competitive machines built by Manarat Robotics Club members.
@@ -35,7 +35,7 @@ export default function ProjectsPage() {
               <div className="flex flex-col lg:flex-row gap-8 justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-4">
-                    <span className="text-[10px] font-mono text-[#ff6b35] font-bold tracking-widest uppercase">
+                    <span className="text-[10px] font-mono text-[#00d6ff] font-bold tracking-widest uppercase">
                       BUILD 0{idx + 1} // {project.category}
                     </span>
                     <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
@@ -62,7 +62,7 @@ export default function ProjectsPage() {
                           key={ach}
                           className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/[0.03] border border-white/10 text-xs font-mono text-white/80"
                         >
-                          <Award className="w-3.5 h-3.5 text-[#ff6b35]" />
+                          <Award className="w-3.5 h-3.5 text-[#00d6ff]" />
                           <span>{ach}</span>
                         </div>
                       ))}
@@ -101,7 +101,7 @@ export default function ProjectsPage() {
                   <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
                     <div>
                       <span className="text-[10px] font-mono text-white/40 block">TOP RECORDED SPEED</span>
-                      <span className="text-lg font-mono font-bold text-[#ff6b35]">{project.speed}</span>
+                      <span className="text-lg font-mono font-bold text-[#00d6ff]">{project.speed}</span>
                     </div>
                     <Link
                       href="/events"
