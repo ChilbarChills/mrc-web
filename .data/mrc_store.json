@@ -1,0 +1,371 @@
+{
+  "users": [
+    {
+      "id": "usr-exec-1",
+      "name": "Abrar Jawad",
+      "email": "executive@mrc.club",
+      "role": "EXECUTIVE",
+      "studentId": "B25-CS-041",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      "joinedYear": "2023",
+      "title": "President & Lead Hardware Architect",
+      "bio": "Specializing in embedded electronics, high-speed LFR motor drivers, and automated control algorithms."
+    },
+    {
+      "id": "usr-exec-2",
+      "name": "Tanvir Hasan",
+      "email": "tanvir@mrc.club",
+      "role": "EXECUTIVE",
+      "studentId": "B25-EE-019",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+      "joinedYear": "2023",
+      "title": "Vice President & Lead Firmware Engineer",
+      "bio": "Focuses on STM32 PID line-tracking firmware, real-time wireless telemetry, and ESC motor calibration."
+    },
+    {
+      "id": "usr-exec-3",
+      "name": "Dr. Maksud Alam",
+      "email": "advisor.maksud@manarat.edu",
+      "role": "EXECUTIVE",
+      "studentId": "FACULTY-001",
+      "avatar": "/generic-avatar.svg",
+      "joinedYear": "2022",
+      "title": "Faculty Advisor & Club In-Charge",
+      "bio": "Guiding the robotics club with technological mentorship, institutional support, and scientific ethics."
+    },
+    {
+      "id": "usr-exec-4",
+      "name": "Roksana Khanam",
+      "email": "advisor.roksana@manarat.edu",
+      "role": "EXECUTIVE",
+      "studentId": "FACULTY-002",
+      "avatar": "/generic-avatar.svg",
+      "joinedYear": "2022",
+      "title": "Faculty Advisor & STEM Coordinator",
+      "bio": "Dedicated mentor steering student research projects, campus exhibitions, and inter-college olympiads."
+    },
+    {
+      "id": "usr-mem-1",
+      "name": "Zainab Chowdhury",
+      "email": "member@mrc.club",
+      "role": "MEMBER",
+      "studentId": "B26-CS-088",
+      "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80",
+      "joinedYear": "2024",
+      "title": "Core Member & Autonomous Systems Developer",
+      "bio": "Passionate about ROS2 robotics simulation, ESP32 sensor integration, and computer vision algorithms."
+    },
+    {
+      "id": "usr-mem-2",
+      "name": "Fahim Rahman",
+      "email": "fahim@mrc.club",
+      "role": "MEMBER",
+      "studentId": "B26-ME-052",
+      "avatar": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&auto=format&fit=crop&q=80",
+      "joinedYear": "2024",
+      "title": "Mechanical Fabrication & 3D Prototyping",
+      "bio": "Designs lightweight carbon fiber chassis and custom spur gear transmissions for combat bots."
+    }
+  ],
+  "events": [
+    {
+      "id": "evt-01",
+      "title": "National Line Following Robot (LFR) Championship 2026",
+      "slug": "national-lfr-championship-2026",
+      "category": "COMPETITION",
+      "date": "2026-11-14",
+      "time": "09:00 AM - 06:00 PM",
+      "venue": "Main Campus Auditorium & Robotics Arena",
+      "shortDesc": "The premier collegiate line follower competition with high-speed curves, bridges, and cross-sections.",
+      "description": "Welcome to the ultimate arena of metal and motion. Teams from across colleges compete with autonomous line followers traversing a multi-tiered track featuring acute angles, 90-degree crossings, elevated bridges, and variable-contrast tiles. Standard and Pro tracks available.",
+      "maxCapacity": 60,
+      "registeredCount": 38,
+      "status": "REGISTRATION_OPEN",
+      "coverColor": "from-[#FF6B35]/20 to-[#0050FF]/20",
+      "tags": [
+        "LFR",
+        "High Speed",
+        "PID Control",
+        "National Tournament"
+      ]
+    },
+    {
+      "id": "evt-02",
+      "title": "ESP32 & Embedded Robotics Hands-on Bootcamp",
+      "slug": "esp32-embedded-robotics-bootcamp",
+      "category": "WORKSHOP",
+      "date": "2026-10-22",
+      "time": "02:30 PM - 05:30 PM",
+      "venue": "MRC Innovation Lab, Room 402",
+      "shortDesc": "Comprehensive practical workshop covering dual-core ESP32 programming, motor drivers, and WiFi telemetry.",
+      "description": "Build an IoT robot from scratch. Each participant will get hands-on experience wiring motor H-bridges, reading optical infrared sensor arrays, implementing real-time PID algorithms, and monitoring robot diagnostics through a local web dashboard over WebSockets.",
+      "maxCapacity": 30,
+      "registeredCount": 26,
+      "status": "REGISTRATION_OPEN",
+      "coverColor": "from-[#00D6FF]/20 to-[#0050FF]/20",
+      "tags": [
+        "ESP32",
+        "Hardware Lab",
+        "Hands-on",
+        "Beginner to Intermediate"
+      ]
+    },
+    {
+      "id": "evt-03",
+      "title": "Autonomous RoboSoccer & Combat Clash 2026",
+      "slug": "robosoccer-combat-clash-2026",
+      "category": "COMPETITION",
+      "date": "2026-12-05",
+      "time": "10:00 AM - 05:00 PM",
+      "venue": "Campus Indoor Sports Complex",
+      "shortDesc": "Fast-paced robotic soccer showdown and lightweight combat bot rumble inside an enclosed polycarbonate cage.",
+      "description": "Squads of 2 bots battle on an artificial turf pitch with infrared-emitting balls. High torque, omni-wheel maneuvering, and pneumatic kickers. Followed by the 1kg Antweight combat exhibition round.",
+      "maxCapacity": 40,
+      "registeredCount": 19,
+      "status": "UPCOMING",
+      "coverColor": "from-[#FF6B35]/25 to-[#FF0055]/20",
+      "tags": [
+        "RoboSoccer",
+        "Omni Wheels",
+        "Antweight",
+        "Live Battles"
+      ]
+    },
+    {
+      "id": "evt-04",
+      "title": "Computer Vision & Autonomous Rovers Seminar",
+      "slug": "computer-vision-rovers-seminar",
+      "category": "SEMINAR",
+      "date": "2026-11-28",
+      "time": "03:00 PM - 05:00 PM",
+      "venue": "Seminar Hall 2 & YouTube Live",
+      "shortDesc": "Guest lecture from robotics industry engineers on edge-AI object detection and SLAM LiDAR navigation.",
+      "description": "Learn how modern autonomous rovers navigate unknown environments using LiDAR Point Clouds, OpenCV optical flow, and lightweight YOLO models running on Raspberry Pi 5 and Jetson Nano.",
+      "maxCapacity": 120,
+      "registeredCount": 74,
+      "status": "UPCOMING",
+      "coverColor": "from-[#00D6FF]/20 to-[#00FF88]/20",
+      "tags": [
+        "Computer Vision",
+        "SLAM",
+        "AI",
+        "Open to All"
+      ]
+    }
+  ],
+  "registrations": [
+    {
+      "id": "reg-01",
+      "ticketCode": "MRC-EVT-7842",
+      "eventId": "evt-01",
+      "eventTitle": "National Line Following Robot (LFR) Championship 2026",
+      "attendeeName": "Kazi Nabil",
+      "email": "nabil.k@gmail.com",
+      "phone": "+8801711223344",
+      "institution": "BUET Robotics Society",
+      "teamName": "Velocity Prime",
+      "registeredAt": "2026-09-25T11:20:00Z",
+      "status": "CONFIRMED"
+    },
+    {
+      "id": "reg-02",
+      "ticketCode": "MRC-EVT-9183",
+      "eventId": "evt-02",
+      "eventTitle": "ESP32 & Embedded Robotics Hands-on Bootcamp",
+      "attendeeName": "Samira Akhtar",
+      "email": "samira.a@yahoo.com",
+      "phone": "+8801822334455",
+      "institution": "Manarat International University",
+      "registeredAt": "2026-09-27T15:45:00Z",
+      "status": "CONFIRMED"
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj-01",
+      "name": "Apex-V3 Line Follower",
+      "codeName": "PROJECT_APEX_SPEEDSTER",
+      "category": "Line Tracking",
+      "shortDesc": "Custom PCB, 16x photodiode array, dual coreless 25,000 RPM motors, reaching 3.4 m/s on technical tracks.",
+      "description": "Engineered specifically for national collegiate LFR tournaments. Apex-V3 features an ultra-low center of gravity carbon fiber chassis, active suction downforce fan for high-speed corner grip, custom discrete MOSFET H-bridge driver, and STM32 microcontroller calculating PID loops at 2,000 Hz.",
+      "status": "ACTIVE_COMPETITION",
+      "speed": "3.4 m/s",
+      "controller": "STM32F401 BlackPill",
+      "sensors": "16x QTR-8A Infrared Array",
+      "chassis": "1.5mm Matte Carbon Fiber",
+      "team": [
+        "Abrar Jawad",
+        "Tanvir Hasan"
+      ],
+      "achievements": [
+        "Champion - Inter-University Tech Fest 2025",
+        "Fastest Lap Record (14.2s)"
+      ],
+      "specs": [
+        {
+          "label": "Microcontroller",
+          "value": "STM32F401 (84 MHz ARM Cortex-M4)"
+        },
+        {
+          "label": "Motor Driver",
+          "value": "Discrete Dual N-Channel MOSFET (30A Burst)"
+        },
+        {
+          "label": "Motors",
+          "value": "Coreless 12V 25,000 RPM with 10:1 Micro Gears"
+        },
+        {
+          "label": "Downforce",
+          "value": "30mm Brushless Electric Impeller"
+        },
+        {
+          "label": "Weight",
+          "value": "165 grams (with battery)"
+        }
+      ]
+    },
+    {
+      "id": "proj-02",
+      "name": "Titan-9 Robosoccer Striker",
+      "codeName": "PROJECT_TITAN_OMNI",
+      "category": "RoboSoccer",
+      "shortDesc": "Holonomic triangular omni-drive system with solenoid-driven high velocity kicker and 360° IR ball sensor.",
+      "description": "Built for agility and aggression on the robosoccer pitch. Powered by 3 high-speed planetary gear motors angled at 120 degrees, allowing seamless omnidirectional translation without rotating. Equipped with an onboard 24V solenoid pulse kicker and Bluetooth low-latency telemetry.",
+      "status": "ACTIVE_COMPETITION",
+      "speed": "2.8 m/s",
+      "controller": "ESP32-S3 Dual Core",
+      "sensors": "360-degree IR Ball Seeker + ToF Distance",
+      "chassis": "CNC Aluminum 6061 Frame",
+      "team": [
+        "Fahim Rahman",
+        "Zainab Chowdhury"
+      ],
+      "achievements": [
+        "Runner Up - National RoboSoccer Cup 2025"
+      ],
+      "specs": [
+        {
+          "label": "Drive System",
+          "value": "3x 58mm Aluminium Omni-Wheels (120° Angle)"
+        },
+        {
+          "label": "Motors",
+          "value": "3x Planetary 12V 1000 RPM Gear Motors"
+        },
+        {
+          "label": "Kicking Mechanism",
+          "value": "24V 1500N Linear Solenoid Pulse"
+        },
+        {
+          "label": "Wireless Link",
+          "value": "ESP-NOW 2.4 GHz Low Latency (<3ms)"
+        },
+        {
+          "label": "Battery",
+          "value": "3S 1300mAh 75C LiPo"
+        }
+      ]
+    },
+    {
+      "id": "proj-03",
+      "name": "AeroScan Autonomous UAV",
+      "codeName": "PROJECT_AEROSCAN_DRONE",
+      "category": "Autonomous Flight",
+      "shortDesc": "Carbon-fiber quadcopter with optical flow positioning, sonar ground lock, and obstacle mapping.",
+      "description": "Designed for indoor autonomous exploration where GPS signals are unavailable. AeroScan utilizes an optical flow sensor on its ventral camera combined with a laser rangefinder to hold position down to single-centimeter accuracy, while a forward stereo camera detects pillars and walls.",
+      "status": "IN_DEVELOPMENT",
+      "speed": "12 m/s",
+      "controller": "Pixhawk 4 Mini + Raspberry Pi Companion",
+      "sensors": "Optical Flow, LiDAR Lite v3, Ultrasonic Array",
+      "chassis": "Toray Carbon Fiber 250mm Quad",
+      "team": [
+        "Abrar Jawad",
+        "Sarah Karim"
+      ],
+      "achievements": [
+        "Best Innovation Finalist - Robotics Expo 2025"
+      ],
+      "specs": [
+        {
+          "label": "Propulsion",
+          "value": "4x 2207 2450KV Brushless + 5045 Tri-blades"
+        },
+        {
+          "label": "Flight Controller",
+          "value": "PX4 Autopilot with ROS2 MAVLink bridge"
+        },
+        {
+          "label": "Positioning",
+          "value": "Ventral Optical Flow + VL53L1X ToF"
+        },
+        {
+          "label": "Telemetry",
+          "value": "915 MHz Long-Range Radio Telemetry"
+        },
+        {
+          "label": "Flight Time",
+          "value": "14 Minutes Continuous Hover"
+        }
+      ]
+    }
+  ],
+  "announcements": [
+    {
+      "id": "ann-01",
+      "title": "National LFR Championship 2026 — Track Specifications Published",
+      "content": "The official rulebook and track layout for the 2026 National LFR Championship is now live. Line width is strictly 30mm white tape on non-reflective matte black PVC board. Bridge incline is 15 degrees. Check the events section to download the rule packet.",
+      "category": "ANNOUNCEMENT",
+      "publishedAt": "2026-09-28",
+      "author": "Executive Committee",
+      "isPinned": true
+    },
+    {
+      "id": "ann-02",
+      "title": "Weekly Lab Hands-on Session: PID Tuning & Sensor Array Diagnostics",
+      "content": "All club members are invited to Lab 402 this Thursday from 3:30 PM. We will be testing analog reflectance arrays with digital oscilloscopes and tuning proportional-derivative coefficients for high-speed stability.",
+      "category": "SCHEDULE",
+      "publishedAt": "2026-09-26",
+      "author": "Tanvir Hasan",
+      "isPinned": false
+    },
+    {
+      "id": "ann-03",
+      "title": "Member Recruitment for Batch 2026/2027 Coming Soon",
+      "content": "Interested students from all departments can now register on the Recruitment Priority Waitlist. Applications will officially open soon, and registered students will receive first-priority interview slots.",
+      "category": "ALERT",
+      "publishedAt": "2026-09-24",
+      "author": "Abrar Jawad",
+      "isPinned": true
+    }
+  ],
+  "waitlist": [
+    {
+      "id": "wt-01",
+      "name": "Mahir Faisal",
+      "email": "mahir.faisal@student.manarat.edu",
+      "studentId": "B27-CS-102",
+      "department": "Computer Science & Engineering",
+      "interests": [
+        "Line Following Robot",
+        "Firmware / C++",
+        "Autonomous AI"
+      ],
+      "submittedAt": "2026-09-28T09:12:00Z",
+      "notified": false
+    },
+    {
+      "id": "wt-02",
+      "name": "Nusrat Jahan",
+      "email": "nusrat.j@student.manarat.edu",
+      "studentId": "B27-EE-045",
+      "department": "Electrical & Electronic Engineering",
+      "interests": [
+        "PCB Design",
+        "RoboSoccer",
+        "Sensor Integration"
+      ],
+      "submittedAt": "2026-09-29T14:30:00Z",
+      "notified": false
+    }
+  ]
+}
