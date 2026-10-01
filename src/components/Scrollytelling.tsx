@@ -12,7 +12,6 @@ import {
   ShieldCheck,
   ArrowRight,
   Compass,
-  Radio,
 } from "lucide-react";
 
 interface ScrollytellingProps {
@@ -102,16 +101,9 @@ export default function Scrollytelling({
         <div className="absolute inset-0 z-5 pointer-events-none cyber-grid opacity-30" />
 
         {/* --- Top Telemetry HUD Overlay --- */}
-        <div className="absolute top-20 left-0 right-0 z-20 pointer-events-none px-6 max-w-7xl mx-auto flex items-center justify-between">
-          <div className="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-full border border-white/10 bg-black/40 backdrop-blur-md text-[11px] font-mono text-white/50">
-            <Radio className="w-3.5 h-3.5 text-[#00d6ff] animate-pulse" />
-            <span className="text-white/80 font-semibold tracking-wider">LFR-MK4 // CAD SEQUENCE</span>
-            <span className="text-white/20">|</span>
-            <span className="text-[#00d6ff]">FRAME FEED ONLINE</span>
-          </div>
-
+        <div className="absolute top-20 left-0 right-0 z-20 pointer-events-none px-6 max-w-7xl mx-auto flex items-center justify-end">
           {/* Interactive Stage Jump HUD */}
-          <div className="pointer-events-auto flex items-center gap-1 p-1 rounded-full border border-white/10 bg-black/60 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.6)] ml-auto">
+          <div className="pointer-events-auto flex items-center gap-1 p-1 rounded-full border border-white/10 bg-black/60 backdrop-blur-xl shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
             {STAGES.map((s) => (
               <button
                 key={s.id}
