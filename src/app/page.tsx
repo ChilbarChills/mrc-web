@@ -36,6 +36,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [loadProgress, setLoadProgress] = useState(0);
   const [smoothScroll, setSmoothScroll] = useState(true);
+  const [scrollIntensity, setScrollIntensity] = useState<"ultra" | "balanced" | "snappy">("ultra");
   const lenisRef = useRef<Lenis | null>(null);
 
   // Data states
@@ -54,47 +55,45 @@ export default function Home() {
   const [waitlistSuccess, setWaitlistSuccess] = useState(false);
   const [waitlistSubmitting, setWaitlistSubmitting] = useState(false);
 
-  // Initialize Lenis smooth scroll
+  // Initialize and synchronize Lenis smooth scroll with ultra-flow physics
   useEffect(() => {
+    const currentLerp =
+      scrollIntensity === "ultra" ? 0.05 : scrollIntensity === "balanced" ? 0.075 : 0.1;
+    const currentMultiplier =
+      scrollIntensity === "ultra" ? 2.2 : scrollIntensity === "balanced" ? 1.6 : 1.2;
+
     const lenis = new Lenis({
-      duration: 1.8,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: "vertical",
-      gestureOrientation: "vertical",
-      smoothWheel: true,
-      syncTouch: false,
-      wheelMultiplier: 1.2,
-      touchMultiplier: 1.5,
+      wrapper: window,
+      content: document.documentElement,
+      eventsTarget: window,
+      smoothWheel: smoothScroll,
+      syncTouch: true,
+      syncTouchLerp: 0.075,
+      touchInertiaExponent: 1.8,
+      touchMultiplier: 1.8,
+      wheelMultiplier: currentMultiplier,
+      lerp: currentLerp,
+      autoRaf: true,
+      respectReducedMotion: false,
+      overscroll: true,
     });
 
     lenisRef.current = lenis;
-
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    const rafId = requestAnimationFrame(raf);
+    (window as any).__lenis = lenis;
 
     return () => {
-      cancelAnimationFrame(rafId);
       lenis.destroy();
       lenisRef.current = null;
+      delete (window as any).__lenis;
     };
-  }, []);
-
-  // Sync toggle state with Lenis
-  useEffect(() => {
-    if (!lenisRef.current) return;
-    if (smoothScroll) {
-      lenisRef.current.start();
-    } else {
-      lenisRef.current.stop();
-    }
-  }, [smoothScroll]);
+  }, [smoothScroll, scrollIntensity]);
 
   const handleToggleSmoothScroll = useCallback(() => {
     setSmoothScroll((prev) => !prev);
+  }, []);
+
+  const handleChangeIntensity = useCallback((intensity: "ultra" | "balanced" | "snappy") => {
+    setScrollIntensity(intensity);
   }, []);
 
   const handleLoadProgress = useCallback((progress: number) => {
@@ -645,10 +644,12 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Bottom Left Preferences Menu with Smooth Scroll Toggle */}
+        {/* Bottom Left Preferences Menu with Smooth Scroll Toggle & Momentum Presets */}
         <PreferencesMenu
           smoothScroll={smoothScroll}
           onToggleSmoothScroll={handleToggleSmoothScroll}
+          scrollIntensity={scrollIntensity}
+          onChangeIntensity={handleChangeIntensity}
         />
 
         {/* Event Registration Modal */}

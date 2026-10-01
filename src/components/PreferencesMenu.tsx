@@ -6,11 +6,15 @@ import { useState, useRef, useEffect } from "react";
 interface PreferencesMenuProps {
   smoothScroll: boolean;
   onToggleSmoothScroll: () => void;
+  scrollIntensity: "ultra" | "balanced" | "snappy";
+  onChangeIntensity: (intensity: "ultra" | "balanced" | "snappy") => void;
 }
 
 export default function PreferencesMenu({
   smoothScroll,
   onToggleSmoothScroll,
+  scrollIntensity,
+  onChangeIntensity,
 }: PreferencesMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -37,25 +41,25 @@ export default function PreferencesMenu({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.96 }}
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-3 w-64 rounded-2xl border border-white/10 bg-[#0A0A0C]/90 p-4 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.7)]"
+            className="mb-3 w-72 rounded-2xl border border-white/10 bg-[#0A0A0C]/95 p-4 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.85)]"
           >
             {/* Header */}
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
               <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-white/50">
-                Preferences
+                Motion Dynamics
               </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#00D6FF]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#00D6FF] shadow-[0_0_8px_#00D6FF]" />
             </div>
 
             {/* Toggles list */}
-            <div className="pt-3">
+            <div className="pt-3 space-y-3">
               <button
                 type="button"
                 onClick={onToggleSmoothScroll}
-                className="w-full flex items-center justify-between py-2 px-1 text-left group"
+                className="w-full flex items-center justify-between py-1 text-left group"
               >
                 <div className="flex flex-col">
-                  <span className="text-xs font-medium text-white/90 group-hover:text-white transition-colors">
+                  <span className="text-xs font-semibold text-white/90 group-hover:text-white transition-colors">
                     Flowy Smooth Scroll
                   </span>
                   <span className="text-[10px] text-white/40">
@@ -78,6 +82,55 @@ export default function PreferencesMenu({
                   />
                 </div>
               </button>
+
+              {/* Intensity Presets (Visible when smoothScroll is active) */}
+              {smoothScroll && (
+                <div className="pt-2 border-t border-white/5">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-white/40 block mb-2">
+                    Scroll Momentum
+                  </span>
+                  <div className="grid grid-cols-3 gap-1 p-1 rounded-xl bg-white/[0.04] border border-white/10 text-[10px] font-mono">
+                    <button
+                      type="button"
+                      onClick={() => onChangeIntensity("ultra")}
+                      className={`py-1.5 px-2 rounded-lg transition-all text-center ${
+                        scrollIntensity === "ultra"
+                          ? "bg-[#00D6FF] text-black font-bold shadow-[0_0_12px_rgba(0,214,255,0.4)]"
+                          : "text-white/60 hover:text-white hover:bg-white/5"
+                      }`}
+                    >
+                      Ultra Flow
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => onChangeIntensity("balanced")}
+                      className={`py-1.5 px-2 rounded-lg transition-all text-center ${
+                        scrollIntensity === "balanced"
+                          ? "bg-[#00D6FF] text-black font-bold shadow-[0_0_12px_rgba(0,214,255,0.4)]"
+                          : "text-white/60 hover:text-white hover:bg-white/5"
+                      }`}
+                    >
+                      Balanced
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => onChangeIntensity("snappy")}
+                      className={`py-1.5 px-2 rounded-lg transition-all text-center ${
+                        scrollIntensity === "snappy"
+                          ? "bg-[#00D6FF] text-black font-bold shadow-[0_0_12px_rgba(0,214,255,0.4)]"
+                          : "text-white/60 hover:text-white hover:bg-white/5"
+                      }`}
+                    >
+                      Snappy
+                    </button>
+                  </div>
+                  <span className="text-[9px] text-white/30 block mt-1.5 font-mono">
+                    {scrollIntensity === "ultra" && "⚡ High travel (2.2x) & long silky glide"}
+                    {scrollIntensity === "balanced" && "⚖ Standard continuous smooth inertia"}
+                    {scrollIntensity === "snappy" && "🎯 Fast, direct response with light taper"}
+                  </span>
+                </div>
+              )}
             </div>
           </motion.div>
         )}

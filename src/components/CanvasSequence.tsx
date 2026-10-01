@@ -49,8 +49,11 @@ export default function CanvasSequence({
     setImages(loadedImages);
   }, [onLoadProgress, onLoaded]);
 
+  const lastDrawnFrameRef = useRef(-1);
+
   const drawFrame = (frameIndex: number) => {
     if (!canvasRef.current || images.length === 0) return;
+    if (lastDrawnFrameRef.current === frameIndex) return;
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -58,6 +61,7 @@ export default function CanvasSequence({
 
     const img = images[frameIndex];
     if (img && img.complete) {
+      lastDrawnFrameRef.current = frameIndex;
       const canvasRatio = canvas.width / canvas.height;
       const imgRatio = img.width / img.height;
       let drawWidth = canvas.width;
@@ -81,7 +85,7 @@ export default function CanvasSequence({
   useMotionValueEvent(progress, "change", (latest) => {
     let frameIndex = Math.floor(latest * (TOTAL_FRAMES - 1));
     frameIndex = Math.max(0, Math.min(frameIndex, TOTAL_FRAMES - 1));
-    requestAnimationFrame(() => drawFrame(frameIndex));
+    drawFrame(frameIndex);
   });
 
   // Handle resize and initial draw

@@ -44,8 +44,15 @@ Design and implement a hyper-premium, Apple-level, cinematic scrollytelling land
   - `PreferencesMenu.tsx`: Fixed bottom-left floating menu with glassmorphism popover. Features an Apple-style toggle switch for "Flowy Smooth Scroll" that turns Lenis inertia physics on or off dynamically.
   - `CustomScrollbar.tsx`: Custom minimal, thin floating scroll indicator replacing the clunky default browser scrollbars. Hidden when idle, smoothly reveals with a gradient glow (`#00D6FF`) along a razor-thin hairline track when actively scrolling.
   - `page.tsx`: Manages loading gate (`isLoading`), holding the underlying page transparent and un-interactable until assets fully load, followed by a cinematic crossfade into the landing page. Initializes Lenis smooth scrolling instance with pronounced mouse-wheel inertia (`duration: 1.8s`, `wheelMultiplier: 1.2`, heavy exponential deceleration easing). Unlocked root viewport constraints from `html/body` to ensure mouse wheel delta events intercept cleanly across physical notched wheels.
+- **Database & Cloud Storage (Supabase):**
+  - Integrated `@supabase/supabase-js` into `src/lib/supabase.ts` connected to project `rcigwuihxbgxjmqoygtl`.
+  - Upgraded `src/lib/db.ts` to query live PostgreSQL tables (`events`, `registrations`, `waitlist`, `announcements`, `projects`, `users`) with zero-downtime memory fallbacks.
+  - Created `supabase_schema.sql` ready to run in the Supabase SQL Editor.
 
 ## File Map
+- `src/lib/supabase.ts` - Supabase client setup (Anon & Service Role).
+- `src/lib/db.ts` - Cloud database service layer querying Supabase tables.
+- `supabase_schema.sql` - Ready-to-run PostgreSQL schema script for Supabase.
 - `src/app/page.tsx` - Main layout for landing page with Lenis smooth scroll provider.
 - `src/components/CustomScrollbar.tsx` - Thin aesthetic floating scroll indicator.
 - `src/components/PreferencesMenu.tsx` - Floating bottom-left preferences widget with smooth scroll toggle.
