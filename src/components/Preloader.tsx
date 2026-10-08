@@ -25,7 +25,10 @@ export default function Preloader({ isLoading, progress }: PreloaderProps) {
         >
           {/* Top bar: Quiet, architectural identity header */}
           <div className="flex items-center justify-between w-full text-[11px] uppercase tracking-[0.28em] text-white/40 font-mono">
-            <span>Manarat Robotics Club</span>
+            <div className="flex items-center gap-3">
+              <span>Manarat Robotics Club</span>
+              <span className="px-1.5 py-0.5 rounded border border-white/10 bg-white/5 text-[9px] text-[#00d6ff] tracking-normal lowercase">v0.2</span>
+            </div>
             <span className="hidden sm:inline text-white/20">Engineering &amp; Design</span>
           </div>
 
