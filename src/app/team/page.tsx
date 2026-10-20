@@ -2,117 +2,129 @@
 
 import Navbar from "@/components/Navbar";
 import { initialUsers } from "@/lib/seed-data";
-import { ShieldCheck, Mail, Award, BookOpen, Compass, User } from "lucide-react";
-import Link from "next/link";
+import { ShieldCheck, Layers, Cpu, Radio, Activity, Film } from "lucide-react";
 
 export default function TeamPage() {
-  const advisors = initialUsers.filter((u) => u.title.includes("Advisor") || u.title.includes("Mentor"));
-  const studentLeaders = initialUsers.filter((u) => !u.title.includes("Advisor") && !u.title.includes("Mentor"));
+  const execMembers = initialUsers.filter((u) => u.role === "EXECUTIVE");
+  const projectMembers = initialUsers.filter((u) => u.title.includes("Projects"));
+  const itMembers = initialUsers.filter((u) => u.title.includes("IT"));
+  const commMembers = initialUsers.filter((u) => u.title.includes("Communications"));
+  const actMembers = initialUsers.filter((u) => u.title.includes("Activity"));
+  const mediaMembers = initialUsers.filter((u) => u.title.includes("Media"));
+
+  const sections = [
+    {
+      title: "Executive Board",
+      icon: ShieldCheck,
+      badge: "EXECUTIVE LEADERSHIP",
+      members: execMembers,
+    },
+    {
+      title: "Project Department",
+      icon: Layers,
+      badge: "HARDWARE & SYSTEMS",
+      members: projectMembers,
+    },
+    {
+      title: "IT Department",
+      icon: Cpu,
+      badge: "SOFTWARE & INFRASTRUCTURE",
+      members: itMembers,
+    },
+    {
+      title: "Communication Department",
+      icon: Radio,
+      badge: "PR & COMMUNITY",
+      members: commMembers,
+    },
+    {
+      title: "Activity Department",
+      icon: Activity,
+      badge: "OPERATIONS & EVENTS",
+      members: actMembers,
+    },
+    {
+      title: "Media Department",
+      icon: Film,
+      badge: "MEDIA & BRANDING",
+      members: mediaMembers,
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-[#050508] text-white flex flex-col justify-between">
+    <div className="min-h-screen bg-[#070E1A] text-white flex flex-col justify-between selection:bg-[#00d6ff]/20">
       <Navbar />
 
       <main className="pt-28 pb-24 px-6 max-w-7xl mx-auto w-full flex-1">
         {/* Header */}
-        <div className="mb-14">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 mb-4">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="cyber-badge text-emerald-400">LEADERSHIP &amp; MENTORSHIP</span>
+        <div className="mb-14 text-center md:text-left">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#00d6ff]/30 bg-[#00d6ff]/10 mb-4">
+            <ShieldCheck className="w-3.5 h-3.5 text-[#00d6ff]" />
+            <span className="cyber-badge text-[#00d6ff]">COMMITTEE ROSTER</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-white mb-4">
-            Club <span className="text-[#00d6ff]">Leadership</span>
+          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-white mb-3">
+            Club <span className="text-[#00d6ff]">Committee</span>
           </h1>
           <p className="text-sm md:text-base text-white/60 max-w-2xl leading-relaxed">
-            The student executives driving the engineering direction and national competition representation of Manarat Robotics Club.
+            The committee members leading and managing Manarat Robotics Club.
           </p>
         </div>
 
-        {/* Faculty Advisors Section */}
-        {advisors.length > 0 && (
-          <div className="mb-16">
-            <div className="border-b border-white/10 pb-4 mb-8">
-              <h2 className="text-xl font-mono uppercase tracking-widest text-[#00d6ff]">
-                Faculty Advisors &amp; Patrons
-              </h2>
-            </div>
+        {/* Committee Sections */}
+        <div className="space-y-16">
+          {sections.map((section) => {
+            const Icon = section.icon;
+            if (section.members.length === 0) return null;
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {advisors.map((advisor) => (
-                <div key={advisor.id} className="cyber-card p-8 rounded-2xl border border-white/10 flex flex-col justify-between">
+            return (
+              <div key={section.title} className="relative">
+                {/* Section Header */}
+                <div className="flex items-center gap-3 border-b border-white/10 pb-4 mb-8">
+                  <div className="w-8 h-8 rounded-lg bg-[#00d6ff]/10 border border-[#00d6ff]/30 flex items-center justify-center text-[#00d6ff]">
+                    <Icon className="w-4 h-4" />
+                  </div>
                   <div>
-                    <div className="flex items-center gap-4 mb-6">
-                      <div className="w-16 h-16 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-white/70 shadow-[0_0_15px_rgba(255,255,255,0.05)] shrink-0">
-                        <User className="w-8 h-8" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-white">{advisor.name}</h3>
-                        <p className="text-xs font-mono text-[#00d6ff] uppercase tracking-wider">
-                          {advisor.title}
-                        </p>
-                        <span className="text-[10px] font-mono text-white/40 block mt-0.5">
-                          ID: {advisor.studentId}
-                        </span>
-                      </div>
-                    </div>
-
-                    <p className="text-xs md:text-sm text-white/70 leading-relaxed font-light mb-6">
-                      {advisor.bio}
-                    </p>
+                    <h2 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-white">
+                      {section.title}
+                    </h2>
+                    <span className="text-[10px] font-mono tracking-widest text-[#86A8CF] uppercase">
+                      {section.badge}
+                    </span>
                   </div>
+                </div>
 
-                  <div className="text-xs font-mono text-white/40 pt-4 border-t border-white/5 flex items-center justify-between">
-                    <span>Manarat Dhaka International College</span>
-                    <a
-                      href={`mailto:${advisor.email}`}
-                      className="text-[#00d6ff] hover:underline flex items-center gap-1"
+                {/* Grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+                  {section.members.map((member) => (
+                    <div
+                      key={member.id}
+                      className="group cyber-card p-4 rounded-xl border border-white/10 hover:border-[#00d6ff]/50 transition-all duration-300 flex flex-col items-center text-center bg-white/[0.02] hover:bg-white/[0.04]"
                     >
-                      <Mail className="w-3.5 h-3.5" />
-                      <span>Contact</span>
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Student Executive Committee */}
-        <div>
-          <div className="border-b border-white/10 pb-4 mb-8">
-            <h2 className="text-xl font-mono uppercase tracking-widest text-[#00d6ff]">
-              Student Executive Board
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {studentLeaders.map((member) => (
-              <div key={member.id} className="cyber-card p-6 rounded-2xl border border-white/10 flex flex-col justify-between">
-                <div>
-                  <div className="w-16 h-16 rounded-full overflow-hidden border border-[#00d6ff]/30 mb-4">
-                    <img
-                      src={member.avatar}
-                      alt={member.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <h3 className="text-lg font-bold text-white mb-1">{member.name}</h3>
-                  <p className="text-xs font-mono text-[#00d6ff] mb-2">{member.title}</p>
-                  <p className="text-xs text-white/60 leading-relaxed mb-4">{member.bio}</p>
-                </div>
-
-                <div className="text-[10px] font-mono text-white/40 pt-3 border-t border-white/5 flex justify-between">
-                  <span>Batch: {member.joinedYear}</span>
-                  <span className="text-emerald-400 font-semibold">{member.role}</span>
+                      <div className="w-full aspect-square rounded-lg overflow-hidden border border-white/15 group-hover:border-[#00d6ff]/40 transition-colors mb-3.5 bg-black/40">
+                        <img
+                          src={member.avatar}
+                          alt={member.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
+                        />
+                      </div>
+                      <h3 className="text-sm md:text-base font-bold text-white group-hover:text-[#00d6ff] transition-colors leading-snug mb-1">
+                        {member.name}
+                      </h3>
+                      <p className="text-xs font-mono text-[#00d6ff]/90 tracking-wide">
+                        {member.title}
+                      </p>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </main>
 
-      <footer className="border-t border-white/10 bg-[#040406] py-8 text-center text-xs font-mono text-white/40">
-        <p>© {new Date().getFullYear()} Manarat Robotics Club. Leadership Roster.</p>
+      <footer className="border-t border-[#86A8CF]/15 bg-[#040C16] py-8 text-center text-xs font-mono text-white/40">
+        <p>© {new Date().getFullYear()} Manarat Robotics Club. Official Committee Roster.</p>
       </footer>
     </div>
   );
