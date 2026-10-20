@@ -218,67 +218,91 @@ export default function Home() {
                 Every <span className="text-[#00d6ff] font-semibold">Thursday after school</span>, MRC runs hands-on sessions for curious and motivated students of Manarat—giving them a clear idea of how robotics and AI actually matter in the real world. With little to no boring theory, students work closely with real components, learn how systems are controlled through code, build practical skills, and showcase pure skill on competitive stages.
               </p>
               <p className="text-xs font-mono text-[#86A8CF]">
-                Operated by an executive board and four specialized departments, each driving the club forward:
+                Operated by an executive board and five specialized departments, each driving the club forward:
               </p>
             </div>
           </div>
 
-          {/* Four Core Departments */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Dept 01: Technology */}
-            <div className="cyber-card p-6 md:p-7 rounded-2xl border border-white/10 hover:border-[#00d6ff]/40 transition-all group">
-              <div className="text-[10px] font-mono text-white/40 uppercase tracking-[0.2em] mb-3">
-                DEPARTMENT 01
+          {/* Five Core Departments */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+            {/* Dept 01: Project */}
+            <div className="cyber-card p-5 md:p-6 rounded-2xl border border-white/10 hover:border-[#00d6ff]/40 transition-all group flex flex-col justify-between">
+              <div>
+                <div className="text-[10px] font-mono text-white/40 uppercase tracking-[0.2em] mb-3">
+                  DEPARTMENT 01
+                </div>
+                <div className="w-11 h-11 rounded-xl bg-[#0050ff]/20 border border-[#0050ff]/40 flex items-center justify-center text-[#00d6ff] mb-4 group-hover:scale-110 transition-transform">
+                  <Cpu className="w-5 h-5" />
+                </div>
+                <h3 className="text-base font-bold uppercase text-white mb-2 group-hover:text-[#00d6ff] transition-colors">Project</h3>
+                <p className="text-xs text-white/60 leading-relaxed">
+                  Handles competitive robot builds, hardware architecture, sensor integration, and tournament engineering.
+                </p>
               </div>
-              <div className="w-12 h-12 rounded-xl bg-[#0050ff]/20 border border-[#0050ff]/40 flex items-center justify-center text-[#00d6ff] mb-4 group-hover:scale-110 transition-transform">
-                <Cpu className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold uppercase text-white mb-2">Technology Dept.</h3>
-              <p className="text-xs text-white/60 leading-relaxed">
-                Handles robotics design, bare-metal C++ coding, electronics, and technical operations—the primary engine of the club.
-              </p>
             </div>
 
-            {/* Dept 02: Event Management */}
-            <div className="cyber-card p-6 md:p-7 rounded-2xl border border-white/10 hover:border-[#00d6ff]/40 transition-all group">
-              <div className="text-[10px] font-mono text-white/40 uppercase tracking-[0.2em] mb-3">
-                DEPARTMENT 02
+            {/* Dept 02: Information Technology */}
+            <div className="cyber-card p-5 md:p-6 rounded-2xl border border-white/10 hover:border-[#00d6ff]/40 transition-all group flex flex-col justify-between">
+              <div>
+                <div className="text-[10px] font-mono text-white/40 uppercase tracking-[0.2em] mb-3">
+                  DEPARTMENT 02
+                </div>
+                <div className="w-11 h-11 rounded-xl bg-[#00d6ff]/15 border border-[#00d6ff]/30 flex items-center justify-center text-[#00d6ff] mb-4 group-hover:scale-110 transition-transform">
+                  <Zap className="w-5 h-5" />
+                </div>
+                <h3 className="text-base font-bold uppercase text-white mb-2 group-hover:text-[#00d6ff] transition-colors">Information Technology</h3>
+                <p className="text-xs text-white/60 leading-relaxed">
+                  Maintains club web systems, software infrastructure, technical platforms, and digital development.
+                </p>
               </div>
-              <div className="w-12 h-12 rounded-xl bg-[#00d6ff]/15 border border-[#00d6ff]/30 flex items-center justify-center text-[#00d6ff] mb-4 group-hover:scale-110 transition-transform">
-                <Calendar className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold uppercase text-white mb-2">Event Management</h3>
-              <p className="text-xs text-white/60 leading-relaxed">
-                Plans and executes practical workshops, bootcamps, and national tournaments like Robofest, keeping activities on track.
-              </p>
             </div>
 
             {/* Dept 03: Communication */}
-            <div className="cyber-card p-6 md:p-7 rounded-2xl border border-white/10 hover:border-[#C38EB4]/40 transition-all group">
-              <div className="text-[10px] font-mono text-white/40 uppercase tracking-[0.2em] mb-3">
-                DEPARTMENT 03
+            <div className="cyber-card p-5 md:p-6 rounded-2xl border border-white/10 hover:border-[#C38EB4]/40 transition-all group flex flex-col justify-between">
+              <div>
+                <div className="text-[10px] font-mono text-white/40 uppercase tracking-[0.2em] mb-3">
+                  DEPARTMENT 03
+                </div>
+                <div className="w-11 h-11 rounded-xl bg-[#C38EB4]/15 border border-[#C38EB4]/30 flex items-center justify-center text-[#C38EB4] mb-4 group-hover:scale-110 transition-transform">
+                  <MessageSquare className="w-5 h-5" />
+                </div>
+                <h3 className="text-base font-bold uppercase text-white mb-2 group-hover:text-[#C38EB4] transition-colors">Communication</h3>
+                <p className="text-xs text-white/60 leading-relaxed">
+                  Oversees student outreach, institutional communications, sponsor collaborations, and club PR.
+                </p>
               </div>
-              <div className="w-12 h-12 rounded-xl bg-[#C38EB4]/15 border border-[#C38EB4]/30 flex items-center justify-center text-[#C38EB4] mb-4 group-hover:scale-110 transition-transform">
-                <MessageSquare className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold uppercase text-white mb-2">Communication Dept.</h3>
-              <p className="text-xs text-white/60 leading-relaxed">
-                Handles social media, student outreach, institutional partners, and sponsors to keep the club prominent and visible.
-              </p>
             </div>
 
             {/* Dept 04: Media */}
-            <div className="cyber-card p-6 md:p-7 rounded-2xl border border-white/10 hover:border-[#E1CBD7]/40 transition-all group">
-              <div className="text-[10px] font-mono text-white/40 uppercase tracking-[0.2em] mb-3">
-                DEPARTMENT 04
+            <div className="cyber-card p-5 md:p-6 rounded-2xl border border-white/10 hover:border-[#E1CBD7]/40 transition-all group flex flex-col justify-between">
+              <div>
+                <div className="text-[10px] font-mono text-white/40 uppercase tracking-[0.2em] mb-3">
+                  DEPARTMENT 04
+                </div>
+                <div className="w-11 h-11 rounded-xl bg-[#E1CBD7]/15 border border-[#E1CBD7]/30 flex items-center justify-center text-[#E1CBD7] mb-4 group-hover:scale-110 transition-transform">
+                  <Sparkles className="w-5 h-5" />
+                </div>
+                <h3 className="text-base font-bold uppercase text-white mb-2 group-hover:text-[#E1CBD7] transition-colors">Media</h3>
+                <p className="text-xs text-white/60 leading-relaxed">
+                  Produces tournament video coverage, visual branding, graphic design, and promotional media.
+                </p>
               </div>
-              <div className="w-12 h-12 rounded-xl bg-[#E1CBD7]/15 border border-[#E1CBD7]/30 flex items-center justify-center text-[#E1CBD7] mb-4 group-hover:scale-110 transition-transform">
-                <Sparkles className="w-6 h-6" />
+            </div>
+
+            {/* Dept 05: Activity */}
+            <div className="cyber-card p-5 md:p-6 rounded-2xl border border-white/10 hover:border-[#00d6ff]/40 transition-all group flex flex-col justify-between">
+              <div>
+                <div className="text-[10px] font-mono text-white/40 uppercase tracking-[0.2em] mb-3">
+                  DEPARTMENT 05
+                </div>
+                <div className="w-11 h-11 rounded-xl bg-[#00d6ff]/15 border border-[#00d6ff]/30 flex items-center justify-center text-[#00d6ff] mb-4 group-hover:scale-110 transition-transform">
+                  <Activity className="w-5 h-5" />
+                </div>
+                <h3 className="text-base font-bold uppercase text-white mb-2 group-hover:text-[#00d6ff] transition-colors">Activity</h3>
+                <p className="text-xs text-white/60 leading-relaxed">
+                  Organizes Thursday hands-on workshops, internal tournaments, bootcamp logistics, and member engagement.
+                </p>
               </div>
-              <h3 className="text-lg font-bold uppercase text-white mb-2">Media Dept.</h3>
-              <p className="text-xs text-white/60 leading-relaxed">
-                Designs clean graphics, tournament posters, build logs, and video highlights that represent our engineering triumphs.
-              </p>
             </div>
           </div>
         </section>
