@@ -167,8 +167,10 @@ export default function Scrollytelling({
 
                 <div className="max-w-2xl px-6 py-4 rounded-2xl bg-[#070E1A]/80 backdrop-blur-md border border-[#86A8CF]/30 shadow-[0_10px_35px_rgba(0,0,0,0.8)] mb-8">
                   <p className="text-base sm:text-lg text-[#E1CBD7] leading-relaxed font-normal">
-                    ...Where lines meet algorithms. The Official Robotics needs of{" "}
-                    <span className="text-[#00d6ff] font-semibold">Manarat Dhaka International College</span>.
+                    Where lines meet algorithms. The Official Robotics needs of
+                    <span className="block mt-1 text-[#00d6ff] font-semibold">
+                      Manarat Dhaka International College
+                    </span>
                   </p>
                 </div>
 
