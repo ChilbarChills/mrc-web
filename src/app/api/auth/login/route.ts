@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 
 export async function POST(req: Request) {
   try {
-    const { email } = await req.json();
+    const { email, password } = await req.json();
 
     if (!email) {
       return NextResponse.json({ success: false, error: "Email is required" }, { status: 400 });
@@ -14,6 +14,14 @@ export async function POST(req: Request) {
     if (!user) {
       return NextResponse.json(
         { success: false, error: "No user found with this email" },
+        { status: 401 }
+      );
+    }
+
+    // If user has a password configured, verify it
+    if (user.password && password && user.password !== password.trim()) {
+      return NextResponse.json(
+        { success: false, error: "Incorrect password entered" },
         { status: 401 }
       );
     }

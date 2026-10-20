@@ -31,6 +31,10 @@ import {
   X,
   RefreshCw,
   Filter,
+  UserPlus,
+  UserCheck,
+  Shield,
+  UserMinus,
 } from "lucide-react";
 
 export default function ExecutivePortalPage() {
@@ -46,7 +50,20 @@ export default function ExecutivePortalPage() {
   const [selectedMessage, setSelectedMessage] = useState<ContactMessage | null>(null);
   const [messageFilter, setMessageFilter] = useState<"ALL" | "UNREAD" | "READ" | "REPLIED">("ALL");
   const [messageSearch, setMessageSearch] = useState("");
-  const [activeTab, setActiveTab] = useState<"EVENTS" | "WAITLIST" | "MESSAGES" | "TRANSMISSIONS" | "INVENTORY">("EVENTS");
+  const [usersList, setUsersList] = useState<User[]>([]);
+  const [userRoleFilter, setUserRoleFilter] = useState<"ALL" | "EXECUTIVE" | "MEMBER">("ALL");
+  const [userSearch, setUserSearch] = useState("");
+  const [showUserModal, setShowUserModal] = useState(false);
+  const [newUser, setNewUser] = useState({
+    name: "",
+    email: "",
+    role: "MEMBER" as "MEMBER" | "EXECUTIVE",
+    studentId: "",
+    title: "Robotics Member",
+    department: "Technology",
+    password: "",
+  });
+  const [activeTab, setActiveTab] = useState<"EVENTS" | "WAITLIST" | "MESSAGES" | "ROSTER" | "TRANSMISSIONS" | "INVENTORY">("EVENTS");
   const [loadingMessages, setLoadingMessages] = useState(false);
 
   // New Event Form State
@@ -76,20 +93,22 @@ export default function ExecutivePortalPage() {
   const loadAllData = async () => {
     try {
       setLoadingMessages(true);
-      const [evtRes, regRes, wtRes, annRes, msgRes] = await Promise.all([
+      const [evtRes, regRes, wtRes, annRes, msgRes, usrRes] = await Promise.all([
         fetch("/api/events"),
         fetch("/api/register"),
         fetch("/api/waitlist"),
         fetch("/api/announcements"),
         fetch("/api/contact"),
+        fetch("/api/users"),
       ]);
 
-      const [evtJson, regJson, wtJson, annJson, msgJson] = await Promise.all([
+      const [evtJson, regJson, wtJson, annJson, msgJson, usrJson] = await Promise.all([
         evtRes.json(),
         regRes.json(),
         wtRes.json(),
         annRes.json(),
         msgRes.json(),
+        usrRes.json(),
       ]);
 
       if (evtJson.success) setEvents(evtJson.events);
@@ -97,6 +116,7 @@ export default function ExecutivePortalPage() {
       if (wtJson.success) setWaitlist(wtJson.waitlist);
       if (annJson.success) setAnnouncements(annJson.announcements);
       if (msgJson.success) setMessages(msgJson.messages);
+      if (usrJson.success) setUsersList(usrJson.users);
     } catch (err) {
       console.error("Failed to load executive data", err);
     } finally {
@@ -181,6 +201,93 @@ export default function ExecutivePortalPage() {
       }
     } catch (err) {
       console.error("Failed to update status", err);
+    }
+  };
+
+  
+  const handleCreateUser = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newUser),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setUsersList([data.user, ...usersList]);
+        setShowUserModal(false);
+        setNewUser({
+          name: "",
+          email: "",
+          role: "MEMBER",
+          studentId: "",
+          title: "Robotics Member",
+          department: "Technology",
+          password: "",
+        });
+        alert(`Account created successfully for ${data.user.name}!`);
+      } else {
+        alert(data.error || "Failed to create account");
+      }
+    } catch {
+      alert("Error creating account");
+    }
+  };
+
+  const handleToggleUserRole = async (userId: string, currentRole: "MEMBER" | "EXECUTIVE") => {
+    const newRole = currentRole === "MEMBER" ? "EXECUTIVE" : "MEMBER";
+    const newTitle = newRole === "EXECUTIVE" ? "Executive Officer" : "Robotics Member";
+    try {
+      const res = await fetch("/api/users", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: userId, role: newRole, title: newTitle }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setUsersList(usersList.map((u) => (u.id === userId ? { ...u, role: newRole, title: newTitle } : u)));
+      }
+    } catch {
+      alert("Failed to update user role");
+    }
+  };
+
+  const handleDeleteUser = async (userId: string) => {
+    if (!confirm("Are you sure you want to revoke and delete this account?")) return;
+    try {
+      const res = await fetch(`/api/users?id=${userId}`, { method: "DELETE" });
+      const data = await res.json();
+      if (data.success) {
+        setUsersList(usersList.filter((u) => u.id !== userId));
+      }
+    } catch {
+      alert("Failed to delete user");
+    }
+  };
+
+  const handleApproveWaitlistEntry = async (entry: WaitlistEntry) => {
+    try {
+      const res = await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: entry.name,
+          email: entry.email,
+          studentId: entry.studentId,
+          role: "MEMBER",
+          title: `Member • ${entry.department} Dept`,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setUsersList([data.user, ...usersList]);
+        alert(`Account created for ${entry.name}! They can now log in at /login.`);
+      } else {
+        alert(data.error || "Failed to create member account");
+      }
+    } catch {
+      alert("Error creating account from waitlist");
     }
   };
 
@@ -360,6 +467,18 @@ export default function ExecutivePortalPage() {
             <span>Transmissions Broadcast</span>
           </button>
 
+
+          <button
+            onClick={() => setActiveTab("ROSTER")}
+            className={`px-4 py-2.5 rounded-xl transition-all flex items-center gap-2 ${
+              activeTab === "ROSTER"
+                ? "bg-[#00d6ff] text-black font-bold shadow-[0_0_15px_rgba(0,214,255,0.3)]"
+                : "bg-white/[0.04] text-white/70 hover:bg-white/[0.08]"
+            }`}
+          >
+            <Users className="w-3.5 h-3.5" />
+            <span>Club Roster &amp; Accounts ({usersList.length})</span>
+          </button>
           <button
             onClick={() => setActiveTab("INVENTORY")}
             className={`px-4 py-2.5 rounded-xl transition-all flex items-center gap-2 ${
@@ -582,6 +701,7 @@ export default function ExecutivePortalPage() {
                     <th className="py-2.5 px-3">DEPARTMENT</th>
                     <th className="py-2.5 px-3">INTERESTS</th>
                     <th className="py-2.5 px-3">STATUS</th>
+                    <th className="py-2.5 px-3 text-right">ACTION</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -598,6 +718,14 @@ export default function ExecutivePortalPage() {
                         <span className="px-2 py-0.5 rounded bg-[#00d6ff]/15 text-[#00d6ff] border border-[#00d6ff]/30 text-[10px]">
                           Pending Intake
                         </span>
+                      </td>
+                      <td className="py-3 px-3 text-right">
+                        <button
+                          onClick={() => handleApproveWaitlistEntry(item)}
+                          className="px-2.5 py-1 rounded bg-[#00d6ff]/10 hover:bg-[#00d6ff]/20 text-[#00d6ff] border border-[#00d6ff]/30 text-[10px] font-mono transition-colors"
+                        >
+                          + Approve &amp; Create Account
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -941,6 +1069,277 @@ export default function ExecutivePortalPage() {
                       </a>
                     </div>
                   </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        
+        {/* TAB: CLUB ROSTER & ACCOUNTS */}
+        {activeTab === "ROSTER" && (
+          <div className="space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <span className="cyber-badge text-[#00d6ff]">USER &amp; IDENTITY MANAGEMENT</span>
+                <h2 className="text-xl md:text-2xl font-bold uppercase text-white font-mono mt-1">
+                  Club Roster &amp; Portal Accounts ({usersList.length})
+                </h2>
+                <p className="text-xs font-mono text-white/50">
+                  Manage active member &amp; executive credentials stored in the Supabase cloud database
+                </p>
+              </div>
+
+              <button
+                onClick={() => setShowUserModal(true)}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#00d6ff] hover:bg-[#38e1ff] text-black font-mono font-bold text-xs uppercase transition-all shadow-[0_0_15px_rgba(0,214,255,0.3)] self-start sm:self-auto"
+              >
+                <UserPlus className="w-4 h-4" />
+                <span>Provision New Account</span>
+              </button>
+            </div>
+
+            {/* Filter and Search Bar */}
+            <div className="cyber-card p-4 rounded-2xl border border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs font-mono">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-white/40 text-[11px] flex items-center gap-1 mr-1">
+                  <Filter className="w-3 h-3" /> Filter:
+                </span>
+                {(["ALL", "EXECUTIVE", "MEMBER"] as const).map((filter) => {
+                  const count =
+                    filter === "ALL"
+                      ? usersList.length
+                      : usersList.filter((u) => u.role === filter).length;
+                  const isActive = userRoleFilter === filter;
+                  return (
+                    <button
+                      key={filter}
+                      onClick={() => setUserRoleFilter(filter)}
+                      className={`px-3 py-1.5 rounded-lg border transition-all text-xs flex items-center gap-1.5 ${
+                        isActive
+                          ? "bg-[#00d6ff]/20 text-[#00d6ff] border-[#00d6ff]/50 font-bold"
+                          : "bg-white/[0.02] text-white/60 border-white/5 hover:bg-white/[0.05]"
+                      }`}
+                    >
+                      <span>{filter}</span>
+                      <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-white/10 text-white/80">
+                        {count}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="relative min-w-[240px]">
+                <Search className="w-3.5 h-3.5 text-white/40 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  placeholder="Search name, email, student ID..."
+                  value={userSearch}
+                  onChange={(e) => setUserSearch(e.target.value)}
+                  className="w-full pl-9 pr-3 py-2 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-white/40 focus:border-[#00d6ff]/50 outline-none text-xs"
+                />
+              </div>
+            </div>
+
+            {/* Users Table */}
+            <div className="cyber-card p-6 rounded-2xl border border-white/10">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs font-mono">
+                  <thead>
+                    <tr className="border-b border-white/10 text-white/40 text-[10px]">
+                      <th className="py-2.5 px-3">MEMBER</th>
+                      <th className="py-2.5 px-3">EMAIL</th>
+                      <th className="py-2.5 px-3">STUDENT ID</th>
+                      <th className="py-2.5 px-3">TITLE / ROLE</th>
+                      <th className="py-2.5 px-3">ROLE BADGE</th>
+                      <th className="py-2.5 px-3 text-right">MANAGE</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {usersList
+                      .filter((u) => {
+                        if (userRoleFilter !== "ALL" && u.role !== userRoleFilter) return false;
+                        if (userSearch.trim()) {
+                          const q = userSearch.toLowerCase();
+                          return (
+                            u.name.toLowerCase().includes(q) ||
+                            u.email.toLowerCase().includes(q) ||
+                            u.studentId.toLowerCase().includes(q) ||
+                            u.title.toLowerCase().includes(q)
+                          );
+                        }
+                        return true;
+                      })
+                      .map((u) => (
+                        <tr key={u.id} className="border-b border-white/5 hover:bg-white/[0.02]">
+                          <td className="py-3 px-3">
+                            <div className="flex items-center gap-2.5">
+                              <div className="w-7 h-7 rounded-full bg-white/10 overflow-hidden flex items-center justify-center text-xs font-bold text-white border border-white/10">
+                                {u.avatar && u.avatar.startsWith("/") ? (
+                                  <img src={u.avatar} alt={u.name} className="w-full h-full object-cover" />
+                                ) : (
+                                  u.name.charAt(0)
+                                )}
+                              </div>
+                              <span className="text-white font-medium">{u.name}</span>
+                            </div>
+                          </td>
+                          <td className="py-3 px-3 text-[#00d6ff]">{u.email}</td>
+                          <td className="py-3 px-3 text-white/60">{u.studentId}</td>
+                          <td className="py-3 px-3 text-white/70">{u.title}</td>
+                          <td className="py-3 px-3">
+                            <span
+                              className={`px-2 py-0.5 rounded text-[10px] font-bold border ${
+                                u.role === "EXECUTIVE"
+                                  ? "bg-[#00d6ff]/15 text-[#00d6ff] border-[#00d6ff]/40"
+                                  : "bg-[#86A8CF]/15 text-[#86A8CF] border-[#86A8CF]/30"
+                              }`}
+                            >
+                              {u.role}
+                            </span>
+                          </td>
+                          <td className="py-3 px-3 text-right">
+                            <div className="flex items-center justify-end gap-1.5">
+                              <button
+                                onClick={() => handleToggleUserRole(u.id, u.role)}
+                                className="px-2 py-1 rounded bg-white/[0.04] hover:bg-white/[0.08] text-white/70 hover:text-white border border-white/10 text-[10px] transition-colors"
+                                title={u.role === "MEMBER" ? "Promote to Executive" : "Demote to Member"}
+                              >
+                                {u.role === "MEMBER" ? "Promote Exec" : "Demote Member"}
+                              </button>
+                              <button
+                                onClick={() => handleDeleteUser(u.id)}
+                                className="p-1.5 rounded bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 transition-colors"
+                                title="Delete User"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Provision New Account Modal */}
+            {showUserModal && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+                <div className="cyber-card p-6 md:p-8 rounded-3xl border border-[#00d6ff]/40 bg-[#0D1B2A] max-w-lg w-full space-y-4 text-xs font-mono shadow-[0_0_50px_rgba(0,214,255,0.15)] animate-in fade-in zoom-in-95 duration-200">
+                  <div className="flex items-center justify-between pb-3 border-b border-white/10">
+                    <div>
+                      <span className="cyber-badge text-[#00d6ff]">PROVISION USER</span>
+                      <h3 className="text-base font-bold text-white uppercase mt-0.5">
+                        Add Portal Account
+                      </h3>
+                    </div>
+                    <button
+                      onClick={() => setShowUserModal(false)}
+                      className="p-1.5 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] text-white/60 hover:text-white"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  <form onSubmit={handleCreateUser} className="space-y-3">
+                    <div>
+                      <label className="block text-white/60 mb-1">Full Name *</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. Tanvir Ahmed"
+                        value={newUser.name}
+                        onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
+                        className="w-full px-3 py-2 rounded-lg bg-white/[0.04] border border-white/10 text-white"
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-white/60 mb-1">Email *</label>
+                        <input
+                          type="email"
+                          required
+                          placeholder="tanvir@mrc.club"
+                          value={newUser.email}
+                          onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+                          className="w-full px-3 py-2 rounded-lg bg-white/[0.04] border border-white/10 text-white"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-white/60 mb-1">Student ID *</label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="MRC-2026-055"
+                          value={newUser.studentId}
+                          onChange={(e) => setNewUser({ ...newUser, studentId: e.target.value })}
+                          className="w-full px-3 py-2 rounded-lg bg-white/[0.04] border border-white/10 text-white"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-white/60 mb-1">Portal Role</label>
+                        <select
+                          value={newUser.role}
+                          onChange={(e) =>
+                            setNewUser({
+                              ...newUser,
+                              role: e.target.value as "MEMBER" | "EXECUTIVE",
+                              title: e.target.value === "EXECUTIVE" ? "Executive Officer" : "Robotics Member",
+                            })
+                          }
+                          className="w-full px-3 py-2 rounded-lg bg-[#070E1A] border border-white/10 text-white"
+                        >
+                          <option value="MEMBER">Member (Workspace Access)</option>
+                          <option value="EXECUTIVE">Executive (Root Access)</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-white/60 mb-1">Title / Designation</label>
+                        <input
+                          type="text"
+                          placeholder="e.g. Firmware Specialist"
+                          value={newUser.title}
+                          onChange={(e) => setNewUser({ ...newUser, title: e.target.value })}
+                          className="w-full px-3 py-2 rounded-lg bg-white/[0.04] border border-white/10 text-white"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-white/60 mb-1">Password (Optional)</label>
+                      <input
+                        type="password"
+                        placeholder="Leave blank for demo / passwordless"
+                        value={newUser.password}
+                        onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
+                        className="w-full px-3 py-2 rounded-lg bg-white/[0.04] border border-white/10 text-white"
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-end gap-2 pt-3 border-t border-white/10">
+                      <button
+                        type="button"
+                        onClick={() => setShowUserModal(false)}
+                        className="px-4 py-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-white/70 text-xs"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        className="px-5 py-2 rounded-xl bg-[#00d6ff] hover:bg-[#38e1ff] text-black font-bold uppercase text-xs transition-all shadow-[0_0_15px_rgba(0,214,255,0.3)]"
+                      >
+                        Save Account
+                      </button>
+                    </div>
+                  </form>
                 </div>
               </div>
             )}
