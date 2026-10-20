@@ -165,13 +165,15 @@ export default function Scrollytelling({
                   </span>
                 </h1>
 
-                <p className="text-base sm:text-xl text-white/70 max-w-2xl leading-relaxed mb-8 font-light">
-                  ...Where lines meet algorithms. The official collegiate robotics society of{" "}
-                  <span className="text-white font-medium">Manarat Dhaka International College</span>.
-                </p>
+                <div className="max-w-2xl px-6 py-4 rounded-2xl bg-[#070E1A]/80 backdrop-blur-md border border-[#86A8CF]/30 shadow-[0_10px_35px_rgba(0,0,0,0.8)] mb-8">
+                  <p className="text-base sm:text-lg text-[#E1CBD7] leading-relaxed font-normal">
+                    ...Where lines meet algorithms. The official collegiate robotics society of{" "}
+                    <span className="text-[#00d6ff] font-semibold">Manarat Dhaka International College</span>.
+                  </p>
+                </div>
 
-                <div className="flex items-center gap-2 text-xs font-mono text-white/40 uppercase tracking-[0.25em] animate-bounce">
-                  <span>Scroll to deconstruct</span>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#070E1A]/75 backdrop-blur-md border border-[#00d6ff]/35 text-xs font-mono text-[#86A8CF] uppercase tracking-[0.25em] shadow-[0_4px_20px_rgba(0,0,0,0.7)] animate-bounce">
+                  <span className="text-white/90">Scroll to deconstruct</span>
                   <ChevronDown className="w-3.5 h-3.5 text-[#00d6ff]" />
                 </div>
               </motion.div>
