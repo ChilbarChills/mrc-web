@@ -21,7 +21,7 @@ export default function Preloader({ isLoading, progress }: PreloaderProps) {
             opacity: 0,
             transition: { duration: 1.1, ease: [0.22, 1, 0.36, 1] }
           }}
-          className="fixed inset-0 z-[100] flex flex-col justify-between bg-[#050505] text-white p-8 md:p-14 select-none cursor-wait"
+          className="fixed inset-0 z-[100] flex flex-col justify-between bg-[#070E1A] text-white p-8 md:p-14 select-none cursor-default"
         >
           {/* Top bar: Quiet, architectural identity header */}
           <div className="flex items-center justify-between w-full text-[11px] uppercase tracking-[0.28em] text-white/40 font-mono">

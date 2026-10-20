@@ -52,7 +52,7 @@ export default function MemberPortalPage() {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-[#050508] text-white flex flex-col justify-between">
+    <div className="min-h-screen bg-[#070E1A] text-white flex flex-col justify-between">
       <Navbar />
 
       <main className="pt-28 pb-24 px-6 max-w-7xl mx-auto w-full flex-1">
@@ -60,7 +60,7 @@ export default function MemberPortalPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-8 mb-8 border-b border-white/10 gap-4">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#00d6ff]/30 bg-[#00d6ff]/10 mb-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              <span className="w-2 h-2 rounded-full bg-[#E1CBD7]" />
               <span className="cyber-badge text-[#00d6ff]">MEMBER PORTAL // ONLINE</span>
             </div>
             <h1 className="text-3xl md:text-5xl font-black uppercase text-white">
@@ -85,7 +85,7 @@ export default function MemberPortalPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Column 1: Member Digital ID Pass */}
           <div className="lg:col-span-1">
-            <div className="cyber-card p-6 md:p-8 rounded-3xl border border-[#00d6ff]/30 relative overflow-hidden bg-gradient-to-br from-[#0c101a] to-[#07080d] shadow-[0_15px_40px_rgba(0,214,255,0.1)]">
+            <div className="cyber-card p-6 md:p-8 rounded-3xl border border-[#00d6ff]/30 relative overflow-hidden bg-gradient-to-br from-[#142032] to-[#070E1A] shadow-[0_15px_40px_rgba(0,214,255,0.1)]">
               <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/10">
                 <div className="flex items-center gap-2">
                   <div className="w-6 h-6 rounded bg-[#00d6ff] flex items-center justify-center font-mono font-bold text-black text-[10px]">
@@ -95,7 +95,7 @@ export default function MemberPortalPage() {
                     MANARAT ROBOTICS
                   </span>
                 </div>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#C38EB4]/15 text-[#E1CBD7] border border-[#C38EB4]/30 font-bold">
                   VERIFIED
                 </span>
               </div>
@@ -124,7 +124,7 @@ export default function MemberPortalPage() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-white/40">LAB ACCESS</span>
-                  <span className="text-emerald-400 font-medium">AUTHORIZED</span>
+                  <span className="text-[#E1CBD7] font-medium">AUTHORIZED</span>
                 </div>
               </div>
 
@@ -240,7 +240,7 @@ export default function MemberPortalPage() {
                         <span>{evt.venue}</span>
                       </div>
                     </div>
-                    <span className="px-3 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-center shrink-0">
+                    <span className="px-3 py-1 rounded bg-[#C38EB4]/10 text-[#E1CBD7] border border-[#C38EB4]/20 text-center shrink-0">
                       Access Granted
                     </span>
                   </div>
@@ -251,7 +251,7 @@ export default function MemberPortalPage() {
         </div>
       </main>
 
-      <footer className="border-t border-white/10 bg-[#040406] py-6 text-center text-xs font-mono text-white/40">
+      <footer className="border-t border-[#86A8CF]/15 bg-[#040C16] py-6 text-center text-xs font-mono text-white/40">
         <p>© {new Date().getFullYear()} Manarat Robotics Club. Member Terminal.</p>
       </footer>
     </div>

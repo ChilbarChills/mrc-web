@@ -36,7 +36,7 @@ export default function JoinPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050508] text-white flex flex-col justify-between">
+    <div className="min-h-screen bg-[#070E1A] text-white flex flex-col justify-between">
       <Navbar />
 
       <main className="pt-28 pb-24 px-6 max-w-4xl mx-auto w-full flex-1">
@@ -58,15 +58,15 @@ export default function JoinPage() {
         </div>
 
         {/* Priority Notification Form Card */}
-        <div className="cyber-card p-8 md:p-12 rounded-3xl border border-white/10 mb-14 relative overflow-hidden bg-gradient-to-b from-[#0e111a] to-[#07080d]">
+        <div className="cyber-card p-8 md:p-12 rounded-3xl border border-[#86A8CF]/20 mb-14 relative overflow-hidden bg-gradient-to-b from-[#142032] to-[#070E1A]">
           <div className="absolute top-0 right-0 w-80 h-80 bg-[#00d6ff]/5 blur-[100px] pointer-events-none rounded-full" />
 
           {submitted ? (
             <div className="text-center py-8">
-              <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 mx-auto flex items-center justify-center text-emerald-400 mb-4">
+              <div className="w-16 h-16 rounded-full bg-[#E1CBD7]/20 border border-[#E1CBD7]/40 mx-auto flex items-center justify-center text-[#E1CBD7] mb-4">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
-              <span className="cyber-badge text-emerald-400">PRIORITY ENTRY RECORDED</span>
+              <span className="cyber-badge text-[#E1CBD7]">PRIORITY ENTRY RECORDED</span>
               <h2 className="text-2xl font-bold text-white mt-2 mb-2">You Are On The Waitlist!</h2>
               <p className="text-xs text-white/60 max-w-md mx-auto mb-6">
                 Your credentials have been securely stored in the MRC applicant database. When the executive panel opens interview slots, you will receive first-wave instructions.
@@ -132,7 +132,7 @@ export default function JoinPage() {
                     <select
                       value={formData.department}
                       onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-[#0b0d14] border border-white/10 text-white focus:outline-none focus:border-[#00d6ff]"
+                      className="w-full px-4 py-3 rounded-xl bg-[#0D1B2A] border border-[#86A8CF]/20 text-white focus:outline-none focus:border-[#00d6ff]"
                     >
                       <option value="Computer Science & Engineering">Computer Science &amp; Engineering</option>
                       <option value="Electrical & Electronic Engineering">Electrical &amp; Electronic Engineering</option>
@@ -182,7 +182,7 @@ export default function JoinPage() {
             </div>
 
             <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5">
-              <Users className="w-6 h-6 text-emerald-400 mb-3" />
+              <Users className="w-6 h-6 text-[#E1CBD7] mb-3" />
               <h4 className="text-base font-bold text-white mb-2">Hands-On Mentorship</h4>
               <p className="text-xs text-white/60 leading-relaxed font-light">
                 Learn firmware architecture, PID feedback loops, and motor driver layout directly from senior builders.
@@ -192,7 +192,7 @@ export default function JoinPage() {
         </div>
       </main>
 
-      <footer className="border-t border-white/10 bg-[#040406] py-8 text-center text-xs font-mono text-white/40">
+      <footer className="border-t border-[#86A8CF]/15 bg-[#040C16] py-8 text-center text-xs font-mono text-white/40">
         <p>© {new Date().getFullYear()} Manarat Robotics Club. Recruitment Hub.</p>
       </footer>
     </div>

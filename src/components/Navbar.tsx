@@ -38,14 +38,14 @@ export default function Navbar() {
       transition={{ duration: 0.3, ease: "easeInOut" }}
       className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 py-3.5 transition-all duration-300 ${
         isScrolled
-          ? "bg-[#06070a]/85 backdrop-blur-xl border-b border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
+          ? "bg-[#0D1B2A]/85 backdrop-blur-xl border-b border-[#86A8CF]/15 shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
           : "bg-transparent"
       }`}
     >
       {/* Brand Logo */}
       <Link href="/" className="group flex items-center gap-3">
         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#0050ff] to-[#00d6ff] p-[1px] shadow-[0_0_15px_rgba(0,214,255,0.4)]">
-          <div className="w-full h-full bg-[#050508] rounded-[7px] flex items-center justify-center">
+          <div className="w-full h-full bg-[#070E1A] rounded-[7px] flex items-center justify-center">
             <span className="font-mono text-xs font-black text-white group-hover:text-[#00d6ff] transition-colors">
               M
             </span>
@@ -62,30 +62,33 @@ export default function Navbar() {
       </Link>
 
       {/* Desktop Links */}
-      <div className="hidden lg:flex items-center space-x-7 text-xs font-mono uppercase tracking-[0.18em] text-white/70">
+      <div className="hidden lg:flex items-center space-x-6 text-xs font-mono uppercase tracking-[0.18em] text-white/70">
         <Link href="/" className="hover:text-[#00d6ff] transition-colors">
           Home
         </Link>
-        <Link href="/#tracks" className="hover:text-[#00d6ff] transition-colors">
-          Focus Tracks
+        <Link href="/#about" className="hover:text-[#00d6ff] transition-colors">
+          About
         </Link>
         <Link href="/events" className="hover:text-[#00d6ff] transition-colors">
           Events
         </Link>
         <Link href="/projects" className="hover:text-[#00d6ff] transition-colors">
-          Robots
+          Projects
         </Link>
         <Link href="/team" className="hover:text-[#00d6ff] transition-colors">
-          Leadership
+          Team
         </Link>
         <Link
           href="/join"
           className="hover:text-[#00d6ff] transition-colors flex items-center gap-1.5"
         >
-          <span>Recruitment</span>
+          <span>Join</span>
           <span className="px-1.5 py-0.5 rounded text-[8px] bg-[#00d6ff]/20 text-[#00d6ff] border border-[#00d6ff]/30">
             Soon
           </span>
+        </Link>
+        <Link href="/contact" className="hover:text-[#00d6ff] transition-colors">
+          Contact
         </Link>
       </div>
 
@@ -130,7 +133,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed top-[56px] left-0 right-0 bg-[#07080d]/95 backdrop-blur-2xl border-b border-white/10 p-6 flex flex-col gap-4 text-sm font-mono uppercase tracking-wider">
+        <div className="lg:hidden fixed top-[56px] left-0 right-0 bg-[#0D1B2A]/95 backdrop-blur-2xl border-b border-white/10 p-6 flex flex-col gap-4 text-sm font-mono uppercase tracking-wider">
           <Link
             href="/"
             onClick={() => setMobileMenuOpen(false)}
@@ -139,40 +142,47 @@ export default function Navbar() {
             Home
           </Link>
           <Link
-            href="/#tracks"
+            href="/#about"
             onClick={() => setMobileMenuOpen(false)}
             className="py-2 border-b border-white/5 text-white/70 hover:text-[#00d6ff]"
           >
-            Focus Tracks
+            About MRC
           </Link>
           <Link
             href="/events"
             onClick={() => setMobileMenuOpen(false)}
             className="py-2 border-b border-white/5 text-white/70 hover:text-[#00d6ff]"
           >
-            Events &amp; Competitions
+            Events &amp; Workshops
           </Link>
           <Link
             href="/projects"
             onClick={() => setMobileMenuOpen(false)}
             className="py-2 border-b border-white/5 text-white/70 hover:text-[#00d6ff]"
           >
-            Robot Projects
+            View Projects
           </Link>
           <Link
             href="/team"
             onClick={() => setMobileMenuOpen(false)}
             className="py-2 border-b border-white/5 text-white/70 hover:text-[#00d6ff]"
           >
-            Leadership
+            Team &amp; Introductions
           </Link>
           <Link
             href="/join"
             onClick={() => setMobileMenuOpen(false)}
             className="py-2 border-b border-white/5 text-white/70 hover:text-[#00d6ff] flex items-center justify-between"
           >
-            <span>Recruitment</span>
+            <span>Join the Club</span>
             <span className="text-[9px] px-2 py-0.5 rounded bg-[#00d6ff]/20 text-[#00d6ff]">Opening Soon</span>
+          </Link>
+          <Link
+            href="/contact"
+            onClick={() => setMobileMenuOpen(false)}
+            className="py-2 border-b border-white/5 text-white/70 hover:text-[#00d6ff]"
+          >
+            Contact &amp; Location
           </Link>
           <Link
             href="/login"

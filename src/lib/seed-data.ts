@@ -1,6 +1,29 @@
 import { ClubEvent, RobotProject, User, Announcement, WaitlistEntry, EventRegistration, ContactMessage } from "./types";
 
 export const initialUsers: User[] = [
+  // Demo Gateway Accounts
+  {
+    id: "usr-exec-demo",
+    name: "Executive Committee",
+    email: "executive@mrc.club",
+    role: "EXECUTIVE",
+    studentId: "MRC-EXEC-ROOT",
+    avatar: "/team/DcTtTCozleH.webp",
+    joinedYear: "2024",
+    title: "Executive Board",
+    bio: "Executive Command Access",
+  },
+  {
+    id: "usr-member-demo",
+    name: "MRC Member",
+    email: "member@mrc.club",
+    role: "MEMBER",
+    studentId: "MRC-MEM-DEMO",
+    avatar: "/generic-avatar.svg",
+    joinedYear: "2024",
+    title: "Robotics Engineer",
+    bio: "Member Access",
+  },
   // Executive Board
   {
     id: "usr-pres",

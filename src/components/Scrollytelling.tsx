@@ -86,11 +86,11 @@ export default function Scrollytelling({
   };
 
   return (
-    <div ref={containerRef} className="relative h-[500vh] bg-[#050508]">
+    <div ref={containerRef} className="relative h-[500vh] bg-[#070E1A]">
       {/* Sticky Canvas Viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden select-none">
         {/* Subtle Background Gradients & Ambient Glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#0d1527] via-[#050508] to-[#050508] opacity-80 z-0 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#142032] via-[#070E1A] to-[#070E1A] opacity-80 z-0 pointer-events-none" />
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-[#00d6ff]/5 blur-[120px] rounded-full pointer-events-none" />
         <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[300px] bg-[#0050ff]/10 blur-[100px] rounded-full pointer-events-none" />
 
@@ -237,7 +237,7 @@ export default function Scrollytelling({
                       <Activity className="w-4 h-4 text-[#00d6ff]" />
                       <span className="cyber-badge text-[#00d6ff]">STAGE 02 // SENSOR ARRAY</span>
                     </div>
-                    <span className="text-[10px] font-mono text-emerald-400">● LIVE_FEED</span>
+                    <span className="text-[10px] font-mono text-[#E1CBD7]">● LIVE_FEED</span>
                   </div>
 
                   <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-3 uppercase">
@@ -258,7 +258,7 @@ export default function Scrollytelling({
                       <span>Dynamic differential motor torque correction</span>
                     </li>
                     <li className="flex items-center gap-2.5 bg-white/[0.02] px-3 py-2 rounded-lg border border-white/5">
-                      <Activity className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <Activity className="w-4 h-4 text-[#E1CBD7] shrink-0" />
                       <span>Zero-delay real-time telemetry output</span>
                     </li>
                   </ul>
@@ -323,7 +323,7 @@ export default function Scrollytelling({
                 className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pointer-events-auto"
               >
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-md mb-6">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-[#E1CBD7] animate-pulse" />
                   <span className="cyber-badge text-white/80">REASSEMBLY COMPLETE</span>
                 </div>
 

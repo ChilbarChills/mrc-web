@@ -10,6 +10,8 @@ export interface User {
   joinedYear: string;
   title: string;
   bio?: string;
+  department?: string;
+  password?: string;
 }
 
 export type EventCategory = "COMPETITION" | "WORKSHOP" | "HACKATHON" | "SEMINAR";
@@ -82,3 +84,15 @@ export interface Announcement {
   author: string;
   isPinned: boolean;
 }
+
+export interface ContactMessage {
+  id: string;
+  name: string;
+  email: string;
+  affiliation?: string;
+  subject: string;
+  message: string;
+  submittedAt: string;
+  status: "UNREAD" | "READ" | "REPLIED";
+}
+

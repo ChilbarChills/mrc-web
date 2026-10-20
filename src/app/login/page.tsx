@@ -54,17 +54,17 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050508] text-white flex flex-col justify-between">
+    <div className="min-h-screen bg-[#070E1A] text-white flex flex-col justify-between">
       <Navbar />
 
       <main className="pt-28 pb-20 px-6 max-w-lg mx-auto w-full flex-1 flex flex-col justify-center">
-        <div className="cyber-card p-8 md:p-10 rounded-3xl border border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.85)] relative overflow-hidden bg-gradient-to-b from-[#0f111a] to-[#07080c]">
+        <div className="cyber-card p-8 md:p-10 rounded-3xl border border-[#86A8CF]/20 shadow-[0_25px_60px_rgba(0,0,0,0.85)] relative overflow-hidden bg-gradient-to-b from-[#142032] to-[#070E1A]">
           <div className="absolute top-0 right-0 w-64 h-64 bg-[#00d6ff]/5 blur-[80px] rounded-full pointer-events-none" />
 
           {/* Header */}
           <div className="text-center mb-8">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0050ff] to-[#00d6ff] p-[1px] mx-auto mb-4">
-              <div className="w-full h-full bg-[#050508] rounded-[11px] flex items-center justify-center font-mono font-bold text-white text-base">
+              <div className="w-full h-full bg-[#070E1A] rounded-[11px] flex items-center justify-center font-mono font-bold text-white text-base">
                 M
               </div>
             </div>
@@ -105,7 +105,7 @@ export default function LoginPage() {
 
           <div className="relative flex items-center justify-center my-6">
             <div className="border-t border-white/10 w-full" />
-            <span className="bg-[#0b0d14] px-3 text-[10px] font-mono text-white/40 uppercase tracking-widest absolute">
+            <span className="bg-[#0D1B2A] px-3 text-[10px] font-mono text-white/40 uppercase tracking-widest absolute">
               or enter credentials
             </span>
           </div>
@@ -166,7 +166,7 @@ export default function LoginPage() {
         </div>
       </main>
 
-      <footer className="border-t border-white/10 bg-[#040406] py-6 text-center text-xs font-mono text-white/40">
+      <footer className="border-t border-[#86A8CF]/15 bg-[#040C16] py-6 text-center text-xs font-mono text-white/40">
         <p>© {new Date().getFullYear()} Manarat Robotics Club. Unified Auth Service.</p>
       </footer>
     </div>

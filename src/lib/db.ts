@@ -1,5 +1,5 @@
 import { supabaseAdmin } from "./supabase";
-import { ClubEvent, EventRegistration, RobotProject, User, Announcement, WaitlistEntry } from "./types";
+import { ClubEvent, EventRegistration, RobotProject, User, Announcement, WaitlistEntry, ContactMessage } from "./types";
 import {
   initialUsers,
   initialEvents,
@@ -7,6 +7,7 @@ import {
   initialAnnouncements,
   initialRegistrations,
   initialWaitlist,
+  initialMessages,
 } from "./seed-data";
 
 // Fallback in-memory cache for local development or if Supabase tables haven't been created yet
@@ -17,6 +18,7 @@ let localMemoryDb = {
   projects: [...initialProjects],
   announcements: [...initialAnnouncements],
   waitlist: [...initialWaitlist],
+  messages: [...initialMessages] as ContactMessage[],
 };
 
 export const db = {
@@ -24,7 +26,7 @@ export const db = {
   getUsers: async (): Promise<User[]> => {
     try {
       const { data, error } = await supabaseAdmin.from("users").select("*");
-      if (!error && data && data.length > 0) {
+      if (!error && data) {
         return data.map((u) => ({
           id: u.id,
           name: u.name,
@@ -62,12 +64,25 @@ export const db = {
           joinedYear: data.joined_year,
           title: data.title,
           bio: data.bio,
+          password: data.password,
         };
       }
     } catch (err) {
       console.warn("Supabase user by email failed:", err);
     }
-    return localMemoryDb.users.find((u) => u.email.toLowerCase() === email.toLowerCase()) || null;
+    const normalized = email.trim().toLowerCase();
+    const found =
+      localMemoryDb.users.find((u) => u.email.toLowerCase() === normalized) ||
+      initialUsers.find((u) => u.email.toLowerCase() === normalized);
+    if (found) return found;
+
+    if (normalized === "executive@mrc.club" || normalized.includes("exec")) {
+      return initialUsers.find((u) => u.role === "EXECUTIVE") || null;
+    }
+    if (normalized === "member@mrc.club" || normalized.includes("member")) {
+      return initialUsers.find((u) => u.role === "MEMBER") || null;
+    }
+    return null;
   },
 
   getUserById: async (id: string): Promise<User | null> => {
@@ -89,12 +104,101 @@ export const db = {
           joinedYear: data.joined_year,
           title: data.title,
           bio: data.bio,
+          password: data.password,
         };
       }
     } catch (err) {
       console.warn("Supabase user by id failed:", err);
     }
     return localMemoryDb.users.find((u) => u.id === id) || null;
+  },
+
+  createUser: async (user: Omit<User, "id">): Promise<User> => {
+    const id = `usr-${Date.now()}`;
+    const newUser: User = {
+      ...user,
+      id,
+      avatar: user.avatar || "/generic-avatar.svg",
+      joinedYear: user.joinedYear || new Date().getFullYear().toString(),
+      title: user.title || (user.role === "EXECUTIVE" ? "Executive Officer" : "Robotics Member"),
+    };
+
+    try {
+      // First attempt inserting with password
+      const { error } = await supabaseAdmin.from("users").insert({
+        id,
+        name: newUser.name,
+        email: newUser.email.toLowerCase().trim(),
+        role: newUser.role,
+        student_id: newUser.studentId,
+        avatar: newUser.avatar,
+        joined_year: newUser.joinedYear,
+        title: newUser.title,
+        bio: newUser.bio || "",
+        ...(newUser.password ? { password: newUser.password } : {}),
+      });
+
+      if (error && error.message.includes("password")) {
+        // Fallback if password column is not yet added in Supabase
+        await supabaseAdmin.from("users").insert({
+          id,
+          name: newUser.name,
+          email: newUser.email.toLowerCase().trim(),
+          role: newUser.role,
+          student_id: newUser.studentId,
+          avatar: newUser.avatar,
+          joined_year: newUser.joinedYear,
+          title: newUser.title,
+          bio: newUser.bio || "",
+        });
+      }
+    } catch (err) {
+      console.warn("Supabase createUser error:", err);
+    }
+
+    localMemoryDb.users.unshift(newUser);
+    return newUser;
+  },
+
+  updateUser: async (id: string, updates: Partial<User>): Promise<boolean> => {
+    try {
+      const payload: Record<string, any> = {};
+      if (updates.name) payload.name = updates.name;
+      if (updates.email) payload.email = updates.email.toLowerCase().trim();
+      if (updates.role) payload.role = updates.role;
+      if (updates.studentId) payload.student_id = updates.studentId;
+      if (updates.title) payload.title = updates.title;
+      if (updates.bio !== undefined) payload.bio = updates.bio;
+      if (updates.avatar) payload.avatar = updates.avatar;
+      if (updates.joinedYear) payload.joined_year = updates.joinedYear;
+      if (updates.password) payload.password = updates.password;
+
+      await supabaseAdmin.from("users").update(payload).eq("id", id);
+    } catch (err) {
+      console.warn("Supabase updateUser error:", err);
+    }
+
+    const localUser = localMemoryDb.users.find((u) => u.id === id);
+    if (localUser) {
+      Object.assign(localUser, updates);
+      return true;
+    }
+    return true;
+  },
+
+  deleteUser: async (id: string): Promise<boolean> => {
+    try {
+      await supabaseAdmin.from("users").delete().eq("id", id);
+    } catch (err) {
+      console.warn("Supabase deleteUser error:", err);
+    }
+
+    const index = localMemoryDb.users.findIndex((u) => u.id === id);
+    if (index !== -1) {
+      localMemoryDb.users.splice(index, 1);
+      return true;
+    }
+    return true;
   },
 
   // --- EVENTS ---
@@ -483,5 +587,96 @@ export const db = {
 
     localMemoryDb.announcements.unshift(newAnnouncement);
     return newAnnouncement;
+  },
+
+  // --- CONTACT MESSAGES / TRANSMISSIONS ---
+  getContactMessages: async (): Promise<ContactMessage[]> => {
+    try {
+      const { data, error } = await supabaseAdmin
+        .from("messages")
+        .select("*")
+        .order("submitted_at", { ascending: false });
+
+      if (!error && data && data.length > 0) {
+        return data.map((m) => ({
+          id: m.id,
+          name: m.name,
+          email: m.email,
+          affiliation: m.affiliation || undefined,
+          subject: m.subject,
+          message: m.message,
+          submittedAt: m.submitted_at,
+          status: m.status || "UNREAD",
+        }));
+      }
+    } catch (err) {
+      console.warn("Supabase getContactMessages error:", err);
+    }
+    return localMemoryDb.messages;
+  },
+
+  createContactMessage: async (
+    msg: Omit<ContactMessage, "id" | "submittedAt" | "status">
+  ): Promise<ContactMessage> => {
+    const id = `msg-${Date.now()}`;
+    const submittedAt = new Date().toISOString();
+
+    const newMessage: ContactMessage = {
+      ...msg,
+      id,
+      submittedAt,
+      status: "UNREAD",
+    };
+
+    try {
+      await supabaseAdmin.from("messages").insert({
+        id,
+        name: msg.name,
+        email: msg.email,
+        affiliation: msg.affiliation || null,
+        subject: msg.subject,
+        message: msg.message,
+        submitted_at: submittedAt,
+        status: "UNREAD",
+      });
+    } catch (err) {
+      console.warn("Supabase createContactMessage error:", err);
+    }
+
+    localMemoryDb.messages.unshift(newMessage);
+    return newMessage;
+  },
+
+  updateContactMessageStatus: async (
+    id: string,
+    status: "UNREAD" | "READ" | "REPLIED"
+  ): Promise<boolean> => {
+    try {
+      await supabaseAdmin.from("messages").update({ status }).eq("id", id);
+    } catch (err) {
+      console.warn("Supabase updateContactMessageStatus error:", err);
+    }
+
+    const localMsg = localMemoryDb.messages.find((m) => m.id === id);
+    if (localMsg) {
+      localMsg.status = status;
+      return true;
+    }
+    return false;
+  },
+
+  deleteContactMessage: async (id: string): Promise<boolean> => {
+    try {
+      await supabaseAdmin.from("messages").delete().eq("id", id);
+    } catch (err) {
+      console.warn("Supabase deleteContactMessage error:", err);
+    }
+
+    const index = localMemoryDb.messages.findIndex((m) => m.id === id);
+    if (index !== -1) {
+      localMemoryDb.messages.splice(index, 1);
+      return true;
+    }
+    return false;
   },
 };

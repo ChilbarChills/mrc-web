@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import { getClientSession, clearClientSession } from "@/lib/auth";
-import { User, ClubEvent, EventRegistration, WaitlistEntry, Announcement } from "@/lib/types";
+import { User, ClubEvent, EventRegistration, WaitlistEntry, Announcement, ContactMessage } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import {
   ShieldAlert,
@@ -20,6 +20,17 @@ import {
   CheckCircle2,
   Sparkles,
   Search,
+  Inbox,
+  Mail,
+  Reply,
+  ExternalLink,
+  Eye,
+  Clock,
+  Building,
+  Check,
+  X,
+  RefreshCw,
+  Filter,
 } from "lucide-react";
 
 export default function ExecutivePortalPage() {
@@ -31,7 +42,12 @@ export default function ExecutivePortalPage() {
   const [registrations, setRegistrations] = useState<EventRegistration[]>([]);
   const [waitlist, setWaitlist] = useState<WaitlistEntry[]>([]);
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
-  const [activeTab, setActiveTab] = useState<"EVENTS" | "WAITLIST" | "TRANSMISSIONS" | "INVENTORY">("EVENTS");
+  const [messages, setMessages] = useState<ContactMessage[]>([]);
+  const [selectedMessage, setSelectedMessage] = useState<ContactMessage | null>(null);
+  const [messageFilter, setMessageFilter] = useState<"ALL" | "UNREAD" | "READ" | "REPLIED">("ALL");
+  const [messageSearch, setMessageSearch] = useState("");
+  const [activeTab, setActiveTab] = useState<"EVENTS" | "WAITLIST" | "MESSAGES" | "TRANSMISSIONS" | "INVENTORY">("EVENTS");
+  const [loadingMessages, setLoadingMessages] = useState(false);
 
   // New Event Form State
   const [showEventForm, setShowEventForm] = useState(false);
@@ -57,6 +73,37 @@ export default function ExecutivePortalPage() {
     category: "ANNOUNCEMENT" as const,
   });
 
+  const loadAllData = async () => {
+    try {
+      setLoadingMessages(true);
+      const [evtRes, regRes, wtRes, annRes, msgRes] = await Promise.all([
+        fetch("/api/events"),
+        fetch("/api/register"),
+        fetch("/api/waitlist"),
+        fetch("/api/announcements"),
+        fetch("/api/contact"),
+      ]);
+
+      const [evtJson, regJson, wtJson, annJson, msgJson] = await Promise.all([
+        evtRes.json(),
+        regRes.json(),
+        wtRes.json(),
+        annRes.json(),
+        msgRes.json(),
+      ]);
+
+      if (evtJson.success) setEvents(evtJson.events);
+      if (regJson.success) setRegistrations(regJson.registrations);
+      if (wtJson.success) setWaitlist(wtJson.waitlist);
+      if (annJson.success) setAnnouncements(annJson.announcements);
+      if (msgJson.success) setMessages(msgJson.messages);
+    } catch (err) {
+      console.error("Failed to load executive data", err);
+    } finally {
+      setLoadingMessages(false);
+    }
+  };
+
   useEffect(() => {
     const session = getClientSession();
     if (!session || session.role !== "EXECUTIVE") {
@@ -64,31 +111,6 @@ export default function ExecutivePortalPage() {
       return;
     }
     setUser(session);
-
-    async function loadAllData() {
-      try {
-        const [evtRes, regRes, wtRes, annRes] = await Promise.all([
-          fetch("/api/events"),
-          fetch("/api/register"),
-          fetch("/api/waitlist"),
-          fetch("/api/announcements"),
-        ]);
-
-        const [evtJson, regJson, wtJson, annJson] = await Promise.all([
-          evtRes.json(),
-          regRes.json(),
-          wtRes.json(),
-          annRes.json(),
-        ]);
-
-        if (evtJson.success) setEvents(evtJson.events);
-        if (regJson.success) setRegistrations(regJson.registrations);
-        if (wtJson.success) setWaitlist(wtJson.waitlist);
-        if (annJson.success) setAnnouncements(annJson.announcements);
-      } catch (err) {
-        console.error("Failed to load executive data", err);
-      }
-    }
     loadAllData();
   }, [router]);
 
@@ -141,10 +163,66 @@ export default function ExecutivePortalPage() {
     }
   };
 
+  const handleUpdateMessageStatus = async (id: string, status: "UNREAD" | "READ" | "REPLIED") => {
+    try {
+      const res = await fetch("/api/contact", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, status }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setMessages((prev) =>
+          prev.map((m) => (m.id === id ? { ...m, status } : m))
+        );
+        if (selectedMessage && selectedMessage.id === id) {
+          setSelectedMessage((prev) => (prev ? { ...prev, status } : null));
+        }
+      }
+    } catch (err) {
+      console.error("Failed to update status", err);
+    }
+  };
+
+  const handleDeleteMessage = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this transmission?")) return;
+    try {
+      const res = await fetch(`/api/contact?id=${id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.success) {
+        setMessages((prev) => prev.filter((m) => m.id !== id));
+        if (selectedMessage && selectedMessage.id === id) {
+          setSelectedMessage(null);
+        }
+      }
+    } catch (err) {
+      console.error("Failed to delete message", err);
+    }
+  };
+
+  const unreadMessagesCount = messages.filter((m) => m.status === "UNREAD").length;
+
+  const filteredMessages = messages.filter((m) => {
+    if (messageFilter !== "ALL" && m.status !== messageFilter) return false;
+    if (messageSearch.trim()) {
+      const query = messageSearch.toLowerCase();
+      return (
+        m.name.toLowerCase().includes(query) ||
+        m.email.toLowerCase().includes(query) ||
+        m.subject.toLowerCase().includes(query) ||
+        m.message.toLowerCase().includes(query) ||
+        (m.affiliation && m.affiliation.toLowerCase().includes(query))
+      );
+    }
+    return true;
+  });
+
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-[#050508] text-white flex flex-col justify-between">
+    <div className="min-h-screen bg-[#070E1A] text-white flex flex-col justify-between">
       <Navbar />
 
       <main className="pt-28 pb-24 px-6 max-w-7xl mx-auto w-full flex-1">
@@ -175,17 +253,17 @@ export default function ExecutivePortalPage() {
         </div>
 
         {/* Executive Stats Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-10">
           <div className="cyber-card p-5 rounded-2xl border border-white/10">
             <span className="text-[10px] font-mono text-white/40 uppercase block mb-1">
-              Total Active Events
+              Active Events
             </span>
             <span className="text-3xl font-bold font-mono text-white">{events.length}</span>
           </div>
 
           <div className="cyber-card p-5 rounded-2xl border border-white/10">
             <span className="text-[10px] font-mono text-white/40 uppercase block mb-1">
-              Attendee Passes Issued
+              Passes Issued
             </span>
             <span className="text-3xl font-bold font-mono text-[#00d6ff]">
               {registrations.length}
@@ -201,11 +279,27 @@ export default function ExecutivePortalPage() {
             </span>
           </div>
 
-          <div className="cyber-card p-5 rounded-2xl border border-white/10">
-            <span className="text-[10px] font-mono text-white/40 uppercase block mb-1">
-              Transmissions Live
+          <div className="cyber-card p-5 rounded-2xl border border-[#C38EB4]/30 bg-[#C38EB4]/5 relative overflow-hidden">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] font-mono text-[#E1CBD7] uppercase block">
+                Inbox Transmissions
+              </span>
+              {unreadMessagesCount > 0 && (
+                <span className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-[#C38EB4] text-black font-bold animate-pulse">
+                  {unreadMessagesCount} NEW
+                </span>
+              )}
+            </div>
+            <span className="text-3xl font-bold font-mono text-[#E1CBD7]">
+              {messages.length}
             </span>
-            <span className="text-3xl font-bold font-mono text-emerald-400">
+          </div>
+
+          <div className="cyber-card p-5 rounded-2xl border border-white/10 col-span-2 md:col-span-1">
+            <span className="text-[10px] font-mono text-white/40 uppercase block mb-1">
+              Broadcasts
+            </span>
+            <span className="text-3xl font-bold font-mono text-[#86A8CF]">
               {announcements.length}
             </span>
           </div>
@@ -235,6 +329,23 @@ export default function ExecutivePortalPage() {
           >
             <Bell className="w-3.5 h-3.5" />
             <span>Recruitment Waitlist ({waitlist.length})</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab("MESSAGES")}
+            className={`px-4 py-2.5 rounded-xl transition-all flex items-center gap-2 relative ${
+              activeTab === "MESSAGES"
+                ? "bg-[#00d6ff] text-black font-bold shadow-[0_0_15px_rgba(0,214,255,0.3)]"
+                : "bg-white/[0.04] text-white/70 hover:bg-white/[0.08]"
+            }`}
+          >
+            <Inbox className="w-3.5 h-3.5" />
+            <span>Inbox Transmissions</span>
+            {unreadMessagesCount > 0 && (
+              <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-[#C38EB4] text-black font-bold">
+                {unreadMessagesCount}
+              </span>
+            )}
           </button>
 
           <button
@@ -306,7 +417,7 @@ export default function ExecutivePortalPage() {
                       onChange={(e) =>
                         setNewEvent({ ...newEvent, category: e.target.value as any })
                       }
-                      className="w-full px-3 py-2 rounded-lg bg-[#0e1017] border border-white/10 text-white"
+                      className="w-full px-3 py-2 rounded-lg bg-[#0D1B2A] border border-[#86A8CF]/20 text-white"
                     >
                       <option value="COMPETITION">Competition</option>
                       <option value="WORKSHOP">Workshop</option>
@@ -433,7 +544,7 @@ export default function ExecutivePortalPage() {
                         <td className="py-3 px-3 text-white/50">{reg.institution}</td>
                         <td className="py-3 px-3 text-white/50">{reg.phone}</td>
                         <td className="py-3 px-3">
-                          <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-[10px]">
+                          <span className="px-2 py-0.5 rounded bg-[#C38EB4]/10 text-[#E1CBD7] border border-[#C38EB4]/30 text-[10px]">
                             {reg.status}
                           </span>
                         </td>
@@ -496,6 +607,346 @@ export default function ExecutivePortalPage() {
           </div>
         )}
 
+        {/* TAB: INBOX CONTACT TRANSMISSIONS */}
+        {activeTab === "MESSAGES" && (
+          <div className="space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <span className="cyber-badge text-[#C38EB4]">OFFICIAL CONTACT TRANSMISSIONS</span>
+                <h2 className="text-xl md:text-2xl font-bold uppercase text-white font-mono mt-1">
+                  Transmissions Inbox ({messages.length})
+                </h2>
+                <p className="text-xs font-mono text-white/50">
+                  Direct transmissions sent via /contact official form
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={loadAllData}
+                  disabled={loadingMessages}
+                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-xs font-mono text-white/80 transition-all"
+                  title="Refresh Inquiries"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 ${loadingMessages ? "animate-spin text-[#00d6ff]" : ""}`} />
+                  <span>Refresh</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Filter and Search Bar */}
+            <div className="cyber-card p-4 rounded-2xl border border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs font-mono">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-white/40 text-[11px] flex items-center gap-1 mr-1">
+                  <Filter className="w-3 h-3" /> Filter:
+                </span>
+                {(["ALL", "UNREAD", "READ", "REPLIED"] as const).map((filter) => {
+                  const count =
+                    filter === "ALL"
+                      ? messages.length
+                      : messages.filter((m) => m.status === filter).length;
+                  const isActive = messageFilter === filter;
+                  return (
+                    <button
+                      key={filter}
+                      onClick={() => setMessageFilter(filter)}
+                      className={`px-3 py-1.5 rounded-lg border transition-all text-xs flex items-center gap-1.5 ${
+                        isActive
+                          ? "bg-[#00d6ff]/20 text-[#00d6ff] border-[#00d6ff]/50 font-bold"
+                          : "bg-white/[0.02] text-white/60 border-white/5 hover:bg-white/[0.05]"
+                      }`}
+                    >
+                      <span>{filter}</span>
+                      <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-white/10 text-white/80">
+                        {count}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="relative min-w-[240px]">
+                <Search className="w-3.5 h-3.5 text-white/40 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  placeholder="Search sender, subject, body..."
+                  value={messageSearch}
+                  onChange={(e) => setMessageSearch(e.target.value)}
+                  className="w-full pl-9 pr-3 py-2 rounded-xl bg-white/[0.04] border border-white/10 text-white placeholder-white/40 focus:border-[#00d6ff]/50 outline-none text-xs"
+                />
+              </div>
+            </div>
+
+            {/* Messages List */}
+            {filteredMessages.length === 0 ? (
+              <div className="cyber-card p-12 text-center rounded-2xl border border-white/10 text-xs font-mono">
+                <Inbox className="w-8 h-8 text-white/20 mx-auto mb-3" />
+                <p className="text-white/50">No transmissions found matching the selected filter.</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {filteredMessages.map((msg) => {
+                  const isUnread = msg.status === "UNREAD";
+                  const isReplied = msg.status === "REPLIED";
+                  return (
+                    <div
+                      key={msg.id}
+                      className={`cyber-card p-5 rounded-2xl border transition-all ${
+                        isUnread
+                          ? "border-[#C38EB4]/40 bg-[#C38EB4]/[0.03] shadow-[0_0_20px_rgba(195,142,180,0.08)]"
+                          : "border-white/10 bg-white/[0.01] hover:border-white/20"
+                      }`}
+                    >
+                      <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 font-mono">
+                        <div className="space-y-2 flex-1">
+                          {/* Status and Timestamp header */}
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span
+                              className={`px-2 py-0.5 rounded text-[10px] font-bold border ${
+                                isUnread
+                                  ? "bg-[#C38EB4]/20 text-[#E1CBD7] border-[#C38EB4]/40"
+                                  : isReplied
+                                  ? "bg-[#00d6ff]/15 text-[#00d6ff] border-[#00d6ff]/30"
+                                  : "bg-white/10 text-white/60 border-white/15"
+                              }`}
+                            >
+                              {msg.status}
+                            </span>
+                            <span className="text-white/40 text-[11px] flex items-center gap-1">
+                              <Clock className="w-3 h-3" />
+                              {new Date(msg.submittedAt).toLocaleString("en-US", {
+                                month: "short",
+                                day: "numeric",
+                                year: "numeric",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}
+                            </span>
+                            {msg.affiliation && (
+                              <span className="text-[#86A8CF] text-[11px] flex items-center gap-1">
+                                <Building className="w-3 h-3" />
+                                {msg.affiliation}
+                              </span>
+                            )}
+                          </div>
+
+                          {/* Sender and Subject */}
+                          <div>
+                            <h3 className="text-sm md:text-base font-bold text-white tracking-wide">
+                              {msg.subject}
+                            </h3>
+                            <p className="text-xs text-[#00d6ff] mt-0.5">
+                              From: <span className="text-white font-medium">{msg.name}</span> &lt;{msg.email}&gt;
+                            </p>
+                          </div>
+
+                          {/* Excerpt */}
+                          <p className="text-xs text-white/70 line-clamp-2 font-sans font-light leading-relaxed">
+                            {msg.message}
+                          </p>
+                        </div>
+
+                        {/* Actions */}
+                        <div className="flex flex-wrap items-center md:flex-col md:items-end gap-2 shrink-0 pt-2 md:pt-0">
+                          <button
+                            onClick={() => setSelectedMessage(msg)}
+                            className="px-3.5 py-1.5 rounded-lg bg-[#00d6ff]/10 hover:bg-[#00d6ff]/20 border border-[#00d6ff]/30 text-[#00d6ff] text-xs font-mono flex items-center gap-1.5 transition-colors"
+                          >
+                            <Eye className="w-3.5 h-3.5" />
+                            <span>Read Transmission</span>
+                          </button>
+
+                          <a
+                            href={`mailto:${msg.email}?subject=Re: ${encodeURIComponent(msg.subject)}`}
+                            onClick={() => {
+                              if (msg.status === "UNREAD") {
+                                handleUpdateMessageStatus(msg.id, "REPLIED");
+                              }
+                            }}
+                            className="px-3.5 py-1.5 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-white/80 hover:text-white text-xs font-mono flex items-center gap-1.5 transition-colors"
+                          >
+                            <Reply className="w-3.5 h-3.5 text-[#00d6ff]" />
+                            <span>Reply via Email</span>
+                          </a>
+
+                          <div className="flex items-center gap-1.5 mt-1">
+                            {msg.status !== "READ" && (
+                              <button
+                                onClick={() => handleUpdateMessageStatus(msg.id, "READ")}
+                                className="p-1.5 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] text-white/60 hover:text-white transition-colors"
+                                title="Mark as Read"
+                              >
+                                <Check className="w-3.5 h-3.5" />
+                              </button>
+                            )}
+
+                            {msg.status === "READ" && (
+                              <button
+                                onClick={() => handleUpdateMessageStatus(msg.id, "UNREAD")}
+                                className="p-1.5 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] text-white/60 hover:text-white transition-colors"
+                                title="Mark as Unread"
+                              >
+                                <Mail className="w-3.5 h-3.5" />
+                              </button>
+                            )}
+
+                            <button
+                              onClick={() => handleDeleteMessage(msg.id)}
+                              className="p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 transition-colors"
+                              title="Delete Transmission"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Read Transmission Modal */}
+            {selectedMessage && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+                <div className="cyber-card p-6 md:p-8 rounded-3xl border border-[#00d6ff]/40 bg-[#0D1B2A] max-w-2xl w-full max-h-[90vh] overflow-y-auto space-y-6 text-xs font-mono shadow-[0_0_50px_rgba(0,214,255,0.15)] animate-in fade-in zoom-in-95 duration-200">
+                  {/* Modal Header */}
+                  <div className="flex items-start justify-between pb-4 border-b border-white/10 gap-4">
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span
+                          className={`px-2 py-0.5 rounded text-[10px] font-bold border ${
+                            selectedMessage.status === "UNREAD"
+                              ? "bg-[#C38EB4]/20 text-[#E1CBD7] border-[#C38EB4]/40"
+                              : selectedMessage.status === "REPLIED"
+                              ? "bg-[#00d6ff]/15 text-[#00d6ff] border-[#00d6ff]/30"
+                              : "bg-white/10 text-white/60 border-white/15"
+                          }`}
+                        >
+                          {selectedMessage.status}
+                        </span>
+                        <span className="text-white/40 text-[11px]">
+                          TRANSMISSION ID: {selectedMessage.id}
+                        </span>
+                      </div>
+                      <h2 className="text-lg md:text-xl font-bold text-white uppercase font-mono">
+                        {selectedMessage.subject}
+                      </h2>
+                    </div>
+
+                    <button
+                      onClick={() => setSelectedMessage(null)}
+                      className="p-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-white/60 hover:text-white transition-colors"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  {/* Sender Metadata Box */}
+                  <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5 space-y-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <span className="text-[10px] text-white/40 uppercase block">Sender</span>
+                        <span className="text-white font-medium text-sm">{selectedMessage.name}</span>
+                      </div>
+                      <div>
+                        <span className="text-[10px] text-white/40 uppercase block">Email Address</span>
+                        <a
+                          href={`mailto:${selectedMessage.email}`}
+                          className="text-[#00d6ff] hover:underline flex items-center gap-1"
+                        >
+                          <span>{selectedMessage.email}</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      </div>
+                      {selectedMessage.affiliation && (
+                        <div>
+                          <span className="text-[10px] text-white/40 uppercase block">Institution / Club</span>
+                          <span className="text-[#86A8CF]">{selectedMessage.affiliation}</span>
+                        </div>
+                      )}
+                      <div>
+                        <span className="text-[10px] text-white/40 uppercase block">Received At</span>
+                        <span className="text-white/70">
+                          {new Date(selectedMessage.submittedAt).toLocaleString("en-US", {
+                            dateStyle: "medium",
+                            timeStyle: "short",
+                          })}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Message Body */}
+                  <div>
+                    <span className="text-[10px] text-white/40 uppercase block mb-2">
+                      Transmission Body
+                    </span>
+                    <div className="p-5 rounded-2xl bg-[#040C16] border border-white/10 text-white/90 text-sm font-sans font-light leading-relaxed whitespace-pre-wrap selection:bg-[#00d6ff]/30">
+                      {selectedMessage.message}
+                    </div>
+                  </div>
+
+                  {/* Actions Footer */}
+                  <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-white/10">
+                    <div className="flex items-center gap-2">
+                      <span className="text-white/40 text-[11px]">Set Status:</span>
+                      <button
+                        onClick={() => handleUpdateMessageStatus(selectedMessage.id, "UNREAD")}
+                        className={`px-2.5 py-1 rounded text-[11px] border transition-colors ${
+                          selectedMessage.status === "UNREAD"
+                            ? "bg-[#C38EB4] text-black font-bold border-[#C38EB4]"
+                            : "bg-white/[0.04] text-white/60 border-white/10 hover:text-white"
+                        }`}
+                      >
+                        Unread
+                      </button>
+                      <button
+                        onClick={() => handleUpdateMessageStatus(selectedMessage.id, "READ")}
+                        className={`px-2.5 py-1 rounded text-[11px] border transition-colors ${
+                          selectedMessage.status === "READ"
+                            ? "bg-white text-black font-bold border-white"
+                            : "bg-white/[0.04] text-white/60 border-white/10 hover:text-white"
+                        }`}
+                      >
+                        Read
+                      </button>
+                      <button
+                        onClick={() => handleUpdateMessageStatus(selectedMessage.id, "REPLIED")}
+                        className={`px-2.5 py-1 rounded text-[11px] border transition-colors ${
+                          selectedMessage.status === "REPLIED"
+                            ? "bg-[#00d6ff] text-black font-bold border-[#00d6ff]"
+                            : "bg-white/[0.04] text-white/60 border-white/10 hover:text-white"
+                        }`}
+                      >
+                        Replied
+                      </button>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => handleDeleteMessage(selectedMessage.id)}
+                        className="px-3 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 text-xs font-mono transition-colors"
+                      >
+                        Delete
+                      </button>
+
+                      <a
+                        href={`mailto:${selectedMessage.email}?subject=Re: ${encodeURIComponent(selectedMessage.subject)}`}
+                        onClick={() => handleUpdateMessageStatus(selectedMessage.id, "REPLIED")}
+                        className="px-5 py-2 rounded-xl bg-[#00d6ff] hover:bg-[#38e1ff] text-black font-bold text-xs font-mono flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(0,214,255,0.3)]"
+                      >
+                        <Reply className="w-3.5 h-3.5" />
+                        <span>Launch Email Reply</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* TAB 3: TRANSMISSIONS BROADCAST */}
         {activeTab === "TRANSMISSIONS" && (
           <div className="space-y-8">
@@ -504,8 +955,8 @@ export default function ExecutivePortalPage() {
               className="cyber-card p-6 md:p-8 rounded-2xl border border-white/10 space-y-4 text-xs font-mono"
             >
               <div className="flex items-center gap-2">
-                <Radio className="w-4 h-4 text-emerald-400" />
-                <span className="cyber-badge text-emerald-400">BROADCAST NEW TRANSMISSION</span>
+                <Radio className="w-4 h-4 text-[#E1CBD7]" />
+                <span className="cyber-badge text-[#E1CBD7]">BROADCAST NEW TRANSMISSION</span>
               </div>
 
               <div>
@@ -538,7 +989,7 @@ export default function ExecutivePortalPage() {
 
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold uppercase transition-colors"
+                className="px-6 py-2.5 rounded-xl bg-[#C38EB4] hover:bg-[#E1CBD7] text-black font-bold uppercase transition-colors"
               >
                 Broadcast to Live Feed
               </button>
@@ -569,7 +1020,7 @@ export default function ExecutivePortalPage() {
 
         {/* TAB 4: HARDWARE INVENTORY TRACKER (FUTURE TASK ROADMAP AS PLANNED) */}
         {activeTab === "INVENTORY" && (
-          <div className="cyber-card p-8 md:p-12 rounded-3xl border border-[#00d6ff]/30 bg-gradient-to-br from-[#0c121e] to-[#07080d]">
+          <div className="cyber-card p-8 md:p-12 rounded-3xl border border-[#00d6ff]/30 bg-gradient-to-br from-[#142032] to-[#070E1A]">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#00d6ff]/40 bg-[#00d6ff]/15 mb-4">
               <span className="w-2 h-2 rounded-full bg-[#00d6ff]" />
               <span className="cyber-badge text-[#00d6ff]">FUTURE ROADMAP // PHASE 2</span>
@@ -600,7 +1051,7 @@ export default function ExecutivePortalPage() {
               </div>
 
               <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
-                <span className="text-emerald-400 block font-bold mb-1">03. SENSOR ARRAYS &amp; BATTERIES</span>
+                <span className="text-[#E1CBD7] block font-bold mb-1">03. SENSOR ARRAYS &amp; BATTERIES</span>
                 <p className="text-white/50 text-[11px]">
                   Tracking QTR-8A Reflectance arrays, LiDAR-Lite v3, and 3S 1300mAh LiPo battery health logs.
                 </p>
@@ -617,7 +1068,7 @@ export default function ExecutivePortalPage() {
         )}
       </main>
 
-      <footer className="border-t border-white/10 bg-[#040406] py-6 text-center text-xs font-mono text-white/40">
+      <footer className="border-t border-[#86A8CF]/15 bg-[#040C16] py-6 text-center text-xs font-mono text-white/40">
         <p>© {new Date().getFullYear()} Manarat Robotics Club. Executive Portal.</p>
       </footer>
     </div>

@@ -46,7 +46,7 @@ export default function EventsPage() {
   });
 
   return (
-    <div className="min-h-screen bg-[#050508] text-white flex flex-col justify-between">
+    <div className="min-h-screen bg-[#070E1A] text-white flex flex-col justify-between">
       <Navbar />
 
       <main className="pt-28 pb-24 px-6 max-w-7xl mx-auto w-full flex-1">
@@ -180,7 +180,7 @@ export default function EventsPage() {
       )}
 
       {/* Footer */}
-      <footer className="border-t border-white/10 bg-[#040406] py-8 text-center text-xs font-mono text-white/40">
+      <footer className="border-t border-[#86A8CF]/15 bg-[#040C16] py-8 text-center text-xs font-mono text-white/40">
         <p>© {new Date().getFullYear()} Manarat Robotics Club. Events Management System.</p>
       </footer>
     </div>

@@ -66,11 +66,11 @@ export default function EventRegisterModal({ event, onClose, onSuccess }: EventR
         {confirmedReg ? (
           /* Confirmation Ticket Card */
           <div className="text-center py-4">
-            <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+            <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-[#C38EB4]/20 border border-[#C38EB4]/40 flex items-center justify-center text-[#E1CBD7]">
               <CheckCircle2 className="w-8 h-8" />
             </div>
 
-            <span className="cyber-badge text-emerald-400">REGISTRATION CONFIRMED</span>
+            <span className="cyber-badge text-[#E1CBD7]">REGISTRATION CONFIRMED</span>
             <h3 className="text-2xl font-bold text-white mt-2 mb-2">You're on the Roster!</h3>
             <p className="text-xs text-white/60 mb-6">
               Keep your ticket code handy for verification at the event venue.

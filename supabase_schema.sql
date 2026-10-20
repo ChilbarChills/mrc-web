@@ -93,6 +93,18 @@ CREATE TABLE IF NOT EXISTS public.users (
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
+-- 7. CONTACT TRANSMISSIONS / INBOX TABLE
+CREATE TABLE IF NOT EXISTS public.messages (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  affiliation TEXT,
+  subject TEXT NOT NULL,
+  message TEXT NOT NULL,
+  status TEXT DEFAULT 'UNREAD',
+  submitted_at TIMESTAMPTZ DEFAULT NOW()
+);
+
 -- Enable full read/write for service role & anon
 ALTER TABLE public.events DISABLE ROW LEVEL SECURITY;
 ALTER TABLE public.registrations DISABLE ROW LEVEL SECURITY;
@@ -100,3 +112,4 @@ ALTER TABLE public.waitlist DISABLE ROW LEVEL SECURITY;
 ALTER TABLE public.announcements DISABLE ROW LEVEL SECURITY;
 ALTER TABLE public.projects DISABLE ROW LEVEL SECURITY;
 ALTER TABLE public.users DISABLE ROW LEVEL SECURITY;
+ALTER TABLE public.messages DISABLE ROW LEVEL SECURITY;

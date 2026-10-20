@@ -41,7 +41,7 @@ export default function PreferencesMenu({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.96 }}
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-3 w-72 rounded-2xl border border-white/10 bg-[#0A0A0C]/95 p-4 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.85)]"
+            className="mb-3 w-72 rounded-2xl border border-[#86A8CF]/20 bg-[#0D1B2A]/95 p-4 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.85)]"
           >
             {/* Header */}
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
