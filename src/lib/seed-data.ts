@@ -1,4 +1,4 @@
-import { ClubEvent, RobotProject, User, Announcement, WaitlistEntry, EventRegistration } from "./types";
+import { ClubEvent, RobotProject, User, Announcement, WaitlistEntry, EventRegistration, ContactMessage } from "./types";
 
 export const initialUsers: User[] = [
   // Executive Board
@@ -449,8 +449,8 @@ export const initialEvents: ClubEvent[] = [
     slug: "thursday-hands-on-robotics-lab",
     category: "WORKSHOP",
     date: "Every Thursday",
-    time: "03:30 PM - 05:30 PM",
-    venue: "MRC Innovation Lab, Room 402",
+    time: "12:20 PM - 01:20 PM",
+    venue: "Physics and Chemistry LAB",
     shortDesc: "Weekly hands-on session for Manarat students: real components, zero boring theory, practical circuit wiring, and code.",
     description: "Every Thursday after school, MRC runs hands-on sessions for curious and motivated students of Manarat. Students work closely with components, build practical skills, and understand how hardware is controlled through code.",
     maxCapacity: 35,
@@ -610,3 +610,27 @@ export const initialWaitlist: WaitlistEntry[] = [
     notified: false,
   },
 ];
+
+export const initialMessages: ContactMessage[] = [
+  {
+    id: "msg-01",
+    name: "Tanzimul Islam",
+    email: "tanzim.islam@gmail.com",
+    affiliation: "BRAC University",
+    subject: "Robofest 2026 Participation & Track Query",
+    message: "Greetings MRC Executive Team, we are preparing an autonomous LFR team from BRACU for Robofest 2026. Could you provide details regarding the track turn radius tolerances and maximum sensor width?",
+    submittedAt: "2026-10-18T14:20:00Z",
+    status: "UNREAD",
+  },
+  {
+    id: "msg-02",
+    name: "Dr. Farhana Yasmin",
+    email: "f.yasmin@diu.edu.bd",
+    affiliation: "Daffodil International University",
+    subject: "Joint Robotics Seminar & Lab Collaboration",
+    message: "Hello Manarat Robotics Club, we would love to invite your executive firmware team to conduct a guest lecture on STM32 PID controllers at our upcoming DIU Tech Week.",
+    submittedAt: "2026-10-16T11:05:00Z",
+    status: "READ",
+  },
+];
+
