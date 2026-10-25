@@ -91,24 +91,43 @@ export default function AchievementsPage() {
               <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
                 {/* Image Showcase */}
                 {item.image && (
-                  <div className="w-full lg:w-1/2 aspect-[4/3] rounded-2xl overflow-hidden border border-white/15 bg-black/40 relative group shadow-[0_15px_40px_rgba(0,0,0,0.6)] shrink-0">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-                    <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-[10px] font-mono text-white font-semibold">
-                        <Award className="w-3.5 h-3.5 text-[#00d6ff]" />
-                        <span>Award Ceremony</span>
-                      </span>
-                      {item.badge && (
-                        <span className="px-3 py-1 rounded-full bg-[#00d6ff] text-black font-mono text-[10px] font-black uppercase tracking-wider shadow-[0_0_15px_rgba(0,214,255,0.4)]">
-                          {item.badge}
+                  <div className="w-full lg:w-1/2 flex flex-col gap-3 shrink-0">
+                    <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden border border-white/15 bg-black/40 relative group shadow-[0_15px_40px_rgba(0,0,0,0.6)]">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+                      <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-[10px] font-mono text-white font-semibold">
+                          <Award className="w-3.5 h-3.5 text-[#00d6ff]" />
+                          <span>Showcase Photo</span>
                         </span>
-                      )}
+                        {item.badge && (
+                          <span className="px-3 py-1 rounded-full bg-[#00d6ff] text-black font-mono text-[10px] font-black uppercase tracking-wider shadow-[0_0_15px_rgba(0,214,255,0.4)]">
+                            {item.badge}
+                          </span>
+                        )}
+                      </div>
                     </div>
+
+                    {item.images && item.images.length > 1 && (
+                      <div className="grid grid-cols-2 gap-2">
+                        {item.images.map((imgSrc, imgIdx) => (
+                          <div
+                            key={imgIdx}
+                            className="aspect-[16/10] rounded-xl overflow-hidden border border-white/10 hover:border-[#00d6ff]/40 transition-colors bg-black/30"
+                          >
+                            <img
+                              src={imgSrc}
+                              alt={`${item.title} ${imgIdx + 1}`}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
 

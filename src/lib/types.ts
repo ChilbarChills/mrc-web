@@ -114,6 +114,7 @@ export interface Achievement {
   qualification?: string;
   description: string;
   image?: string;
+  images?: string[];
   badge?: string;
 }
 

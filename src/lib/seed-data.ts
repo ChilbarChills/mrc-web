@@ -687,7 +687,8 @@ export const initialAchievements: Achievement[] = [
     venue: "United International University (UIU)",
     qualification: "Qualified for the International Round in Rome, Italy",
     badge: "GOLD CHAMPION",
-    image: "/achievements/team-tarabari.jpg",
+    image: "/achievements/team-tarabari-rover.jpg",
+    images: ["/achievements/team-tarabari-rover.jpg", "/achievements/team-tarabari.jpg"],
     description:
       "Team Tarabari (Team Tarar Bari) from Grade 7 of Manarat showcased an extraordinary engineering exhibition in the Mars Rover project display at the FIRSO National Round at UIU, winning the Gold Medal and Champion title. Their innovative planetary exploration rover earned them qualification for the International Round in Rome, Italy.",
     teams: [
