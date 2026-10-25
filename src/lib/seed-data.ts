@@ -778,5 +778,26 @@ export const initialAchievements: Achievement[] = [
       },
     ],
   },
+  {
+    id: "ach-mdic-science-fair-2024-marine",
+    title: "4th Position — Marine Hydrocarbon Capturing System",
+    competition: "MDIC Annual Science Fair 2024",
+    stage: "Class 10 Environmental & Marine Engineering",
+    venue: "Manarat Dhaka International School & College (MDIC)",
+    date: "2024",
+    badge: "4TH POSITION // TOP 5",
+    image: "/achievements/marine-hydrocarbon-system.jpg",
+    description:
+      "Developed by Class 10 members in 2024, the Marine Hydrocarbon Capturing System was engineered to address oceanic oil spills through an autonomous waterborne filtration prototype. The project secured 4th Position in the senior division of the MDIC Science Fair.",
+    teams: [
+      {
+        name: "Marine Hydrocarbon Engineering Team",
+        category: "Environmental & Marine Robotics",
+        grade: "Class 10 (Batch 2024)",
+        award: "🏅 4th Position (Top 5 Finalist)",
+        segment: "Oceanic Cleanup & Filtration Innovation",
+      },
+    ],
+  },
 ];
 
