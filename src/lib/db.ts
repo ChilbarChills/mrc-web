@@ -1,5 +1,5 @@
 import { supabaseAdmin } from "./supabase";
-import { ClubEvent, EventRegistration, RobotProject, User, Announcement, WaitlistEntry, ContactMessage } from "./types";
+import { ClubEvent, EventRegistration, RobotProject, User, Announcement, WaitlistEntry, ContactMessage, Achievement } from "./types";
 import {
   initialUsers,
   initialEvents,
@@ -8,6 +8,7 @@ import {
   initialRegistrations,
   initialWaitlist,
   initialMessages,
+  initialAchievements,
 } from "./seed-data";
 
 // Fallback in-memory cache for local development or if Supabase tables haven't been created yet
@@ -19,6 +20,7 @@ let localMemoryDb = {
   announcements: [...initialAnnouncements],
   waitlist: [...initialWaitlist],
   messages: [...initialMessages] as ContactMessage[],
+  achievements: [...initialAchievements] as Achievement[],
 };
 
 export const db = {
@@ -678,5 +680,46 @@ export const db = {
       return true;
     }
     return false;
+  },
+
+  // --- ACHIEVEMENTS ---
+  getAchievements: async (): Promise<Achievement[]> => {
+    try {
+      const { data, error } = await supabaseAdmin.from("achievements").select("*");
+      if (!error && data && data.length > 0) {
+        return data.map((a) => ({
+          id: a.id,
+          title: a.title,
+          competition: a.competition,
+          stage: a.stage,
+          venue: a.venue,
+          date: a.date,
+          teams: Array.isArray(a.teams) ? a.teams : [],
+          qualification: a.qualification,
+          description: a.description,
+          image: a.image,
+          badge: a.badge,
+        }));
+      }
+    } catch (err) {
+      console.warn("Supabase fetch achievements error, using fallback:", err);
+    }
+    return localMemoryDb.achievements;
+  },
+
+  addAchievement: async (achievementData: Omit<Achievement, "id">): Promise<Achievement> => {
+    const newAchievement: Achievement = {
+      ...achievementData,
+      id: `ach-${Date.now()}`,
+    };
+
+    try {
+      await supabaseAdmin.from("achievements").insert(newAchievement);
+    } catch (err) {
+      console.warn("Supabase addAchievement error:", err);
+    }
+
+    localMemoryDb.achievements.unshift(newAchievement);
+    return newAchievement;
   },
 };

@@ -96,3 +96,24 @@ export interface ContactMessage {
   status: "UNREAD" | "READ" | "REPLIED";
 }
 
+export interface Achievement {
+  id: string;
+  title: string;
+  competition: string;
+  stage: string;
+  venue?: string;
+  date?: string;
+  teams: {
+    name: string;
+    category?: string;
+    grade?: string;
+    award: string;
+    segment: string;
+    members?: string[];
+  }[];
+  qualification?: string;
+  description: string;
+  image?: string;
+  badge?: string;
+}
+

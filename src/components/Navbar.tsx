@@ -72,6 +72,9 @@ export default function Navbar() {
         <Link href="/events" className="hover:text-[#00d6ff] transition-colors">
           Events
         </Link>
+        <Link href="/achievements" className="hover:text-[#00d6ff] transition-colors">
+          Achievements
+        </Link>
         <Link href="/projects" className="hover:text-[#00d6ff] transition-colors">
           Projects
         </Link>
@@ -154,6 +157,13 @@ export default function Navbar() {
             className="py-2 border-b border-white/5 text-white/70 hover:text-[#00d6ff]"
           >
             Events &amp; Workshops
+          </Link>
+          <Link
+            href="/achievements"
+            onClick={() => setMobileMenuOpen(false)}
+            className="py-2 border-b border-white/5 text-white/70 hover:text-[#00d6ff]"
+          >
+            Achievements &amp; Honors
           </Link>
           <Link
             href="/projects"

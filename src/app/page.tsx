@@ -9,8 +9,8 @@ import PreferencesMenu from "@/components/PreferencesMenu";
 import CustomScrollbar from "@/components/CustomScrollbar";
 import EventRegisterModal from "@/components/EventRegisterModal";
 import Link from "next/link";
-import { ClubEvent, RobotProject, Announcement, User } from "@/lib/types";
-import { initialProjects, initialUsers } from "@/lib/seed-data";
+import { ClubEvent, RobotProject, Announcement, User, Achievement } from "@/lib/types";
+import { initialProjects, initialUsers, initialAchievements } from "@/lib/seed-data";
 import {
   Zap,
   Cpu,
@@ -32,6 +32,8 @@ import {
   Flame,
   Globe,
   Share2,
+  Trophy,
+  ShieldCheck,
   User as UserIcon,
 } from "lucide-react";
 
@@ -46,6 +48,7 @@ export default function Home() {
   const [events, setEvents] = useState<ClubEvent[]>([]);
   const [projects, setProjects] = useState<RobotProject[]>([]);
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
+  const [achievements, setAchievements] = useState<Achievement[]>(initialAchievements);
   const [selectedEventForModal, setSelectedEventForModal] = useState<ClubEvent | null>(null);
 
   // Waitlist form state
@@ -113,15 +116,20 @@ export default function Home() {
   useEffect(() => {
     async function loadData() {
       try {
-        const [eventsRes, annRes] = await Promise.all([
+        const [eventsRes, annRes, achRes] = await Promise.all([
           fetch("/api/events"),
           fetch("/api/announcements"),
+          fetch("/api/achievements"),
         ]);
         const eventsJson = await eventsRes.json();
         const annJson = await annRes.json();
+        const achJson = await achRes.json();
 
         if (eventsJson.success) setEvents(eventsJson.events);
         if (annJson.success) setAnnouncements(annJson.announcements);
+        if (achJson.success && achJson.achievements?.length > 0) {
+          setAchievements(achJson.achievements);
+        }
       } catch (err) {
         console.error("Failed to fetch initial home data:", err);
       }
@@ -389,7 +397,99 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 5. VIEW OUR PROJECTS (WITH BRIEF EXPLANATION & TEAM MEMBERS INVOLVED) */}
+        {/* 5. ACHIEVEMENTS & TOURNAMENT TITLES */}
+        <section id="achievements" className="relative z-20 py-20 px-6 max-w-7xl mx-auto w-full border-t border-white/10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#00d6ff]/30 bg-[#00d6ff]/10 mb-4">
+                <Trophy className="w-3.5 h-3.5 text-[#00d6ff]" />
+                <span className="cyber-badge text-[#00d6ff]">COMPETITIVE HONORS &amp; MEDALS</span>
+              </div>
+              <h2 className="text-3xl md:text-5xl font-black tracking-tight uppercase text-white">
+                Club <span className="text-[#00d6ff]">Achievements</span>
+              </h2>
+              <p className="text-xs md:text-sm text-white/60 max-w-xl mt-2 font-light">
+                National champions and international qualifiers representing Manarat across robotics, autonomous systems, and STEM Olympiads.
+              </p>
+            </div>
+            <Link
+              href="/achievements"
+              className="text-xs font-mono uppercase tracking-wider text-white/70 hover:text-white flex items-center gap-2 border-b border-white/20 pb-1 shrink-0"
+            >
+              <span>View All Achievements</span>
+              <ArrowRight className="w-3.5 h-3.5 text-[#00d6ff]" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {achievements.map((item, idx) => (
+              <div
+                key={item.id}
+                className="cyber-card rounded-3xl p-6 md:p-8 flex flex-col justify-between border border-white/10 hover:border-[#00d6ff]/40 transition-all group bg-gradient-to-br from-white/[0.02] to-transparent overflow-hidden"
+              >
+                <div>
+                  {item.image && (
+                    <div className="w-full aspect-[16/10] rounded-2xl overflow-hidden border border-white/15 mb-6 relative bg-black/40">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute top-3 right-3">
+                        <span className="px-3 py-1 rounded-full bg-[#00d6ff] text-black font-mono text-[10px] font-black uppercase tracking-wider shadow-[0_0_15px_rgba(0,214,255,0.4)]">
+                          {item.badge || "CHAMPION"}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-[10px] font-mono text-[#00d6ff] font-bold tracking-widest uppercase">
+                      RECORD 0{idx + 1}
+                    </span>
+                    <span className="text-white/20 text-xs">•</span>
+                    <span className="text-[10px] font-mono text-white/40 uppercase">
+                      {item.competition}
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#00d6ff] transition-colors leading-snug">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-xs text-white/70 mb-5 leading-relaxed font-light line-clamp-3">
+                    {item.description}
+                  </p>
+
+                  <div className="space-y-2 text-xs font-mono text-white/50 mb-6 bg-white/[0.02] p-3 rounded-xl border border-white/5">
+                    {item.venue && (
+                      <div className="flex items-center gap-2">
+                        <MapPin className="w-3.5 h-3.5 text-[#00d6ff]" />
+                        <span>Venue: {item.venue} ({item.stage})</span>
+                      </div>
+                    )}
+                    {item.qualification && (
+                      <div className="flex items-center gap-2 text-[#00d6ff]">
+                        <Globe className="w-3.5 h-3.5 shrink-0" />
+                        <span className="font-semibold">{item.qualification}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <Link
+                  href="/achievements"
+                  className="w-full py-2.5 rounded-xl font-mono text-xs uppercase tracking-wider font-semibold bg-white/[0.05] border border-white/10 hover:bg-[#00d6ff] hover:text-black hover:border-transparent transition-all flex items-center justify-center gap-2 text-white"
+                >
+                  <span>Read Full Details</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 6. VIEW OUR PROJECTS (WITH BRIEF EXPLANATION & TEAM MEMBERS INVOLVED) */}
         <section id="projects" className="relative z-20 py-24 px-6 max-w-7xl mx-auto w-full border-t border-white/10">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div>
@@ -773,6 +873,9 @@ export default function Home() {
                   </li>
                   <li>
                     <Link href="/events" className="hover:text-white transition-colors">Events &amp; Workshops</Link>
+                  </li>
+                  <li>
+                    <Link href="/achievements" className="hover:text-white transition-colors">Achievements &amp; Honors</Link>
                   </li>
                   <li>
                     <Link href="/projects" className="hover:text-white transition-colors">View Our Projects</Link>

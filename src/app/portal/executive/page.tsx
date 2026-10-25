@@ -65,6 +65,8 @@ export default function ExecutivePortalPage() {
   });
   const [activeTab, setActiveTab] = useState<"EVENTS" | "WAITLIST" | "MESSAGES" | "ROSTER" | "TRANSMISSIONS" | "INVENTORY">("EVENTS");
   const [loadingMessages, setLoadingMessages] = useState(false);
+  const [pingingKeepAlive, setPingingKeepAlive] = useState(false);
+  const [keepAliveStatus, setKeepAliveStatus] = useState<string | null>(null);
 
   // New Event Form State
   const [showEventForm, setShowEventForm] = useState(false);
@@ -133,6 +135,25 @@ export default function ExecutivePortalPage() {
     setUser(session);
     loadAllData();
   }, [router]);
+
+
+  const handleKeepAlivePulse = async () => {
+    setPingingKeepAlive(true);
+    try {
+      const res = await fetch("/api/keepalive");
+      const data = await res.json();
+      if (data.success) {
+        setKeepAliveStatus(`Awake (${data.latencyMs}ms)`);
+        setTimeout(() => setKeepAliveStatus(null), 4000);
+      } else {
+        setKeepAliveStatus("Failed");
+      }
+    } catch {
+      setKeepAliveStatus("Offline");
+    } finally {
+      setPingingKeepAlive(false);
+    }
+  };
 
   const handleLogout = () => {
     clearClientSession();

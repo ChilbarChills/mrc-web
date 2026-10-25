@@ -1,4 +1,4 @@
-import { ClubEvent, RobotProject, User, Announcement, WaitlistEntry, EventRegistration, ContactMessage } from "./types";
+import { ClubEvent, RobotProject, User, Announcement, WaitlistEntry, EventRegistration, ContactMessage, Achievement } from "./types";
 
 export const initialUsers: User[] = [
   // Demo Gateway Accounts
@@ -654,6 +654,51 @@ export const initialMessages: ContactMessage[] = [
     message: "Hello Manarat Robotics Club, we would love to invite your executive firmware team to conduct a guest lecture on STM32 PID controllers at our upcoming DIU Tech Week.",
     submittedAt: "2026-10-16T11:05:00Z",
     status: "READ",
+  },
+];
+
+export const initialAchievements: Achievement[] = [
+  {
+    id: "ach-firso-2026-redroc",
+    title: "Double Gold & Double Champions — Robo Soccer & Robo Sumo",
+    competition: "Fibonacci International Robot and STEM Olympiad (FIRSO)",
+    stage: "Bangladesh National Round",
+    venue: "United International University (UIU)",
+    qualification: "Qualified for the International Round in Rome, Italy",
+    badge: "2X GOLD CHAMPION",
+    image: "/achievements/team-red-roc.jpg",
+    description:
+      "Team Red Roc represented Manarat in the College Category (Grade 12) at FIRSO Bangladesh Round held at UIU, putting on a dominant performance to claim two Gold Medals and the Championship in both Robo Soccer and Robo Sumo. The team has officially qualified to represent Bangladesh on the global stage in Rome, Italy.",
+    teams: [
+      {
+        name: "Team Red Roc",
+        category: "College Category",
+        grade: "Grade 12",
+        award: "2x Gold Champion",
+        segment: "Robo Soccer & Robo Sumo",
+      },
+    ],
+  },
+  {
+    id: "ach-firso-2026-tarabari",
+    title: "Gold Medal & Champions — Mars Rover Exhibition",
+    competition: "Fibonacci International Robot and STEM Olympiad (FIRSO)",
+    stage: "Bangladesh National Round",
+    venue: "United International University (UIU)",
+    qualification: "Qualified for the International Round in Rome, Italy",
+    badge: "GOLD CHAMPION",
+    image: "/achievements/team-tarabari.jpg",
+    description:
+      "Team Tarabari (Team Tarar Bari) from Grade 7 of Manarat showcased an extraordinary engineering exhibition in the Mars Rover project display at the FIRSO National Round at UIU, winning the Gold Medal and Champion title. Their innovative planetary exploration rover earned them qualification for the International Round in Rome, Italy.",
+    teams: [
+      {
+        name: "Team Tarabari",
+        category: "Junior / Middle Category",
+        grade: "Grade 7",
+        award: "Gold Medal Champion",
+        segment: "Mars Rover Exhibition / Project Display",
+      },
+    ],
   },
 ];
 
