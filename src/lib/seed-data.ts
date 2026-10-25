@@ -737,5 +737,25 @@ export const initialAchievements: Achievement[] = [
       },
     ],
   },
+  {
+    id: "ach-wrg-2026-redroc",
+    title: "2nd Runner Up (Bronze) & Japan World Qualification — WRG 2026",
+    competition: "World Robot Games (WRG) 2026",
+    stage: "National Round Bangladesh",
+    venue: "Soccer Robot 1x1 Open Arena",
+    qualification: "Qualified for the International Round in Japan 🇯🇵",
+    badge: "BRONZE // JAPAN QUALIFIED",
+    image: "/achievements/wrg-japan-redroc.jpg",
+    description:
+      "Team RedRoc secured 2nd Runner Up (Bronze Medal) in the fiercely competitive Soccer Robot 1x1 Open segment at the World Robot Games (WRG) 2026 National Round. With this performance, Team RedRoc officially qualified to represent Bangladesh at the WRG International Championship in Japan.",
+    teams: [
+      {
+        name: "Team RedRoc",
+        category: "Soccer Robot 1x1 Open",
+        award: "🥉 2nd Runner Up (Bronze)",
+        segment: "Soccer Robot 1x1 Open Championship",
+      },
+    ],
+  },
 ];
 

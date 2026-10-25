@@ -67,11 +67,10 @@ export default function AchievementsPage() {
                   INTERNATIONAL STAGE QUALIFICATION
                 </span>
                 <h2 className="text-xl md:text-2xl font-bold text-white mb-1">
-                  Destination: Rome, Italy 🇮🇹
+                  Rome, Italy 🇮🇹 &amp; Japan 🇯🇵
                 </h2>
                 <p className="text-xs md:text-sm text-white/70 max-w-2xl leading-relaxed font-light">
-                  Both <span className="text-white font-semibold">Team Red Roc</span> (Grade 12) and{" "}
-                  <span className="text-white font-semibold">Team Tarabari</span> (Grade 7) won Gold at FIRSO National Round at UIU and officially secured qualifications to represent Bangladesh in the International Round in Rome.
+                  MRC teams have qualified for multiple world championships: <span className="text-white font-semibold">Team Red Roc</span> &amp; <span className="text-white font-semibold">Team Tarabari</span> to Rome, Italy (FIRSO), and <span className="text-white font-semibold">Team RedRoc</span> to the World Robot Games in Japan!
                 </p>
               </div>
             </div>
