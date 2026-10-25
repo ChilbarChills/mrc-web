@@ -820,5 +820,28 @@ export const initialAchievements: Achievement[] = [
       },
     ],
   },
+  {
+    id: "ach-wro-2026-tarabari",
+    title: "Silver Medalist — World Robot Olympiad (WRO) 2026",
+    competition: "World Robot Olympiad (WRO) Bangladesh 2026",
+    stage: "National Round",
+    venue: "United International University (UIU)",
+    badge: "SILVER MEDALIST // WRO",
+    image: "/achievements/wro-2026-tarabari-medal.png",
+    images: [
+      "/achievements/wro-2026-tarabari-medal.png",
+      "/achievements/wro-2026-tarabari-robot.jpg"
+    ],
+    description:
+      "Team Tara Bari achieved the Silver Medal in the prestigious Future Innovators segment at the World Robot Olympiad (WRO) Bangladesh 2026 National Round hosted at United International University (UIU). The team engineered a cutting-edge autonomous robotics solution to compete against top collegiate and school teams nationwide.",
+    teams: [
+      {
+        name: "Team Tara Bari",
+        category: "Future Innovators Segment",
+        award: "🥈 Silver Medalist",
+        segment: "Future Innovators National Round",
+      },
+    ],
+  },
 ];
 
