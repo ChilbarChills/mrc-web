@@ -700,5 +700,42 @@ export const initialAchievements: Achievement[] = [
       },
     ],
   },
+  {
+    id: "ach-maple-leaf-olympiad",
+    title: "Triple Gold & Silver Victory — Maple Leaf Robotics & STEM Olympiad",
+    competition: "Maple Leaf Robotics and STEM Olympiad",
+    stage: "Inter-School & College Championship",
+    venue: "Maple Leaf International School (MLIS)",
+    badge: "3X GOLD & 1X SILVER",
+    image: "/achievements/maple-leaf-olympiad.png",
+    description:
+      "Manarat Robotics Club delivered an outstanding competitive sweep at the Maple Leaf Robotics and STEM Olympiad, earning three 1st Place Gold trophies and one 2nd Place Silver award across robotics engineering and creative media categories.",
+    teams: [
+      {
+        name: "MRC Combat & Sumo Team",
+        category: "Robo Sumo",
+        award: "🥇 1st Place (Gold)",
+        segment: "Autonomous Sumo Arena",
+      },
+      {
+        name: "MRC Soccer Striker Team",
+        category: "Robo Soccer Lightweight",
+        award: "🥇 1st Place (Gold)",
+        segment: "Robo Soccer Lightweight Division",
+      },
+      {
+        name: "MRC Heavyweight Soccer Team",
+        category: "Robo Soccer Heavyweight",
+        award: "🥈 2nd Place (Silver)",
+        segment: "Robo Soccer Heavyweight Division",
+      },
+      {
+        name: "MRC Media & Film Production",
+        category: "Robo Film Making",
+        award: "🥇 1st Place (Gold)",
+        segment: "Robo Film Making Exhibition",
+      },
+    ],
+  },
 ];
 
