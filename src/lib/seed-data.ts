@@ -757,5 +757,26 @@ export const initialAchievements: Achievement[] = [
       },
     ],
   },
+  {
+    id: "ach-mdic-science-fair-2024",
+    title: "1st Position Champions — Voice Controlled Wheelchair",
+    competition: "MDIC Annual Science Fair 2024",
+    stage: "Class 9 Engineering Exhibition",
+    venue: "Manarat Dhaka International School & College (MDIC)",
+    date: "2024",
+    badge: "1ST POSITION CHAMPION",
+    image: "/achievements/mdic-science-fair-award.jpg",
+    description:
+      "Engineered by Class 9 members in 2024, the team built a functioning Voice Controlled Wheelchair prototype integrating Arduino, motor driver modules, and ultrasonic obstacle sensing. The breakthrough project won 1st Position (Champion) at the MDIC Annual Science Fair.",
+    teams: [
+      {
+        name: "Voice Controlled Wheelchair Engineering Team",
+        category: "Assistive Robotics / Embedded Systems",
+        grade: "Class 9 (Batch 2024)",
+        award: "🥇 1st Position (First Prize)",
+        segment: "Hardware & Innovation Exhibition",
+      },
+    ],
+  },
 ];
 
