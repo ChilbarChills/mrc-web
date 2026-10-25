@@ -55,7 +55,8 @@ export default function Scrollytelling({
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const nextStage = calculateStage(latest);
     setCurrentStage((prev) => (prev !== nextStage ? nextStage : prev));
-    setScrollPercent(Math.round(latest * 100));
+    const nextPercent = Math.round(latest * 100);
+    setScrollPercent((prev) => (prev !== nextPercent ? nextPercent : prev));
   });
 
   // Handle initial hydration / reload at non-zero scroll position
@@ -86,7 +87,7 @@ export default function Scrollytelling({
   };
 
   return (
-    <div ref={containerRef} className="relative h-[500vh] bg-[#070E1A]">
+    <div ref={containerRef} data-scroll-container className="relative h-[500vh] bg-[#070E1A]">
       {/* Sticky Canvas Viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden select-none">
         {/* Subtle Background Gradients & Ambient Glow */}
