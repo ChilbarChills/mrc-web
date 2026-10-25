@@ -800,5 +800,25 @@ export const initialAchievements: Achievement[] = [
       },
     ],
   },
+  {
+    id: "ach-wrg-2026-tararbari",
+    title: "Gold Medalist & Japan World Qualification — WRG 2026",
+    competition: "World Robot Games (WRG) 2026",
+    stage: "National Round Bangladesh",
+    venue: "Innovative Robot Junior Arena",
+    qualification: "Qualified for the International Round in Japan 🇯🇵 (Free Ticket to Tokyo)",
+    badge: "GOLD // JAPAN QUALIFIED",
+    image: "/achievements/wrg-japan-tarabari.jpg",
+    description:
+      "Team Tararbari clinched the Gold Medal in the Innovative Robot — Junior Category at the World Robot Games (WRG) 2026 National Round. The team was officially awarded qualification to represent Bangladesh at the WRG International Championship in Japan, alongside the Best Organizer honor with free tickets to Tokyo Disneyland and Tokyo DisneySea.",
+    teams: [
+      {
+        name: "Team Tararbari",
+        category: "Innovative Robot — Junior Category",
+        award: "🥇 Gold Medalist (Champion)",
+        segment: "Innovative Robotics Exhibition",
+      },
+    ],
+  },
 ];
 
