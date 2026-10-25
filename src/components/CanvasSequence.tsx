@@ -10,6 +10,9 @@ interface CanvasSequenceProps {
 }
 
 const TOTAL_FRAMES = 240;
+// Velocity cutoff (px/frame) below which the animation cuts off and stops moving immediately,
+// completely eliminating the lingering last-second crawl/choppiness.
+const VELOCITY_STOP_THRESHOLD = 0.35;
 
 function CanvasSequence({
   progress,
@@ -19,28 +22,26 @@ function CanvasSequence({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const [, setLoadedCount] = useState(0);
-  const currentRenderFrameRef = useRef(0);
-  const targetFrameRef = useRef(0);
-  const rafIdRef = useRef<number | null>(null);
+  const lastDrawnFrameRef = useRef(-1);
 
-  // Render with sub-frame alpha crossfade between consecutive frames
-  const renderFrameToCanvas = useCallback((frameFloat: number) => {
+  // Draw discrete crisp frame directly to canvas
+  const drawFrame = useCallback((frameIndex: number) => {
     if (!canvasRef.current || imagesRef.current.length === 0) return;
+
+    const clamped = Math.max(0, Math.min(frameIndex, TOTAL_FRAMES - 1));
+    if (lastDrawnFrameRef.current === clamped) return;
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const clamped = Math.max(0, Math.min(frameFloat, TOTAL_FRAMES - 1));
-    const baseIndex = Math.floor(clamped);
-    const nextIndex = Math.min(baseIndex + 1, TOTAL_FRAMES - 1);
-    const fraction = clamped - baseIndex;
+    const img = imagesRef.current[clamped];
+    if (!img || !img.complete || img.naturalWidth === 0) return;
 
-    const baseImg = imagesRef.current[baseIndex];
-    if (!baseImg || !baseImg.complete || baseImg.naturalWidth === 0) return;
+    lastDrawnFrameRef.current = clamped;
 
     const canvasRatio = canvas.width / canvas.height;
-    const imgRatio = baseImg.width / baseImg.height;
+    const imgRatio = img.width / img.height;
     let drawWidth = canvas.width;
     let drawHeight = canvas.height;
     let offsetX = 0;
@@ -55,20 +56,7 @@ function CanvasSequence({
     }
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Draw base frame with 100% opacity
-    ctx.globalAlpha = 1.0;
-    ctx.drawImage(baseImg, offsetX, offsetY, drawWidth, drawHeight);
-
-    // Crossfade: if there's a sub-frame fraction and the next image is available, blend it on top
-    if (fraction > 0.005 && nextIndex !== baseIndex) {
-      const nextImg = imagesRef.current[nextIndex];
-      if (nextImg && nextImg.complete && nextImg.naturalWidth > 0) {
-        ctx.globalAlpha = fraction;
-        ctx.drawImage(nextImg, offsetX, offsetY, drawWidth, drawHeight);
-        ctx.globalAlpha = 1.0;
-      }
-    }
+    ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
   }, []);
 
   // Preload images
@@ -86,9 +74,9 @@ function CanvasSequence({
         loaded++;
         setLoadedCount(loaded);
 
-        // Immediately paint the first frame as soon as it arrives!
+        // Immediately paint the first frame as soon as it arrives
         if (i === 1) {
-          renderFrameToCanvas(0);
+          drawFrame(0);
         }
 
         const percent = (loaded / TOTAL_FRAMES) * 100;
@@ -104,42 +92,23 @@ function CanvasSequence({
       img.onerror = handleImageLoad;
       loadedImages.push(img);
     }
-  }, [renderFrameToCanvas, onLoadProgress, onLoaded]);
+  }, [drawFrame, onLoadProgress, onLoaded]);
 
-  // Smooth continuous requestAnimationFrame loop for continuous sub-frame rendering
-  useEffect(() => {
-    const updateLoop = () => {
-      const target = targetFrameRef.current;
-      const current = currentRenderFrameRef.current;
-      const diff = target - current;
-
-      if (Math.abs(diff) > 0.0005) {
-        // Continuous float interpolation (eased lerp)
-        const next = Math.abs(diff) < 0.005 ? target : current + diff * 0.45;
-        currentRenderFrameRef.current = next;
-        renderFrameToCanvas(next);
-      }
-
-      rafIdRef.current = requestAnimationFrame(updateLoop);
-    };
-
-    rafIdRef.current = requestAnimationFrame(updateLoop);
-
-    return () => {
-      if (rafIdRef.current) {
-        cancelAnimationFrame(rafIdRef.current);
-      }
-    };
-  }, [renderFrameToCanvas]);
-
-  // Listen to smooth scroll updates directly from Lenis for sub-pixel 110+ FPS fluid updates
+  // Synchronize canvas directly with Lenis smooth scroll:
+  // Cuts off and stops moving immediately once scroll velocity drops below threshold
   useEffect(() => {
     let unsubscribeLenis: (() => void) | null = null;
 
     const setupLenis = () => {
       const lenis = (window as any).__lenis;
       if (lenis && typeof lenis.on === "function") {
-        const handler = () => {
+        const handler = (e: any) => {
+          // Immediately stop updating once velocity drops below the cutoff threshold,
+          // preventing the slow last-second drift/crawl.
+          if (Math.abs(e.velocity) < VELOCITY_STOP_THRESHOLD) {
+            return;
+          }
+
           const canvasEl = canvasRef.current;
           const container = canvasEl?.closest("[data-scroll-container]") as HTMLElement | null;
           let progressVal = progress.get();
@@ -150,8 +119,9 @@ function CanvasSequence({
               progressVal = Math.max(0, Math.min(-rect.top / totalScrollable, 1));
             }
           }
-          const floatFrame = Math.max(0, Math.min(progressVal * (TOTAL_FRAMES - 1), TOTAL_FRAMES - 1));
-          targetFrameRef.current = floatFrame;
+
+          const frameIndex = Math.round(progressVal * (TOTAL_FRAMES - 1));
+          drawFrame(frameIndex);
         };
 
         lenis.on("scroll", handler);
@@ -169,29 +139,31 @@ function CanvasSequence({
     return () => {
       if (unsubscribeLenis) unsubscribeLenis();
     };
-  }, [progress]);
+  }, [drawFrame, progress]);
 
-  // Maintain MotionValue listener as fallback
+  // Fallback MotionValue listener when Lenis is not active
   useEffect(() => {
     const unsubscribe = progress.on("change", (latest) => {
-      const floatFrame = Math.max(0, Math.min(latest * (TOTAL_FRAMES - 1), TOTAL_FRAMES - 1));
-      targetFrameRef.current = floatFrame;
+      const lenis = (window as any).__lenis;
+      if (!lenis || !lenis.isSmooth) {
+        const frameIndex = Math.round(latest * (TOTAL_FRAMES - 1));
+        drawFrame(frameIndex);
+      }
     });
 
     return () => unsubscribe();
-  }, [progress]);
+  }, [drawFrame, progress]);
 
-  // Handle resize and ensuring current frame is redrawn correctly
+  // Handle window resize and ensuring the correct frame remains painted
   useEffect(() => {
     const resizeCanvas = () => {
       if (canvasRef.current) {
         canvasRef.current.width = window.innerWidth;
         canvasRef.current.height = window.innerHeight;
+        lastDrawnFrameRef.current = -1;
         const currentProgress = progress.get();
-        const floatFrame = Math.max(0, Math.min(currentProgress * (TOTAL_FRAMES - 1), TOTAL_FRAMES - 1));
-        currentRenderFrameRef.current = floatFrame;
-        targetFrameRef.current = floatFrame;
-        renderFrameToCanvas(floatFrame);
+        const frameIndex = Math.round(currentProgress * (TOTAL_FRAMES - 1));
+        drawFrame(frameIndex);
       }
     };
 
@@ -199,7 +171,7 @@ function CanvasSequence({
     resizeCanvas();
 
     return () => window.removeEventListener("resize", resizeCanvas);
-  }, [renderFrameToCanvas, progress]);
+  }, [drawFrame, progress]);
 
   return (
     <div className="w-full h-full relative bg-[#070E1A]">

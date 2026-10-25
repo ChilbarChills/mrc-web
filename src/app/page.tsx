@@ -64,9 +64,9 @@ export default function Home() {
   // Initialize and synchronize Lenis smooth scroll with ultra-flow physics
   useEffect(() => {
     const currentLerp =
-      scrollIntensity === "ultra" ? 0.05 : scrollIntensity === "balanced" ? 0.075 : 0.1;
+      scrollIntensity === "ultra" ? 0.08 : scrollIntensity === "balanced" ? 0.1 : 0.12;
     const currentMultiplier =
-      scrollIntensity === "ultra" ? 2.2 : scrollIntensity === "balanced" ? 1.6 : 1.2;
+      scrollIntensity === "ultra" ? 1.8 : scrollIntensity === "balanced" ? 1.4 : 1.2;
 
     const lenis = new Lenis({
       wrapper: window,
